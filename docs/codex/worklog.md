@@ -11,4 +11,5 @@
 - Palette exploration: generated `docs/codex/palette-options.png` with three dark visual directions: Pure Silver Blue, Harbor Graphite, and Aviation Steel. Current recommendation is Harbor Graphite.
 - Design documentation: wrote `docs/codex/decisions/2026-06-23-portfolio-design.md` and `docs/codex/decisions/2026-06-23-portfolio-prd.md`; added conversation summary under `docs/codex/conversations`.
 - Project initialization: created a React + Vite + TypeScript scaffold, configured ESLint, installed dependencies with pnpm, initialized Git, and renamed the branch to `main`.
-- Verification: `pnpm run build` and `pnpm run lint` both pass; no source assets in `F:\作品材料` were modified.
+- Hero implementation: generated web-optimized photography assets under `public/portfolio/photography`, implemented the PC-first Hero page with city-night background, capsule navigation, bilingual title system, photography-only rolling rail, and a full-image lightbox viewer.
+- Verification: `pnpm run build` and `pnpm run lint` both pass; captured `docs/codex/hero-screenshot.png`; no source assets in `F:\作品材料` were modified.
