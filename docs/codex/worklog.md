@@ -1,0 +1,14 @@
+# Codex Worklog
+
+## 2026-06-23 - Portfolio Website Brainstorm
+
+- Goal: plan a React + Vite personal portfolio website for operations internship applications, focused on content/new media operations while highlighting photography, visual design, and execution ability.
+- Confirmed direction: dark, restrained, premium, technology-forward visual language; Apple-inspired clarity without template-like styling.
+- Confirmed structure: full-screen Hero with photography background and rolling work strip; Profile/About hybrid section; Selected Works with photography, design materials, and content operations cases; Core Strengths cards with partial expandable detail; final contact section later.
+- Confirmed constraints: PC-first demo only for now; no phone number on site; email and Douyin profile should be included; color system should be decided after selecting final works.
+- Source review: read resume file from `F:\大学\实习\内容运营方向.docx` and inspected user-provided reference screenshots.
+- Material review: read `F:\作品材料`, generated low-resolution contact sheets under `docs/codex/contact-sheets`, and identified available material categories: photography, commercial shoots, Anker exhibition design materials, with content operations and personal photo folders currently empty.
+- Palette exploration: generated `docs/codex/palette-options.png` with three dark visual directions: Pure Silver Blue, Harbor Graphite, and Aviation Steel. Current recommendation is Harbor Graphite.
+- Design documentation: wrote `docs/codex/decisions/2026-06-23-portfolio-design.md` and `docs/codex/decisions/2026-06-23-portfolio-prd.md`; added conversation summary under `docs/codex/conversations`.
+- Project initialization: created a React + Vite + TypeScript scaffold, configured ESLint, installed dependencies with pnpm, initialized Git, and renamed the branch to `main`.
+- Verification: `pnpm run build` and `pnpm run lint` both pass; no source assets in `F:\作品材料` were modified.
