@@ -169,7 +169,7 @@ export function App() {
             <span>WANG KEJIE</span>
             <span className="hero-title__portfolio">
               <strong>PORTFOLIO</strong>
-              <em>Jack</em>
+              <em>Dsir.</em>
             </span>
           </h1>
           <p className="hero__statement">

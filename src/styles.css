@@ -267,7 +267,7 @@ button {
 
 .hero-title__portfolio em {
   position: absolute;
-  left: calc(100% + 24px);
+  left: calc(100% + 4px);
   bottom: -1px;
   color: rgba(142, 197, 255, 0.94);
   font-family: "Brush Script MT", "Segoe Script", "Snell Roundhand", cursive;

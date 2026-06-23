@@ -6,6 +6,8 @@
 - Change: adjusted the Hero title into a heavier geometric name line, a lighter `PORTFOLIO` line, and a closer `Jack` signature placement near the end of the portfolio word.
 - Follow-up change: increased the `PORTFOLIO` line weight so it feels closer to the reference, moved the `Jack` signature outside the portfolio word so it no longer sits under the letters, and made visible rail thumbnails load eagerly.
 - Rail refinement: slowed the photography rail animation by half, added left/right fade masks, removed thumbnail number badges, and added a short-wide viewport adjustment so the rail does not cover the Hero buttons.
+- Signature micro-adjustment: moved the `Jack` signature left so the `J` visually touches the right edge of the final `O` in `PORTFOLIO`.
+- Demo approval: changed the signature text to `Dsir.` and finalized its placement as the approved Hero first-version demo.
 - Verification: `pnpm run build` and `pnpm run lint` both pass; refreshed `docs/codex/hero-screenshot.png`.
 
 ## 2026-06-23 - Portfolio Website Brainstorm
