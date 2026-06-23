@@ -207,7 +207,7 @@ button {
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
-  padding: 120px 0 260px;
+  padding: 120px 0 300px;
 }
 
 .hero__kicker {
@@ -335,6 +335,20 @@ button {
   left: 0;
   overflow: hidden;
   padding: 28px 0 18px;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 9%,
+    #000 91%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 9%,
+    #000 91%,
+    transparent 100%
+  );
 }
 
 .photo-rail__scrim {
@@ -353,7 +367,9 @@ button {
   width: max-content;
   gap: 24px;
   padding-left: 32px;
-  animation: rail-scroll 168s linear infinite;
+  animation: rail-scroll 336s linear infinite;
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 .photo-rail:hover .photo-rail__track,
@@ -408,19 +424,6 @@ button {
 .photo-card:hover img,
 .photo-card:focus-visible img {
   opacity: 1;
-}
-
-.photo-card span {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  padding: 5px 9px;
-  border-radius: 999px;
-  color: rgba(243, 247, 250, 0.86);
-  background: rgba(5, 7, 10, 0.58);
-  font-size: 12px;
-  font-weight: 700;
-  backdrop-filter: blur(12px);
 }
 
 .stage-placeholder {
@@ -558,6 +561,23 @@ button {
 
   to {
     transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (max-height: 1050px) {
+  .hero__content {
+    padding-top: 108px;
+    padding-bottom: 340px;
+  }
+
+  .photo-rail {
+    bottom: 16px;
+    padding-top: 24px;
+  }
+
+  .photo-card {
+    width: 160px;
+    height: 214px;
   }
 }
 

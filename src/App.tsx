@@ -201,7 +201,6 @@ export function App() {
                   aria-label={`Open photography work ${realIndex + 1}`}
                 >
                   <img src={photo.thumb} alt="" loading={index < 12 ? "eager" : "lazy"} />
-                  <span>{String(realIndex + 1).padStart(3, "0")}</span>
                 </button>
               );
             })}
