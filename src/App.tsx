@@ -28,6 +28,36 @@ const navItems = [
   { label: "Contact", subLabel: "联系我", href: "#contact" },
 ];
 
+const preferredRailStart = [
+  144, 10, 67, 156, 1, 140, 158, 24, 94, 103, 55, 121, 148, 57, 161, 124,
+];
+
+function buildRailOrder(items: PhotoItem[]) {
+  if (items.length === 0) {
+    return [];
+  }
+
+  const seen = new Set<number>();
+  const ordered: PhotoItem[] = [];
+
+  const addIndex = (oneBasedIndex: number) => {
+    const index = oneBasedIndex - 1;
+
+    if (index >= 0 && index < items.length && !seen.has(index)) {
+      seen.add(index);
+      ordered.push(items[index]);
+    }
+  };
+
+  preferredRailStart.forEach(addIndex);
+
+  for (let step = 0; step < items.length; step += 1) {
+    addIndex(((step * 37 + 11) % items.length) + 1);
+  }
+
+  return ordered;
+}
+
 export function App() {
   const [manifest, setManifest] = useState<PhotoManifest | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -54,9 +84,10 @@ export function App() {
   }, []);
 
   const photos = useMemo(() => manifest?.items ?? [], [manifest]);
+  const orderedPhotos = useMemo(() => buildRailOrder(photos), [photos]);
   const heroImage = manifest?.hero.src ?? fallbackHero;
-  const railPhotos = useMemo(() => [...photos, ...photos], [photos]);
-  const activePhoto = activeIndex === null ? null : photos[activeIndex];
+  const railPhotos = useMemo(() => [...orderedPhotos, ...orderedPhotos], [orderedPhotos]);
+  const activePhoto = activeIndex === null ? null : orderedPhotos[activeIndex];
   const activePhotoNumber = activeIndex === null ? "" : String(activeIndex + 1).padStart(3, "0");
 
   useEffect(() => {
@@ -71,32 +102,38 @@ export function App() {
 
       if (event.key === "ArrowRight") {
         setActiveIndex((current) =>
-          current === null || photos.length === 0 ? current : (current + 1) % photos.length,
+          current === null || orderedPhotos.length === 0
+            ? current
+            : (current + 1) % orderedPhotos.length,
         );
       }
 
       if (event.key === "ArrowLeft") {
         setActiveIndex((current) =>
-          current === null || photos.length === 0
+          current === null || orderedPhotos.length === 0
             ? current
-            : (current - 1 + photos.length) % photos.length,
+            : (current - 1 + orderedPhotos.length) % orderedPhotos.length,
         );
       }
     };
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [activeIndex, photos.length]);
+  }, [activeIndex, orderedPhotos.length]);
 
   const showPreviousPhoto = () => {
     setActiveIndex((current) =>
-      current === null || photos.length === 0 ? current : (current - 1 + photos.length) % photos.length,
+      current === null || orderedPhotos.length === 0
+        ? current
+        : (current - 1 + orderedPhotos.length) % orderedPhotos.length,
     );
   };
 
   const showNextPhoto = () => {
     setActiveIndex((current) =>
-      current === null || photos.length === 0 ? current : (current + 1) % photos.length,
+      current === null || orderedPhotos.length === 0
+        ? current
+        : (current + 1) % orderedPhotos.length,
     );
   };
 
@@ -108,8 +145,9 @@ export function App() {
 
         <header className="nav-shell" aria-label="Primary navigation">
           <a className="brand-mark" href="#top" aria-label="Wang Kejie portfolio home">
-            <span className="brand-mark__symbol">WKJ</span>
-            <span className="brand-mark__name">Wang Kejie</span>
+            <span className="brand-mark__name">Jack Wang</span>
+            <span className="brand-mark__divider" aria-hidden="true" />
+            <span className="brand-mark__scope">Portfolio</span>
           </a>
           <nav className="nav-links">
             {navItems.map((item) => (
@@ -127,12 +165,15 @@ export function App() {
 
         <div className="hero__content" id="top">
           <p className="hero__kicker">Content & New Media Operations Portfolio</p>
-          <h1>
+          <h1 className="hero-title">
             <span>WANG KEJIE</span>
-            <strong>王柯杰</strong>
+            <span className="hero-title__portfolio">
+              <strong>PORTFOLIO</strong>
+              <em>Jack</em>
+            </span>
           </h1>
           <p className="hero__statement">
-            用内容策划、摄影视觉与 AI 工作流，把运营表达做得更清晰、更有辨识度。
+            数据驱动创意，内容连接用户。
           </p>
           <div className="hero__actions">
             <a className="primary-action" href="#works">
@@ -149,7 +190,7 @@ export function App() {
           <div className="photo-rail__scrim" aria-hidden="true" />
           <div className="photo-rail__track">
             {railPhotos.map((photo, index) => {
-              const realIndex = index % Math.max(photos.length, 1);
+              const realIndex = index % Math.max(orderedPhotos.length, 1);
 
               return (
                 <button
