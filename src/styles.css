@@ -281,10 +281,20 @@ button {
 
 .hero__statement {
   max-width: 720px;
+  display: flex;
+  align-items: center;
+  gap: 0.42em;
   margin: 28px 0 0;
   color: rgba(243, 247, 250, 0.84);
   font-size: 28px;
   line-height: 1.48;
+}
+
+.hero__statement strong {
+  color: rgba(243, 247, 250, 0.94);
+  font-size: 1.08em;
+  font-weight: 900;
+  line-height: 1;
 }
 
 .hero__actions {

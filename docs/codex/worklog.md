@@ -8,6 +8,7 @@
 - Rail refinement: slowed the photography rail animation by half, added left/right fade masks, removed thumbnail number badges, and added a short-wide viewport adjustment so the rail does not cover the Hero buttons.
 - Signature micro-adjustment: moved the `Jack` signature left so the `J` visually touches the right edge of the final `O` in `PORTFOLIO`.
 - Demo approval: changed the signature text to `Dsir.` and finalized its placement as the approved Hero first-version demo.
+- Copy refinement: changed the Hero statement to `数据驱动创意 · 内容连接用户` with a heavier middle dot separator.
 - Verification: `pnpm run build` and `pnpm run lint` both pass; refreshed `docs/codex/hero-screenshot.png`.
 
 ## 2026-06-23 - Portfolio Website Brainstorm

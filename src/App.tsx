@@ -173,7 +173,9 @@ export function App() {
             </span>
           </h1>
           <p className="hero__statement">
-            数据驱动创意，内容连接用户。
+            <span>数据驱动创意</span>
+            <strong aria-hidden="true">·</strong>
+            <span>内容连接用户</span>
           </p>
           <div className="hero__actions">
             <a className="primary-action" href="#works">
