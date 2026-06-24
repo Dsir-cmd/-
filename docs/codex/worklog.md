@@ -1,5 +1,20 @@
 # Codex Worklog
 
+## 2026-06-24 - Profile Section and Capture Workflow
+
+- Goal: fix Profile page issues identified after the first local preview and make the navigation visible across the whole site.
+- Profile changes: moved the primary navigation to the top-level page shell so it remains fixed outside the Hero section; removed the duplicate Hero-local navigation markup.
+- Visual changes: replaced the temporary clipboard screenshot with a web-optimized image generated from `F:\作品材料\摄影作品\_DSC0014(2).JPG`, reduced the Profile headline scale, tightened the portrait/content proportions, removed the visible portrait caption/signature overlay, and softened Profile cards.
+- Capture workflow: Chrome/Edge `--screenshot` returned success without writing a file in this environment. Added `docs/codex/capture-section.cjs`, which captures through the DevTools protocol and saves screenshots through Node instead. Verified it writes `docs/codex/profile-screenshot.png`.
+- Profile image refinement: switched the portrait asset to a new web-optimized file generated from `F:\作品材料\摄影作品\_DSC0014.jpg`, removed the portrait caption markup, and gave the portrait frame a rounded glass border treatment aligned with the Hero rolling image cards.
+- Profile hierarchy refinement: removed the oversized Profile headline after browser feedback and kept only the compact `Profile / 关于我` section label.
+- Profile layout redesign: rebuilt the Profile section away from a dashboard-style grid and toward the supplied reference layout, with a large bilingual `PROFILE EXPERIENCE` masthead, photo-led About block, compact information rows, a restrained metric strip, and two horizontal career paths for internship and campus experiences.
+- Profile portrait polish: removed the extra inner glass ring between the portrait image and border, leaving a cleaner rounded image edge; added a pointer-following border highlight so the glass reflection appears on hover at the nearest edge.
+- Hero interaction polish: extracted the pointer-following border highlight into a reusable `edge-glow` treatment and applied it to Hero/navigation interactive controls, including the brand capsule, nav links, contact button, Hero CTAs, and rolling photography cards.
+- Hero-to-Profile transition: added a targeted wheel transition so scrolling down from the Hero accelerates smoothly to the Profile section and scrolling up near the Profile top returns cleanly to the Hero, preventing the page from resting awkwardly between sections.
+- Checkpoint: added `docs/codex/conversations/2026-06-24-hero-profile-checkpoint.md` to summarize current progress, confirmed design decisions, pending sections, and tomorrow's continuation points.
+- Verification: `pnpm run build` and `pnpm run lint` both pass.
+
 ## 2026-06-23 - Hero Typography Refinement
 
 - Goal: respond to feedback that the center title font and signature placement should be closer to the provided reference.

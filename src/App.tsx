@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { type PointerEvent as ReactPointerEvent, useEffect, useMemo, useState } from "react";
 import { ArrowDown, ChevronLeft, ChevronRight, Mail, X } from "lucide-react";
 
 type PhotoItem = {
@@ -28,9 +28,64 @@ const navItems = [
   { label: "Contact", subLabel: "联系我", href: "#contact" },
 ];
 
+const profileStats = [
+  { value: "121w", label: "抖音单条最高播放" },
+  { value: "8.1w", label: "单条最高获赞" },
+  { value: "5000+", label: "内容收藏" },
+  { value: "100+", label: "公众号推文" },
+  { value: "10+", label: "商业拍摄交付" },
+  { value: "50+", label: "校园触点网络" },
+];
+
+const profileTimeline = [
+  {
+    time: "2025.07 - 2025.09",
+    title: "LSEG 金融市场部实习生",
+    detail: "金融数据产品场景梳理、客户线索整理、资料沉淀与 AI 提效。",
+  },
+  {
+    time: "2024.08 - 2024.09",
+    title: "上海欣巴国际市场部实习生",
+    detail: "客户沟通跟进、产品宣传册整改、业务报表与市场资料整理。",
+  },
+  {
+    time: "长期进行",
+    title: "个人内容创作与商业拍摄",
+    detail: "独立完成选题、拍摄、剪辑、发布与客户交付，产出 121w 播放内容。",
+  },
+  {
+    time: "2024.02 - 2025.01",
+    title: "美团校园大使",
+    detail: "参与本地生活推广，协同 15 人团队搭建触点网络与私域社群。",
+  },
+  {
+    time: "2024.09 - 2026.06",
+    title: "爱恩学生会融媒体中心部长",
+    detail: "统筹公众号推文、活动宣传、图文排版、视频剪辑与宣传物料制作。",
+  },
+  {
+    time: "2025.09 - 2026.06",
+    title: "上海海洋大学摄影协会社长",
+    detail: "负责社团运营、校园影像输出、摄影活动策划与品牌资源对接。",
+  },
+];
+
+const profileTags = ["内容策划", "摄影视觉", "新媒体运营", "设计物料", "AI 工作流"];
+
 const preferredRailStart = [
   144, 10, 67, 156, 1, 140, 158, 24, 94, 103, 55, 121, 148, 57, 161, 124,
 ];
+
+function updateEdgeGlow(event: ReactPointerEvent<HTMLElement>) {
+  const bounds = event.currentTarget.getBoundingClientRect();
+  event.currentTarget.style.setProperty("--glow-x", `${event.clientX - bounds.left}px`);
+  event.currentTarget.style.setProperty("--glow-y", `${event.clientY - bounds.top}px`);
+}
+
+function clearEdgeGlow(event: ReactPointerEvent<HTMLElement>) {
+  event.currentTarget.style.removeProperty("--glow-x");
+  event.currentTarget.style.removeProperty("--glow-y");
+}
 
 function buildRailOrder(items: PhotoItem[]) {
   if (items.length === 0) {
@@ -61,6 +116,9 @@ function buildRailOrder(items: PhotoItem[]) {
 export function App() {
   const [manifest, setManifest] = useState<PhotoManifest | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const isProfileCapture =
+    typeof window !== "undefined" &&
+    new URLSearchParams(window.location.search).get("capture") === "profile";
 
   useEffect(() => {
     let isMounted = true;
@@ -121,6 +179,83 @@ export function App() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [activeIndex, orderedPhotos.length]);
 
+  useEffect(() => {
+    if (isProfileCapture || activeIndex !== null) {
+      return;
+    }
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let animationFrame = 0;
+    let isTransitioning = false;
+
+    const easeOutQuint = (progress: number) => 1 - (1 - progress) ** 5;
+
+    const animateTo = (targetY: number) => {
+      window.cancelAnimationFrame(animationFrame);
+
+      if (reduceMotion.matches) {
+        window.scrollTo(0, targetY);
+        return;
+      }
+
+      const startY = window.scrollY;
+      const distance = targetY - startY;
+      const duration = Math.min(980, Math.max(620, Math.abs(distance) * 0.72));
+      const startTime = performance.now();
+      isTransitioning = true;
+
+      const tick = (currentTime: number) => {
+        const progress = Math.min(1, (currentTime - startTime) / duration);
+        window.scrollTo(0, startY + distance * easeOutQuint(progress));
+
+        if (progress < 1) {
+          animationFrame = window.requestAnimationFrame(tick);
+          return;
+        }
+
+        isTransitioning = false;
+      };
+
+      animationFrame = window.requestAnimationFrame(tick);
+    };
+
+    const handleHeroWheel = (event: WheelEvent) => {
+      if (isTransitioning || Math.abs(event.deltaY) < 6) {
+        return;
+      }
+
+      const profileSection = document.getElementById("profile");
+      if (!profileSection) {
+        return;
+      }
+
+      const profileTop = profileSection.getBoundingClientRect().top + window.scrollY;
+      const currentY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const isBeforeProfile = currentY < profileTop - 12;
+      const isNearProfileTop =
+        currentY >= profileTop - 12 && currentY <= profileTop + viewportHeight * 0.46;
+
+      if (event.deltaY > 0 && isBeforeProfile) {
+        event.preventDefault();
+        animateTo(profileTop);
+        return;
+      }
+
+      if (event.deltaY < 0 && isNearProfileTop) {
+        event.preventDefault();
+        animateTo(0);
+      }
+    };
+
+    window.addEventListener("wheel", handleHeroWheel, { passive: false });
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      window.removeEventListener("wheel", handleHeroWheel);
+    };
+  }, [activeIndex, isProfileCapture]);
+
   const showPreviousPhoto = () => {
     setActiveIndex((current) =>
       current === null || orderedPhotos.length === 0
@@ -138,30 +273,47 @@ export function App() {
   };
 
   return (
-    <main>
+    <main className={isProfileCapture ? "capture-profile" : undefined}>
+      <header className="nav-shell" aria-label="Primary navigation">
+        <a
+          className="brand-mark edge-glow"
+          href="#top"
+          aria-label="Wang Kejie portfolio home"
+          onPointerMove={updateEdgeGlow}
+          onPointerLeave={clearEdgeGlow}
+        >
+          <span className="brand-mark__name">Jack Wang</span>
+          <span className="brand-mark__divider" aria-hidden="true" />
+          <span className="brand-mark__scope">Portfolio</span>
+        </a>
+        <nav className="nav-links">
+          {navItems.map((item) => (
+              <a
+                className="edge-glow"
+                key={item.href}
+                href={item.href}
+                onPointerMove={updateEdgeGlow}
+                onPointerLeave={clearEdgeGlow}
+              >
+              <span>{item.label}</span>
+              <small>{item.subLabel}</small>
+            </a>
+          ))}
+        </nav>
+        <a
+          className="nav-contact edge-glow"
+          href={`mailto:${email}`}
+          onPointerMove={updateEdgeGlow}
+          onPointerLeave={clearEdgeGlow}
+        >
+          <Mail size={16} aria-hidden="true" />
+          <span>联系我</span>
+        </a>
+      </header>
+
       <section className="hero" aria-label="Wang Kejie portfolio hero">
         <img className="hero__background" src={heroImage} alt="" aria-hidden="true" />
         <div className="hero__shade" aria-hidden="true" />
-
-        <header className="nav-shell" aria-label="Primary navigation">
-          <a className="brand-mark" href="#top" aria-label="Wang Kejie portfolio home">
-            <span className="brand-mark__name">Jack Wang</span>
-            <span className="brand-mark__divider" aria-hidden="true" />
-            <span className="brand-mark__scope">Portfolio</span>
-          </a>
-          <nav className="nav-links">
-            {navItems.map((item) => (
-              <a key={item.href} href={item.href}>
-                <span>{item.label}</span>
-                <small>{item.subLabel}</small>
-              </a>
-            ))}
-          </nav>
-          <a className="nav-contact" href={`mailto:${email}`}>
-            <Mail size={16} aria-hidden="true" />
-            <span>联系我</span>
-          </a>
-        </header>
 
         <div className="hero__content" id="top">
           <p className="hero__kicker">Content & New Media Operations Portfolio</p>
@@ -178,11 +330,21 @@ export function App() {
             <span>内容连接用户</span>
           </p>
           <div className="hero__actions">
-            <a className="primary-action" href="#works">
+            <a
+              className="primary-action edge-glow"
+              href="#profile"
+              onPointerMove={updateEdgeGlow}
+              onPointerLeave={clearEdgeGlow}
+            >
               <span>View Selected Work</span>
               <ArrowDown size={18} aria-hidden="true" />
             </a>
-            <a className="secondary-action" href={`mailto:${email}`}>
+            <a
+              className="secondary-action edge-glow"
+              href={`mailto:${email}`}
+              onPointerMove={updateEdgeGlow}
+              onPointerLeave={clearEdgeGlow}
+            >
               Contact / 联系我
             </a>
           </div>
@@ -196,10 +358,12 @@ export function App() {
 
               return (
                 <button
-                  className="photo-card"
+                  className="photo-card edge-glow"
                   key={`${photo.id}-${index}`}
                   type="button"
                   onClick={() => setActiveIndex(realIndex)}
+                  onPointerMove={updateEdgeGlow}
+                  onPointerLeave={clearEdgeGlow}
                   aria-label={`Open photography work ${realIndex + 1}`}
                 >
                   <img src={photo.thumb} alt="" loading={index < 12 ? "eager" : "lazy"} />
@@ -210,17 +374,122 @@ export function App() {
         </div>
       </section>
 
-      <section className="stage-placeholder" id="profile" aria-label="Next build stages">
-        <div className="stage-placeholder__copy">
-          <p>Next Stage</p>
-          <h2>Profile, Works, Strengths and Contact will build on this hero system.</h2>
-        </div>
-        <div className="stage-placeholder__anchors" aria-label="Future section anchors">
-          <span id="works">Works</span>
-          <span id="strengths">Strengths</span>
-          <span id="contact">Contact</span>
+      <section className="profile-section" id="profile" aria-label="Profile / 关于我">
+        <div className="profile-section__inner">
+          <div className="profile-masthead">
+            <div>
+              <p className="section-kicker">Profile / 关于我</p>
+              <h2>
+                <span>PROFILE</span>
+                <span>EXPERIENCE</span>
+                <i aria-hidden="true">↘</i>
+              </h2>
+              <small>个人经历</small>
+            </div>
+            <p className="profile-masthead__note">Content / Visual / Execution</p>
+          </div>
+
+          <div className="profile-overview">
+            <figure
+              className="profile-portrait"
+              onPointerMove={updateEdgeGlow}
+              onPointerLeave={clearEdgeGlow}
+            >
+              <img
+                src="/portfolio/profile/portrait-dsc0014.jpg"
+                alt="王柯杰站在海岸步道上，背后是城市天际线"
+              />
+            </figure>
+
+            <div className="profile-panel">
+              <p className="profile-content__role">Content & New Media Operations Intern</p>
+              <h3>
+                Hi, I am Wang Kejie.
+                <span>王柯杰 / Jack Wang</span>
+              </h3>
+              <p className="profile-content__intro">
+                上海海洋大学市场营销本科在读，目标方向为内容运营、新媒体运营与产品/市场运营。
+                我更擅长把内容策划、摄影视觉、设计物料和 AI 工作流串成可落地的运营表达。
+              </p>
+
+              <div className="profile-lines" aria-label="Profile information">
+                <p>
+                  <span>当前身份</span>
+                  <strong>上海海洋大学 · 市场营销 · 2027届</strong>
+                </p>
+                <p>
+                  <span>求职方向</span>
+                  <strong>内容运营 / 新媒体运营 / 产品市场运营</strong>
+                </p>
+                <p>
+                  <span>实习时间</span>
+                  <strong>2026年6月起 · 每周5天 · 6个月及以上</strong>
+                </p>
+                <p>
+                  <span>邮箱</span>
+                  <a href={`mailto:${email}`}>{email}</a>
+                </p>
+              </div>
+
+              <div className="profile-number-strip" aria-label="Profile highlights">
+                {profileStats.slice(0, 3).map((stat) => (
+                  <div key={stat.label}>
+                    <strong>{stat.value}</strong>
+                    <span>{stat.label}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="profile-tags" aria-label="Current focus">
+                <span>Now Building</span>
+                {profileTags.map((tag) => (
+                  <b key={tag}>{tag}</b>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="career-paths" aria-label="Experience paths">
+            <article className="career-path">
+              <div className="career-path__header">
+                <span>Internship Path</span>
+                <strong>实习经历</strong>
+              </div>
+              <div className="career-path__rail">
+                {profileTimeline.slice(0, 2).map((item) => (
+                  <section className="career-node" key={`${item.time}-${item.title}`}>
+                    <time>{item.time}</time>
+                    <h4>{item.title}</h4>
+                    <p>{item.detail}</p>
+                  </section>
+                ))}
+              </div>
+            </article>
+
+            <article className="career-path career-path--campus">
+              <div className="career-path__header">
+                <span>Campus Path</span>
+                <strong>校内经历</strong>
+              </div>
+              <div className="career-path__rail">
+                {profileTimeline.slice(3).map((item) => (
+                  <section className="career-node" key={`${item.time}-${item.title}`}>
+                    <time>{item.time}</time>
+                    <h4>{item.title}</h4>
+                    <p>{item.detail}</p>
+                  </section>
+                ))}
+              </div>
+            </article>
+          </div>
         </div>
       </section>
+
+      <div className="section-anchors" aria-label="Future section anchors">
+        <span id="works">Works</span>
+        <span id="strengths">Strengths</span>
+        <span id="contact">Contact</span>
+      </div>
 
       {activePhoto && activeIndex !== null ? (
         <div className="lightbox" role="dialog" aria-modal="true" aria-label="Photography viewer">
