@@ -1,9 +1,24 @@
 # Codex Worklog
 
+## 2026-06-25 - Section Reveal Motion
+
+- Goal: add a site-level section-enter motion so content surfaces upward when the user navigates or scrolls into major tabs such as Profile and Works.
+- Change: added an IntersectionObserver-based reveal system that keeps content visible by default, then applies upward fade/blur/scale motion only after the page is ready.
+- Applied reveal choreography to the Profile masthead, portrait, profile panel, career paths, Works masthead, Works cards, and Works preview panel with staggered delays.
+- Reveal reset: changed the reveal trigger from one-time element observation to section-scoped observation, so leaving Profile or Works resets their child reveal states and returning to the section replays the upward entrance motion.
+- Motion safety: preserved reduced-motion behavior and kept hover transforms on Works cards compatible with the reveal transform.
+- Capture workflow: extended the section capture wait after scroll so screenshots are taken after the reveal motion settles instead of mid-animation.
+- Verification: `pnpm run lint` and `pnpm run build` both pass; refreshed `docs/codex/works-reveal-screenshot.png` for visual QA.
+
 ## 2026-06-24 - Profile Section and Capture Workflow
 
 - Goal: fix Profile page issues identified after the first local preview and make the navigation visible across the whole site.
+- Hero rail motion refinement: aligned the photography rail cards to a single baseline and added position-aware fade/scale behavior so cards subtly grow as they enter the viewport and shrink/fade as they leave.
 - Profile changes: moved the primary navigation to the top-level page shell so it remains fixed outside the Hero section; removed the duplicate Hero-local navigation markup.
+- Profile structure refinement: tightened the spacing before and between the two career timelines, and moved the `#works` anchor onto a real Works placeholder so internship and campus timelines remain clearly inside the Profile section.
+- Works skeleton: replaced the Works placeholder with a clickable low-fidelity `SELECTED WORKS` layout, including six mixed-size wireframe cards and a reusable detail modal shell ready for future project content.
+- Works layout refinement: replaced the auto-filled card spans with explicit grid areas so the six work cards follow the approved wireframe structure, then compressed the row heights so the module reads more coherently in the first viewport.
+- Works interaction refinement: made the right-side preview panel respond to hover/focus on the six cards, while click opens the detail modal shell, clarifying the relationship between card browsing and detailed case viewing.
 - Visual changes: replaced the temporary clipboard screenshot with a web-optimized image generated from `F:\作品材料\摄影作品\_DSC0014(2).JPG`, reduced the Profile headline scale, tightened the portrait/content proportions, removed the visible portrait caption/signature overlay, and softened Profile cards.
 - Capture workflow: Chrome/Edge `--screenshot` returned success without writing a file in this environment. Added `docs/codex/capture-section.cjs`, which captures through the DevTools protocol and saves screenshots through Node instead. Verified it writes `docs/codex/profile-screenshot.png`.
 - Profile image refinement: switched the portrait asset to a new web-optimized file generated from `F:\作品材料\摄影作品\_DSC0014.jpg`, removed the portrait caption markup, and gave the portrait frame a rounded glass border treatment aligned with the Hero rolling image cards.

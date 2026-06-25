@@ -1,4 +1,11 @@
-import { type PointerEvent as ReactPointerEvent, useEffect, useMemo, useState } from "react";
+import {
+  type CSSProperties,
+  type PointerEvent as ReactPointerEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { ArrowDown, ChevronLeft, ChevronRight, Mail, X } from "lucide-react";
 
 type PhotoItem = {
@@ -16,6 +23,15 @@ type PhotoManifest = {
     sourceName: string;
   };
   items: PhotoItem[];
+};
+
+type WorkPlaceholder = {
+  id: string;
+  index: string;
+  title: string;
+  subtitle: string;
+  area: "photo" | "douyin" | "design" | "lseg" | "media" | "growth";
+  tone: "blue" | "orange" | "neutral";
 };
 
 const fallbackHero = "/portfolio/photography/hero/city-night.jpg";
@@ -72,6 +88,57 @@ const profileTimeline = [
 
 const profileTags = ["内容策划", "摄影视觉", "新媒体运营", "设计物料", "AI 工作流"];
 
+const workPlaceholders: WorkPlaceholder[] = [
+  {
+    id: "photography",
+    index: "01",
+    title: "Photography Works",
+    subtitle: "摄影作品",
+    area: "photo",
+    tone: "blue",
+  },
+  {
+    id: "douyin",
+    index: "02",
+    title: "Douyin Content Case",
+    subtitle: "抖音内容案例",
+    area: "douyin",
+    tone: "orange",
+  },
+  {
+    id: "design",
+    index: "03",
+    title: "Design Materials",
+    subtitle: "设计物料",
+    area: "design",
+    tone: "neutral",
+  },
+  {
+    id: "lseg",
+    index: "04",
+    title: "LSEG Internship",
+    subtitle: "产品与市场支持",
+    area: "lseg",
+    tone: "blue",
+  },
+  {
+    id: "media",
+    index: "05",
+    title: "Campus Media Operations",
+    subtitle: "融媒体内容运营",
+    area: "media",
+    tone: "neutral",
+  },
+  {
+    id: "growth",
+    index: "06",
+    title: "Campus Growth & Community",
+    subtitle: "校园增长与社群运营",
+    area: "growth",
+    tone: "orange",
+  },
+];
+
 const preferredRailStart = [
   144, 10, 67, 156, 1, 140, 158, 24, 94, 103, 55, 121, 148, 57, 161, 124,
 ];
@@ -85,6 +152,10 @@ function updateEdgeGlow(event: ReactPointerEvent<HTMLElement>) {
 function clearEdgeGlow(event: ReactPointerEvent<HTMLElement>) {
   event.currentTarget.style.removeProperty("--glow-x");
   event.currentTarget.style.removeProperty("--glow-y");
+}
+
+function revealDelay(index: number): CSSProperties {
+  return { "--reveal-delay": `${index * 80}ms` } as CSSProperties;
 }
 
 function buildRailOrder(items: PhotoItem[]) {
@@ -116,6 +187,10 @@ function buildRailOrder(items: PhotoItem[]) {
 export function App() {
   const [manifest, setManifest] = useState<PhotoManifest | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [activeWorkIndex, setActiveWorkIndex] = useState<number | null>(null);
+  const [previewWorkIndex, setPreviewWorkIndex] = useState(0);
+  const [revealReady, setRevealReady] = useState(false);
+  const railRef = useRef<HTMLDivElement | null>(null);
   const isProfileCapture =
     typeof window !== "undefined" &&
     new URLSearchParams(window.location.search).get("capture") === "profile";
@@ -147,6 +222,89 @@ export function App() {
   const railPhotos = useMemo(() => [...orderedPhotos, ...orderedPhotos], [orderedPhotos]);
   const activePhoto = activeIndex === null ? null : orderedPhotos[activeIndex];
   const activePhotoNumber = activeIndex === null ? "" : String(activeIndex + 1).padStart(3, "0");
+  const activeWork = activeWorkIndex === null ? null : workPlaceholders[activeWorkIndex];
+  const previewWork = workPlaceholders[previewWorkIndex];
+
+  useEffect(() => {
+    setRevealReady(true);
+
+    const revealTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+    const revealScopes = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-reveal-scope]"),
+    );
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (reduceMotion.matches || !("IntersectionObserver" in window)) {
+      revealTargets.forEach((target) => target.classList.add("is-visible"));
+      return;
+    }
+
+    const scopeObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const scopeTargets = Array.from(
+            entry.target.querySelectorAll<HTMLElement>("[data-reveal]"),
+          );
+
+          scopeTargets.forEach((target) => {
+            target.classList.toggle("is-visible", entry.isIntersecting);
+          });
+        });
+      },
+      { rootMargin: "-8% 0px -18% 0px", threshold: 0 },
+    );
+
+    revealScopes.forEach((scope) => scopeObserver.observe(scope));
+
+    return () => scopeObserver.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const rail = railRef.current;
+
+    if (!rail || railPhotos.length === 0) {
+      return;
+    }
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const cards = Array.from(rail.querySelectorAll<HTMLElement>(".photo-card"));
+    let animationFrame = 0;
+
+    if (reduceMotion.matches) {
+      cards.forEach((card) => {
+        card.style.setProperty("--rail-presence", "1");
+        card.style.setProperty("--rail-scale", "1");
+      });
+      return;
+    }
+
+    const smoothStep = (progress: number) => progress * progress * (3 - 2 * progress);
+
+    const updateRailPresence = () => {
+      const railBounds = rail.getBoundingClientRect();
+      const edgeRange = Math.min(280, railBounds.width * 0.18);
+
+      cards.forEach((card) => {
+        const cardBounds = card.getBoundingClientRect();
+        const cardCenter = cardBounds.left + cardBounds.width / 2;
+        const distanceToVisibleEdge = Math.min(
+          cardCenter - railBounds.left,
+          railBounds.right - cardCenter,
+        );
+        const rawPresence = Math.max(0, Math.min(1, distanceToVisibleEdge / edgeRange));
+        const presence = smoothStep(rawPresence);
+
+        card.style.setProperty("--rail-presence", presence.toFixed(3));
+        card.style.setProperty("--rail-scale", (0.91 + presence * 0.09).toFixed(3));
+      });
+
+      animationFrame = window.requestAnimationFrame(updateRailPresence);
+    };
+
+    updateRailPresence();
+
+    return () => window.cancelAnimationFrame(animationFrame);
+  }, [railPhotos.length]);
 
   useEffect(() => {
     if (activeIndex === null) {
@@ -178,6 +336,21 @@ export function App() {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [activeIndex, orderedPhotos.length]);
+
+  useEffect(() => {
+    if (activeWorkIndex === null) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setActiveWorkIndex(null);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [activeWorkIndex]);
 
   useEffect(() => {
     if (isProfileCapture || activeIndex !== null) {
@@ -273,7 +446,11 @@ export function App() {
   };
 
   return (
-    <main className={isProfileCapture ? "capture-profile" : undefined}>
+    <main
+      className={`${isProfileCapture ? "capture-profile" : ""} ${
+        revealReady ? "reveal-ready" : ""
+      }`.trim()}
+    >
       <header className="nav-shell" aria-label="Primary navigation">
         <a
           className="brand-mark edge-glow"
@@ -350,7 +527,7 @@ export function App() {
           </div>
         </div>
 
-        <div className="photo-rail" aria-label="Photography preview rail">
+        <div className="photo-rail" ref={railRef} aria-label="Photography preview rail">
           <div className="photo-rail__scrim" aria-hidden="true" />
           <div className="photo-rail__track">
             {railPhotos.map((photo, index) => {
@@ -374,9 +551,14 @@ export function App() {
         </div>
       </section>
 
-      <section className="profile-section" id="profile" aria-label="Profile / 关于我">
+      <section
+        className="profile-section"
+        id="profile"
+        data-reveal-scope
+        aria-label="Profile / 关于我"
+      >
         <div className="profile-section__inner">
-          <div className="profile-masthead">
+          <div className="profile-masthead" data-reveal>
             <div>
               <p className="section-kicker">Profile / 关于我</p>
               <h2>
@@ -392,6 +574,8 @@ export function App() {
           <div className="profile-overview">
             <figure
               className="profile-portrait"
+              data-reveal
+              style={revealDelay(1)}
               onPointerMove={updateEdgeGlow}
               onPointerLeave={clearEdgeGlow}
             >
@@ -401,7 +585,7 @@ export function App() {
               />
             </figure>
 
-            <div className="profile-panel">
+            <div className="profile-panel" data-reveal style={revealDelay(2)}>
               <p className="profile-content__role">Content & New Media Operations Intern</p>
               <h3>
                 Hi, I am Wang Kejie.
@@ -450,7 +634,7 @@ export function App() {
           </div>
 
           <div className="career-paths" aria-label="Experience paths">
-            <article className="career-path">
+            <article className="career-path" data-reveal style={revealDelay(3)}>
               <div className="career-path__header">
                 <span>Internship Path</span>
                 <strong>实习经历</strong>
@@ -466,7 +650,7 @@ export function App() {
               </div>
             </article>
 
-            <article className="career-path career-path--campus">
+            <article className="career-path career-path--campus" data-reveal style={revealDelay(4)}>
               <div className="career-path__header">
                 <span>Campus Path</span>
                 <strong>校内经历</strong>
@@ -485,8 +669,81 @@ export function App() {
         </div>
       </section>
 
+      <section
+        className="works-section"
+        id="works"
+        data-reveal-scope
+        aria-label="Works / 精选项目"
+      >
+        <div className="works-section__inner">
+          <div className="works-masthead" data-reveal>
+            <div>
+              <p className="section-kicker">Works / 精选项目</p>
+              <h2>
+                <span>SELECTED</span>
+                <span>WORKS</span>
+                <i aria-hidden="true">↘</i>
+              </h2>
+              <small>作品与案例入口</small>
+            </div>
+            <p className="works-masthead__note">Portfolio / Case / Evidence</p>
+          </div>
+
+          <div className="works-layout">
+            <div className="works-grid" aria-label="Selected works placeholder grid">
+              {workPlaceholders.map((work, index) => (
+                <button
+                  className={`work-card work-card--${work.area} work-card--${work.tone} edge-glow`}
+                  key={work.id}
+                  type="button"
+                  data-reveal
+                  style={revealDelay(index + 1)}
+                  onClick={() => setActiveWorkIndex(index)}
+                  onFocus={() => setPreviewWorkIndex(index)}
+                  onPointerMove={updateEdgeGlow}
+                  onPointerEnter={() => setPreviewWorkIndex(index)}
+                  onPointerLeave={clearEdgeGlow}
+                  aria-label={`Open ${work.title} detail placeholder`}
+                >
+                  <span className="work-card__index">{work.index}</span>
+                  <span className="work-card__ghost" aria-hidden="true" />
+                  <span className="work-card__body">
+                    <strong>{work.title}</strong>
+                    <small>{work.subtitle}</small>
+                  </span>
+                  <span className="work-card__corner" aria-hidden="true">↗</span>
+                </button>
+              ))}
+            </div>
+
+            <aside
+              className="works-modal-preview"
+              data-reveal
+              style={revealDelay(7)}
+              aria-label="Works detail modal wireframe preview"
+            >
+              <div className="works-modal-preview__bar">
+                <span>{previewWork.index}</span>
+                <span />
+              </div>
+              <div className="works-modal-preview__media" />
+              <div className="works-modal-preview__copy">
+                <span>Preview follows hover</span>
+                <strong>{previewWork.title}</strong>
+                <p>{previewWork.subtitle}</p>
+                <p />
+              </div>
+              <div className="works-modal-preview__chips">
+                <span>Hover</span>
+                <span>Click</span>
+                <span>Detail</span>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
       <div className="section-anchors" aria-label="Future section anchors">
-        <span id="works">Works</span>
         <span id="strengths">Strengths</span>
         <span id="contact">Contact</span>
       </div>
@@ -531,6 +788,40 @@ export function App() {
           >
             <ChevronRight size={32} aria-hidden="true" />
           </button>
+        </div>
+      ) : null}
+
+      {activeWork && activeWorkIndex !== null ? (
+        <div className="work-detail" role="dialog" aria-modal="true" aria-label="Works detail placeholder">
+          <button
+            className="work-detail__close"
+            type="button"
+            onClick={() => setActiveWorkIndex(null)}
+            aria-label="Close works detail placeholder"
+          >
+            <X size={24} aria-hidden="true" />
+          </button>
+          <section className="work-detail__panel">
+            <div className="work-detail__visual">
+              <span>{activeWork.index}</span>
+            </div>
+            <div className="work-detail__content">
+              <p>Detail Placeholder</p>
+              <h3>{activeWork.title}</h3>
+              <small>{activeWork.subtitle}</small>
+              <div className="work-detail__lines" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+                <span />
+              </div>
+              <div className="work-detail__blocks" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </div>
+            </div>
+          </section>
         </div>
       ) : null}
     </main>

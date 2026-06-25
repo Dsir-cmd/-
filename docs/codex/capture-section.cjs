@@ -101,6 +101,17 @@ async function main() {
   );
   await sleep(2500);
 
+  if (section !== "hero" && section !== "profile") {
+    await send(
+      "Runtime.evaluate",
+      {
+        expression: `document.getElementById(${JSON.stringify(section)})?.scrollIntoView({ block: "start" })`,
+      },
+      sessionId,
+    );
+    await sleep(1700);
+  }
+
   const state = await send(
     "Runtime.evaluate",
     {
