@@ -177,30 +177,11 @@ const workItems: WorkItem[] = [
     ],
   },
   {
-    id: "douyin",
-    index: "04",
-    title: "Douyin Content Case",
-    subtitle: "抖音内容案例",
-    area: "lseg",
-    tone: "blue",
-    eyebrow: "Personal Content Account",
-    summary:
-      "个人抖音内容账号是目前最明确的新媒体运营证据，可展示从选题、拍摄、剪辑、发布到数据复盘的完整链路。",
-    metrics: [
-      { value: "121w", label: "单条最高播放" },
-      { value: "8.1w", label: "单条最高获赞" },
-      { value: "5000+", label: "内容收藏" },
-    ],
-    tags: ["内容选题", "短视频剪辑", "数据复盘", "个人账号"],
-    process: ["确定选题与内容表达角度", "完成拍摄剪辑和发布", "通过播放、点赞、收藏数据复盘内容表现"],
-    missing: ["抖音主页链接", "爆款视频截图", "后台数据截图", "选题/脚本/复盘文档。"],
-  },
-  {
     id: "internship",
-    index: "05",
+    index: "04",
     title: "Internship Ops Cases",
     subtitle: "实习项目沉淀",
-    area: "media",
+    area: "lseg",
     tone: "neutral",
     eyebrow: "Product & Market Support",
     summary:
@@ -213,6 +194,25 @@ const workItems: WorkItem[] = [
     tags: ["资料沉淀", "客户线索", "产品宣传", "AI 工作流"],
     process: ["整理金融数据产品场景和客户线索", "参与产品宣传册整改和市场资料归档", "沉淀可复用资料并探索 AI 提效"],
     missing: ["可公开的脱敏工作样例", "产品资料整理前后对比", "AI 提效流程截图", "业务报表或宣传册修改记录。"],
+  },
+  {
+    id: "douyin",
+    index: "05",
+    title: "Douyin Content Case",
+    subtitle: "抖音内容案例",
+    area: "media",
+    tone: "blue",
+    eyebrow: "Personal Content Account",
+    summary:
+      "个人抖音内容账号是目前最明确的新媒体运营证据，可展示从选题、拍摄、剪辑、发布到数据复盘的完整链路。",
+    metrics: [
+      { value: "121w", label: "单条最高播放" },
+      { value: "8.1w", label: "单条最高获赞" },
+      { value: "5000+", label: "内容收藏" },
+    ],
+    tags: ["内容选题", "短视频剪辑", "数据复盘", "个人账号"],
+    process: ["确定选题与内容表达角度", "完成拍摄剪辑和发布", "通过播放、点赞、收藏数据复盘内容表现"],
+    missing: ["抖音主页链接", "爆款视频截图", "后台数据截图", "选题/脚本/复盘文档。"],
   },
   {
     id: "campus",
@@ -284,9 +284,11 @@ export function App() {
   const [manifest, setManifest] = useState<PhotoManifest | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [activeWorkIndex, setActiveWorkIndex] = useState<number | null>(null);
+  const [activeWorkSlide, setActiveWorkSlide] = useState(0);
   const [previewWorkIndex, setPreviewWorkIndex] = useState(0);
   const [revealReady, setRevealReady] = useState(false);
   const railRef = useRef<HTMLDivElement | null>(null);
+  const workCarouselPauseUntilRef = useRef(0);
   const isProfileCapture =
     typeof window !== "undefined" &&
     new URLSearchParams(window.location.search).get("capture") === "profile";
@@ -320,6 +322,7 @@ export function App() {
   const activePhotoNumber = activeIndex === null ? "" : String(activeIndex + 1).padStart(3, "0");
   const activeWork = activeWorkIndex === null ? null : workItems[activeWorkIndex];
   const previewWork = workItems[previewWorkIndex];
+  const activeWorkGallery = activeWork?.gallery ?? [];
 
   useEffect(() => {
     setRevealReady(true);
@@ -442,11 +445,42 @@ export function App() {
       if (event.key === "Escape") {
         setActiveWorkIndex(null);
       }
+
+      if (event.key === "ArrowRight" && activeWorkGallery.length > 1) {
+        workCarouselPauseUntilRef.current = Date.now() + 10_000;
+        setActiveWorkSlide((current) => (current + 1) % activeWorkGallery.length);
+      }
+
+      if (event.key === "ArrowLeft" && activeWorkGallery.length > 1) {
+        workCarouselPauseUntilRef.current = Date.now() + 10_000;
+        setActiveWorkSlide((current) => (current - 1 + activeWorkGallery.length) % activeWorkGallery.length);
+      }
     };
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [activeWorkGallery.length, activeWorkIndex]);
+
+  useEffect(() => {
+    setActiveWorkSlide(0);
+    workCarouselPauseUntilRef.current = 0;
   }, [activeWorkIndex]);
+
+  useEffect(() => {
+    if (activeWorkIndex === null || activeWorkGallery.length <= 1) {
+      return;
+    }
+
+    const interval = window.setInterval(() => {
+      if (Date.now() < workCarouselPauseUntilRef.current) {
+        return;
+      }
+
+      setActiveWorkSlide((current) => (current + 1) % activeWorkGallery.length);
+    }, 3600);
+
+    return () => window.clearInterval(interval);
+  }, [activeWorkGallery.length, activeWorkIndex]);
 
   useEffect(() => {
     if (isProfileCapture || activeIndex !== null) {
@@ -539,6 +573,33 @@ export function App() {
         ? current
         : (current + 1) % orderedPhotos.length,
     );
+  };
+
+  const holdWorkCarousel = () => {
+    workCarouselPauseUntilRef.current = Date.now() + 10_000;
+  };
+
+  const showPreviousWorkSlide = () => {
+    if (activeWorkGallery.length <= 1) {
+      return;
+    }
+
+    holdWorkCarousel();
+    setActiveWorkSlide((current) => (current - 1 + activeWorkGallery.length) % activeWorkGallery.length);
+  };
+
+  const showNextWorkSlide = () => {
+    if (activeWorkGallery.length <= 1) {
+      return;
+    }
+
+    holdWorkCarousel();
+    setActiveWorkSlide((current) => (current + 1) % activeWorkGallery.length);
+  };
+
+  const selectWorkSlide = (index: number) => {
+    holdWorkCarousel();
+    setActiveWorkSlide(index);
   };
 
   return (
@@ -913,10 +974,50 @@ export function App() {
           <section className="work-detail__panel">
             <div className="work-detail__visual">
               {activeWork.gallery?.length ? (
-                <div className="work-detail__gallery">
-                  {activeWork.gallery.map((item) => (
-                    <img key={item.src} src={item.src} alt={item.alt} />
-                  ))}
+                <div className="work-detail__carousel" aria-label={`${activeWork.title} image gallery`}>
+                  <div className="work-detail__track" style={{ "--slide": activeWorkSlide } as CSSProperties}>
+                    {activeWork.gallery.map((item) => (
+                      <figure className="work-detail__slide" key={item.src}>
+                        <img src={item.src} alt={item.alt} />
+                      </figure>
+                    ))}
+                  </div>
+                  {activeWork.gallery.length > 1 ? (
+                    <div className="work-detail__carousel-controls">
+                      <button
+                        className="work-detail__carousel-button edge-glow"
+                        type="button"
+                        onClick={showPreviousWorkSlide}
+                        onPointerMove={updateEdgeGlow}
+                        onPointerLeave={clearEdgeGlow}
+                        aria-label="Previous work image"
+                      >
+                        <ChevronLeft size={20} aria-hidden="true" />
+                      </button>
+                      <div className="work-detail__carousel-dots" aria-label="Select work image">
+                        {activeWork.gallery.map((item, index) => (
+                          <button
+                            className={index === activeWorkSlide ? "is-active" : ""}
+                            type="button"
+                            key={item.src}
+                            onClick={() => selectWorkSlide(index)}
+                            aria-label={`Show image ${index + 1}`}
+                            aria-pressed={index === activeWorkSlide}
+                          />
+                        ))}
+                      </div>
+                      <button
+                        className="work-detail__carousel-button edge-glow"
+                        type="button"
+                        onClick={showNextWorkSlide}
+                        onPointerMove={updateEdgeGlow}
+                        onPointerLeave={clearEdgeGlow}
+                        aria-label="Next work image"
+                      >
+                        <ChevronRight size={20} aria-hidden="true" />
+                      </button>
+                    </div>
+                  ) : null}
                 </div>
               ) : activeWork.cover ? (
                 <img className="work-detail__hero-image" src={activeWork.cover} alt={activeWork.coverAlt ?? ""} />

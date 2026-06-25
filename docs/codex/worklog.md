@@ -15,6 +15,9 @@
 - Goal: replace the Works wireframe placeholders with currently available portfolio content and identify missing materials for later supplementation.
 - Material processing: generated contact sheets for commercial shooting and Anker design materials, then exported web-optimized Works assets under `public/portfolio/works`.
 - Works content: updated the six Works entries to Photography Archive, Commercial Shooting, Design Materials, Douyin Content Case, Internship Ops Cases, and Campus Operations.
+- Works refinement: swapped Douyin Content Case and Internship Ops Cases on the parent Works grid, placing Internship into the smaller 04 information card because it currently lacks image proof, and moving Douyin into the larger 05 card.
+- Works grid refinement: revised the parent Works layout back toward an asymmetric portfolio wall, preserving the earlier collage rhythm while enlarging the 04 Internship card enough to keep its title readable.
+- Works modal refinement: replaced the 1/2/3 case detail mosaic gallery with a full-height image carousel, including automatic slide advance, arrow/dot controls, keyboard arrow support, and a 10-second pause after user selection before autoplay resumes.
 - Interaction content: replaced the right preview panel and click detail modal with real cover images, summaries, metrics, process notes, tags, and per-case missing-material notes.
 - Documentation: added `docs/codex/works-materials-gap-list.md` as the running checklist for assets and proof materials still needed from the user.
 - Verification: `pnpm run lint` and `pnpm run build` both pass; captured `docs/codex/works-content-screenshot.png`.
