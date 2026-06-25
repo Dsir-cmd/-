@@ -112,7 +112,7 @@ const workItems: WorkItem[] = [
     eyebrow: "Personal Visual System",
     summary:
       "以城市建筑、航拍、舞台与自然光影为主的个人摄影作品。当前已接入网页图库，可从 Hero 滚动图进入大图浏览。",
-    cover: "/portfolio/photography/hero/city-night.jpg",
+    cover: "/portfolio/works/covers/01-yangshan-port.jpg",
     coverAlt: "上海城市夜景摄影作品",
     metrics: [
       { value: "173", label: "已接入网页图" },
@@ -138,7 +138,7 @@ const workItems: WorkItem[] = [
     eyebrow: "Client Delivery",
     summary:
       "已整理慕风戏剧定妆照、舞团表演现场、鱼缸造景实拍三类商业/委托拍摄素材，体现从人物、现场到空间细节的拍摄交付能力。",
-    cover: "/portfolio/works/commercial/stage-dance.jpg",
+    cover: "/portfolio/works/covers/02-red-dance.jpg",
     coverAlt: "舞团表演现场商业拍摄作品",
     metrics: [
       { value: "3", label: "拍摄场景" },
@@ -164,7 +164,7 @@ const workItems: WorkItem[] = [
     eyebrow: "Anker Exhibition Visual",
     summary:
       "围绕 Anker Prime 展会场景整理出的物料与空间视觉方案，包含宣传册、展位正视图、咨询台、产品展示与名片等。",
-    cover: "/portfolio/works/design/booth-front.jpg",
+    cover: "/portfolio/works/covers/03-anker-prime.jpg",
     coverAlt: "Anker 展会展位视觉设计图",
     metrics: [
       { value: "15", label: "设计素材" },

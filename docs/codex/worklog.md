@@ -1,5 +1,12 @@
 # Codex Worklog
 
+## 2026-06-26 - Works Parent Card Cover Update
+
+- Goal: replace the parent Works cards 01-03 with stronger source-image covers from the user's material folder rather than clipboard screenshots.
+- Change: exported card-specific covers from `F:\作品材料\works materials` for Yangshan Port night photography, the red dance commercial shoot, and the right-side Anker Prime panel from the first design-material image.
+- Crop handling: generated cover assets with subject-safe framing, especially preserving the full red dancer and fabric in card 02 while using a right-panel crop for card 03.
+- Verification: `pnpm run lint` and `pnpm run build` pass; captured `docs/codex/works-cover-update-check.png` for visual QA.
+
 ## 2026-06-26 - Code Hygiene Pass
 
 - Goal: inspect the current portfolio code after multiple design iterations and remove obvious stale or invalid frontend leftovers.
