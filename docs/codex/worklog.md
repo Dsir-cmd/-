@@ -1,5 +1,13 @@
 # Codex Worklog
 
+## 2026-06-26 - Works Modal Gallery Checkpoint
+
+- Goal: save the current Works modal gallery refinement as the daily Git checkpoint.
+- Change: ingested the user-provided Works gallery materials for cases 01-03, wired the modal carousel to the generated manifest, randomized case 01 order per open, and kept cases 02/03 in numeric order.
+- Layout fix: constrained the Works detail modal within the viewport, preserved visible carousel controls, and changed gallery images to a bounded contain-blur display stage so portrait and wide assets show completely instead of being cropped.
+- Verification: `pnpm run lint` and `pnpm run build` pass; captured modal fit check screenshots under `docs/codex`.
+- Next: continue reviewing Works modal content/detail quality and add missing project proof materials when provided.
+
 ## 2026-06-25 - Section Reveal Motion
 
 - Goal: add a site-level section-enter motion so content surfaces upward when the user navigates or scrolls into major tabs such as Profile and Works.
@@ -18,6 +26,9 @@
 - Works refinement: swapped Douyin Content Case and Internship Ops Cases on the parent Works grid, placing Internship into the smaller 04 information card because it currently lacks image proof, and moving Douyin into the larger 05 card.
 - Works grid refinement: revised the parent Works layout back toward an asymmetric portfolio wall, preserving the earlier collage rhythm while enlarging the 04 Internship card enough to keep its title readable.
 - Works modal refinement: replaced the 1/2/3 case detail mosaic gallery with a full-height image carousel, including automatic slide advance, arrow/dot controls, keyboard arrow support, and a 10-second pause after user selection before autoplay resumes.
+- Works modal image-fit refinement: added per-image display modes and switched current gallery slides to a full-image `contain-blur` treatment, keeping horizontal photography and design materials complete while using a blurred enlarged copy of the same image to fill the surrounding stage.
+- Works material ingestion: exported the user-provided `F:\作品材料\works materials` folders into `public/portfolio/works/gallery`, generated `gallery-manifest.json`, wired cases 01/02/03 to the new manifest, randomized case 01 order on every modal open, and preserved numeric ordering for cases 02 and 03.
+- Works modal fit fix: constrained the modal to the viewport, moved overflow to the right-side content column, and changed `contain-blur` images to fit inside a bounded display-stage safe area so portrait slides in cases 01/02 no longer crop vertically and carousel controls remain visible.
 - Interaction content: replaced the right preview panel and click detail modal with real cover images, summaries, metrics, process notes, tags, and per-case missing-material notes.
 - Documentation: added `docs/codex/works-materials-gap-list.md` as the running checklist for assets and proof materials still needed from the user.
 - Verification: `pnpm run lint` and `pnpm run build` both pass; captured `docs/codex/works-content-screenshot.png`.

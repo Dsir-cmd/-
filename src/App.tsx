@@ -40,8 +40,12 @@ type WorkItem = {
   tags: string[];
   process: string[];
   missing: string[];
-  gallery?: Array<{ src: string; alt: string }>;
+  gallery?: Array<{ src: string; alt: string; displayMode?: "contain-blur" | "cover" }>;
 };
+
+type WorkGalleryItem = NonNullable<WorkItem["gallery"]>[number];
+
+type WorkGalleryManifest = Record<"01" | "02" | "03", WorkGalleryItem[]>;
 
 const fallbackHero = "/portfolio/photography/hero/city-night.jpg";
 const email = "zj2020dq@163.com";
@@ -119,9 +123,9 @@ const workItems: WorkItem[] = [
     process: ["筛选个人摄影作品", "压缩生成网页图与缩略图", "建立滚动预览与大图查看逻辑"],
     missing: ["后续可补充每组摄影作品的主题分组与拍摄说明。"],
     gallery: [
-      { src: "/portfolio/photography/large/p144.jpg", alt: "摄影作品精选一" },
-      { src: "/portfolio/photography/large/p010.jpg", alt: "摄影作品精选二" },
-      { src: "/portfolio/photography/large/p067.jpg", alt: "摄影作品精选三" },
+      { src: "/portfolio/photography/large/p144.jpg", alt: "摄影作品精选一", displayMode: "contain-blur" },
+      { src: "/portfolio/photography/large/p010.jpg", alt: "摄影作品精选二", displayMode: "contain-blur" },
+      { src: "/portfolio/photography/large/p067.jpg", alt: "摄影作品精选三", displayMode: "contain-blur" },
     ],
   },
   {
@@ -145,9 +149,9 @@ const workItems: WorkItem[] = [
     process: ["沟通拍摄需求与场景", "现场拍摄与构图捕捉", "筛选、调色并交付客户可用素材"],
     missing: ["可补充客户需求 brief、最终交付数量、客户使用场景或授权说明。"],
     gallery: [
-      { src: "/portfolio/works/commercial/theatre-portrait.jpg", alt: "戏剧定妆照拍摄作品" },
-      { src: "/portfolio/works/commercial/stage-dance.jpg", alt: "舞团表演现场拍摄作品" },
-      { src: "/portfolio/works/commercial/aquarium.jpg", alt: "鱼缸造景实拍作品" },
+      { src: "/portfolio/works/commercial/theatre-portrait.jpg", alt: "戏剧定妆照拍摄作品", displayMode: "contain-blur" },
+      { src: "/portfolio/works/commercial/stage-dance.jpg", alt: "舞团表演现场拍摄作品", displayMode: "contain-blur" },
+      { src: "/portfolio/works/commercial/aquarium.jpg", alt: "鱼缸造景实拍作品", displayMode: "contain-blur" },
     ],
   },
   {
@@ -171,9 +175,9 @@ const workItems: WorkItem[] = [
     process: ["梳理品牌与产品信息", "制作展位视觉和宣传物料", "统一颜色、字体和信息层级"],
     missing: ["可补充设计目标、迭代前后对比、物料落地尺寸或真实使用照片。"],
     gallery: [
-      { src: "/portfolio/works/design/booth-front.jpg", alt: "Anker 展位正视图" },
-      { src: "/portfolio/works/design/brochure-front.jpg", alt: "Anker 产品宣传册正面" },
-      { src: "/portfolio/works/design/booth-detail.jpg", alt: "Anker 咨询台细节图" },
+      { src: "/portfolio/works/design/booth-front.jpg", alt: "Anker 展位正视图", displayMode: "contain-blur" },
+      { src: "/portfolio/works/design/brochure-front.jpg", alt: "Anker 产品宣传册正面", displayMode: "contain-blur" },
+      { src: "/portfolio/works/design/booth-detail.jpg", alt: "Anker 咨询台细节图", displayMode: "contain-blur" },
     ],
   },
   {
@@ -280,14 +284,29 @@ function buildRailOrder(items: PhotoItem[]) {
   return ordered;
 }
 
+function shuffleGallery(items: WorkGalleryItem[]) {
+  const shuffled = [...items];
+
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const target = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[target]] = [shuffled[target], shuffled[index]];
+  }
+
+  return shuffled;
+}
+
 export function App() {
   const [manifest, setManifest] = useState<PhotoManifest | null>(null);
+  const [workGalleryManifest, setWorkGalleryManifest] = useState<WorkGalleryManifest | null>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [activeWorkIndex, setActiveWorkIndex] = useState<number | null>(null);
   const [activeWorkSlide, setActiveWorkSlide] = useState(0);
+  const [activeWorkGalleryOverride, setActiveWorkGalleryOverride] = useState<WorkGalleryItem[] | null>(null);
   const [previewWorkIndex, setPreviewWorkIndex] = useState(0);
   const [revealReady, setRevealReady] = useState(false);
   const railRef = useRef<HTMLDivElement | null>(null);
+  const workGalleryManifestRef = useRef<WorkGalleryManifest | null>(null);
+  const workGalleryManifestRequestRef = useRef<Promise<WorkGalleryManifest | null> | null>(null);
   const workCarouselPauseUntilRef = useRef(0);
   const isProfileCapture =
     typeof window !== "undefined" &&
@@ -314,6 +333,29 @@ export function App() {
     };
   }, []);
 
+  useEffect(() => {
+    let isMounted = true;
+
+    fetch("/portfolio/works/gallery-manifest.json")
+      .then((response) => response.json() as Promise<WorkGalleryManifest>)
+      .then((data) => {
+        if (isMounted) {
+          workGalleryManifestRef.current = data;
+          setWorkGalleryManifest(data);
+        }
+      })
+      .catch(() => {
+        if (isMounted) {
+          workGalleryManifestRef.current = null;
+          setWorkGalleryManifest(null);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   const photos = useMemo(() => manifest?.items ?? [], [manifest]);
   const orderedPhotos = useMemo(() => buildRailOrder(photos), [photos]);
   const heroImage = manifest?.hero.src ?? fallbackHero;
@@ -322,7 +364,7 @@ export function App() {
   const activePhotoNumber = activeIndex === null ? "" : String(activeIndex + 1).padStart(3, "0");
   const activeWork = activeWorkIndex === null ? null : workItems[activeWorkIndex];
   const previewWork = workItems[previewWorkIndex];
-  const activeWorkGallery = activeWork?.gallery ?? [];
+  const activeWorkGallery = activeWorkGalleryOverride ?? activeWork?.gallery ?? [];
 
   useEffect(() => {
     setRevealReady(true);
@@ -443,6 +485,7 @@ export function App() {
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        setActiveWorkGalleryOverride(null);
         setActiveWorkIndex(null);
       }
 
@@ -600,6 +643,37 @@ export function App() {
   const selectWorkSlide = (index: number) => {
     holdWorkCarousel();
     setActiveWorkSlide(index);
+  };
+
+  const loadWorkGalleryManifest = async () => {
+    if (workGalleryManifestRef.current) {
+      return workGalleryManifestRef.current;
+    }
+
+    if (!workGalleryManifestRequestRef.current) {
+      workGalleryManifestRequestRef.current = fetch("/portfolio/works/gallery-manifest.json")
+        .then((response) => response.json() as Promise<WorkGalleryManifest>)
+        .then((data) => {
+          workGalleryManifestRef.current = data;
+          setWorkGalleryManifest(data);
+          return data;
+        })
+        .catch(() => null)
+        .finally(() => {
+          workGalleryManifestRequestRef.current = null;
+        });
+    }
+
+    return workGalleryManifestRequestRef.current;
+  };
+
+  const openWorkDetail = async (index: number) => {
+    const work = workItems[index];
+    const manifest = workGalleryManifest ?? (await loadWorkGalleryManifest());
+    const gallery = manifest?.[work.index as "01" | "02" | "03"] ?? work.gallery ?? [];
+
+    setActiveWorkGalleryOverride(work.index === "01" ? shuffleGallery(gallery) : gallery);
+    setActiveWorkIndex(index);
   };
 
   return (
@@ -855,7 +929,7 @@ export function App() {
                   type="button"
                   data-reveal
                   style={revealDelay(index + 1)}
-                  onClick={() => setActiveWorkIndex(index)}
+                  onClick={() => openWorkDetail(index)}
                   onFocus={() => setPreviewWorkIndex(index)}
                   onPointerMove={updateEdgeGlow}
                   onPointerEnter={() => setPreviewWorkIndex(index)}
@@ -966,23 +1040,32 @@ export function App() {
           <button
             className="work-detail__close"
             type="button"
-            onClick={() => setActiveWorkIndex(null)}
+            onClick={() => {
+              setActiveWorkGalleryOverride(null);
+              setActiveWorkIndex(null);
+            }}
             aria-label="Close works detail placeholder"
           >
             <X size={24} aria-hidden="true" />
           </button>
           <section className="work-detail__panel">
             <div className="work-detail__visual">
-              {activeWork.gallery?.length ? (
+              {activeWorkGallery.length ? (
                 <div className="work-detail__carousel" aria-label={`${activeWork.title} image gallery`}>
                   <div className="work-detail__track" style={{ "--slide": activeWorkSlide } as CSSProperties}>
-                    {activeWork.gallery.map((item) => (
-                      <figure className="work-detail__slide" key={item.src}>
-                        <img src={item.src} alt={item.alt} />
+                    {activeWorkGallery.map((item) => (
+                      <figure
+                        className={`work-detail__slide work-detail__slide--${item.displayMode ?? "cover"}`}
+                        key={item.src}
+                      >
+                        {(item.displayMode ?? "cover") === "contain-blur" ? (
+                          <img className="work-detail__slide-backdrop" src={item.src} alt="" aria-hidden="true" />
+                        ) : null}
+                        <img className="work-detail__slide-image" src={item.src} alt={item.alt} />
                       </figure>
                     ))}
                   </div>
-                  {activeWork.gallery.length > 1 ? (
+                  {activeWorkGallery.length > 1 ? (
                     <div className="work-detail__carousel-controls">
                       <button
                         className="work-detail__carousel-button edge-glow"
@@ -995,7 +1078,7 @@ export function App() {
                         <ChevronLeft size={20} aria-hidden="true" />
                       </button>
                       <div className="work-detail__carousel-dots" aria-label="Select work image">
-                        {activeWork.gallery.map((item, index) => (
+                        {activeWorkGallery.map((item, index) => (
                           <button
                             className={index === activeWorkSlide ? "is-active" : ""}
                             type="button"
