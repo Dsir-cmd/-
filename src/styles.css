@@ -1352,47 +1352,6 @@ button {
   white-space: nowrap;
 }
 
-.stage-placeholder {
-  min-height: 42vh;
-  display: grid;
-  place-items: center;
-  padding: 80px;
-  background: linear-gradient(180deg, #05070a, #0b1118);
-}
-
-.stage-placeholder__copy {
-  width: min(100%, var(--max));
-  color: var(--muted);
-}
-
-.stage-placeholder p {
-  margin: 0 0 12px;
-  color: var(--blue);
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.stage-placeholder h2 {
-  max-width: 900px;
-  margin: 0;
-  color: var(--text);
-  font-size: 42px;
-  line-height: 1.16;
-  letter-spacing: 0;
-}
-
-.stage-placeholder__anchors {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
 .lightbox {
   position: fixed;
   z-index: 40;
@@ -1666,7 +1625,7 @@ button {
   border-radius: 50%;
   color: rgba(243, 247, 250, 0.82);
   background:
-    radial-gradient(circle at var(--edge-x, 50%) var(--edge-y, 50%), rgba(142, 197, 255, 0.2), transparent 44%),
+    radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(142, 197, 255, 0.2), transparent 44%),
     rgba(243, 247, 250, 0.06);
   cursor: pointer;
 }

@@ -1014,7 +1014,6 @@ export function App() {
             <img
               src={activePhoto.large}
               alt={`Photography work ${activeIndex + 1}`}
-              className={activePhoto.orientation === "portrait" ? "is-portrait" : "is-landscape"}
             />
             <figcaption>
               <span>Photography Work</span>

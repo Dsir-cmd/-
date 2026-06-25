@@ -1,5 +1,12 @@
 # Codex Worklog
 
+## 2026-06-26 - Code Hygiene Pass
+
+- Goal: inspect the current portfolio code after multiple design iterations and remove obvious stale or invalid frontend leftovers.
+- Cleanup: removed the unused `stage-placeholder` CSS block left from the earlier placeholder section, removed unused lightbox orientation class output, and aligned the Works carousel arrow hover background with the current `edge-glow` pointer variables.
+- Verification: `pnpm run lint` and `pnpm run build` pass; CSS class usage comparison reports no obvious unused class selectors.
+- Note: QA screenshots and asset-preparation scripts under `docs/codex` are intentionally retained as project records and reproducible helper files, not runtime code.
+
 ## 2026-06-26 - Works Modal Gallery Checkpoint
 
 - Goal: save the current Works modal gallery refinement as the daily Git checkpoint.
