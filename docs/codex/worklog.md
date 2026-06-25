@@ -10,6 +10,15 @@
 - Capture workflow: extended the section capture wait after scroll so screenshots are taken after the reveal motion settles instead of mid-animation.
 - Verification: `pnpm run lint` and `pnpm run build` both pass; refreshed `docs/codex/works-reveal-screenshot.png` for visual QA.
 
+## 2026-06-25 - Works Content Pass
+
+- Goal: replace the Works wireframe placeholders with currently available portfolio content and identify missing materials for later supplementation.
+- Material processing: generated contact sheets for commercial shooting and Anker design materials, then exported web-optimized Works assets under `public/portfolio/works`.
+- Works content: updated the six Works entries to Photography Archive, Commercial Shooting, Design Materials, Douyin Content Case, Internship Ops Cases, and Campus Operations.
+- Interaction content: replaced the right preview panel and click detail modal with real cover images, summaries, metrics, process notes, tags, and per-case missing-material notes.
+- Documentation: added `docs/codex/works-materials-gap-list.md` as the running checklist for assets and proof materials still needed from the user.
+- Verification: `pnpm run lint` and `pnpm run build` both pass; captured `docs/codex/works-content-screenshot.png`.
+
 ## 2026-06-24 - Profile Section and Capture Workflow
 
 - Goal: fix Profile page issues identified after the first local preview and make the navigation visible across the whole site.

@@ -25,13 +25,22 @@ type PhotoManifest = {
   items: PhotoItem[];
 };
 
-type WorkPlaceholder = {
+type WorkItem = {
   id: string;
   index: string;
   title: string;
   subtitle: string;
   area: "photo" | "douyin" | "design" | "lseg" | "media" | "growth";
   tone: "blue" | "orange" | "neutral";
+  eyebrow: string;
+  summary: string;
+  cover?: string;
+  coverAlt?: string;
+  metrics: Array<{ value: string; label: string }>;
+  tags: string[];
+  process: string[];
+  missing: string[];
+  gallery?: Array<{ src: string; alt: string }>;
 };
 
 const fallbackHero = "/portfolio/photography/hero/city-night.jpg";
@@ -88,54 +97,141 @@ const profileTimeline = [
 
 const profileTags = ["内容策划", "摄影视觉", "新媒体运营", "设计物料", "AI 工作流"];
 
-const workPlaceholders: WorkPlaceholder[] = [
+const workItems: WorkItem[] = [
   {
     id: "photography",
     index: "01",
-    title: "Photography Works",
-    subtitle: "摄影作品",
+    title: "Photography Archive",
+    subtitle: "摄影作品集",
     area: "photo",
     tone: "blue",
+    eyebrow: "Personal Visual System",
+    summary:
+      "以城市建筑、航拍、舞台与自然光影为主的个人摄影作品。当前已接入网页图库，可从 Hero 滚动图进入大图浏览。",
+    cover: "/portfolio/photography/hero/city-night.jpg",
+    coverAlt: "上海城市夜景摄影作品",
+    metrics: [
+      { value: "173", label: "已接入网页图" },
+      { value: "4", label: "主要视觉题材" },
+      { value: "Lightbox", label: "大图查看" },
+    ],
+    tags: ["摄影视觉", "城市建筑", "航拍", "后期审美"],
+    process: ["筛选个人摄影作品", "压缩生成网页图与缩略图", "建立滚动预览与大图查看逻辑"],
+    missing: ["后续可补充每组摄影作品的主题分组与拍摄说明。"],
+    gallery: [
+      { src: "/portfolio/photography/large/p144.jpg", alt: "摄影作品精选一" },
+      { src: "/portfolio/photography/large/p010.jpg", alt: "摄影作品精选二" },
+      { src: "/portfolio/photography/large/p067.jpg", alt: "摄影作品精选三" },
+    ],
   },
   {
-    id: "douyin",
+    id: "commercial",
     index: "02",
-    title: "Douyin Content Case",
-    subtitle: "抖音内容案例",
+    title: "Commercial Shooting",
+    subtitle: "商业拍摄交付",
     area: "douyin",
     tone: "orange",
+    eyebrow: "Client Delivery",
+    summary:
+      "已整理慕风戏剧定妆照、舞团表演现场、鱼缸造景实拍三类商业/委托拍摄素材，体现从人物、现场到空间细节的拍摄交付能力。",
+    cover: "/portfolio/works/commercial/stage-dance.jpg",
+    coverAlt: "舞团表演现场商业拍摄作品",
+    metrics: [
+      { value: "3", label: "拍摄场景" },
+      { value: "98", label: "原始素材已整理" },
+      { value: "10+", label: "商业拍摄交付" },
+    ],
+    tags: ["客户交付", "舞台现场", "定妆照", "空间造景"],
+    process: ["沟通拍摄需求与场景", "现场拍摄与构图捕捉", "筛选、调色并交付客户可用素材"],
+    missing: ["可补充客户需求 brief、最终交付数量、客户使用场景或授权说明。"],
+    gallery: [
+      { src: "/portfolio/works/commercial/theatre-portrait.jpg", alt: "戏剧定妆照拍摄作品" },
+      { src: "/portfolio/works/commercial/stage-dance.jpg", alt: "舞团表演现场拍摄作品" },
+      { src: "/portfolio/works/commercial/aquarium.jpg", alt: "鱼缸造景实拍作品" },
+    ],
   },
   {
     id: "design",
     index: "03",
     title: "Design Materials",
-    subtitle: "设计物料",
+    subtitle: "设计物料系统",
     area: "design",
     tone: "neutral",
+    eyebrow: "Anker Exhibition Visual",
+    summary:
+      "围绕 Anker Prime 展会场景整理出的物料与空间视觉方案，包含宣传册、展位正视图、咨询台、产品展示与名片等。",
+    cover: "/portfolio/works/design/booth-front.jpg",
+    coverAlt: "Anker 展会展位视觉设计图",
+    metrics: [
+      { value: "15", label: "设计素材" },
+      { value: "Booth", label: "展位视觉" },
+      { value: "Print", label: "宣传物料" },
+    ],
+    tags: ["品牌一致性", "展会物料", "版式设计", "产品展示"],
+    process: ["梳理品牌与产品信息", "制作展位视觉和宣传物料", "统一颜色、字体和信息层级"],
+    missing: ["可补充设计目标、迭代前后对比、物料落地尺寸或真实使用照片。"],
+    gallery: [
+      { src: "/portfolio/works/design/booth-front.jpg", alt: "Anker 展位正视图" },
+      { src: "/portfolio/works/design/brochure-front.jpg", alt: "Anker 产品宣传册正面" },
+      { src: "/portfolio/works/design/booth-detail.jpg", alt: "Anker 咨询台细节图" },
+    ],
   },
   {
-    id: "lseg",
+    id: "douyin",
     index: "04",
-    title: "LSEG Internship",
-    subtitle: "产品与市场支持",
+    title: "Douyin Content Case",
+    subtitle: "抖音内容案例",
     area: "lseg",
     tone: "blue",
+    eyebrow: "Personal Content Account",
+    summary:
+      "个人抖音内容账号是目前最明确的新媒体运营证据，可展示从选题、拍摄、剪辑、发布到数据复盘的完整链路。",
+    metrics: [
+      { value: "121w", label: "单条最高播放" },
+      { value: "8.1w", label: "单条最高获赞" },
+      { value: "5000+", label: "内容收藏" },
+    ],
+    tags: ["内容选题", "短视频剪辑", "数据复盘", "个人账号"],
+    process: ["确定选题与内容表达角度", "完成拍摄剪辑和发布", "通过播放、点赞、收藏数据复盘内容表现"],
+    missing: ["抖音主页链接", "爆款视频截图", "后台数据截图", "选题/脚本/复盘文档。"],
   },
   {
-    id: "media",
+    id: "internship",
     index: "05",
-    title: "Campus Media Operations",
-    subtitle: "融媒体内容运营",
+    title: "Internship Ops Cases",
+    subtitle: "实习项目沉淀",
     area: "media",
     tone: "neutral",
+    eyebrow: "Product & Market Support",
+    summary:
+      "已包含 LSEG 金融市场部与上海欣巴国际市场部两段实习经历，可作为产品资料整理、客户线索、市场资料与 AI 提效能力的运营案例入口。",
+    metrics: [
+      { value: "2", label: "实习经历" },
+      { value: "AI", label: "资料提效" },
+      { value: "Market", label: "市场支持" },
+    ],
+    tags: ["资料沉淀", "客户线索", "产品宣传", "AI 工作流"],
+    process: ["整理金融数据产品场景和客户线索", "参与产品宣传册整改和市场资料归档", "沉淀可复用资料并探索 AI 提效"],
+    missing: ["可公开的脱敏工作样例", "产品资料整理前后对比", "AI 提效流程截图", "业务报表或宣传册修改记录。"],
   },
   {
-    id: "growth",
+    id: "campus",
     index: "06",
-    title: "Campus Growth & Community",
-    subtitle: "校园增长与社群运营",
+    title: "Campus Operations",
+    subtitle: "校园运营案例",
     area: "growth",
     tone: "orange",
+    eyebrow: "Media / Growth / Community",
+    summary:
+      "校园经历可合并展示美团校园大使、爱恩学生会融媒体中心部长、摄影协会社长三条线，体现内容发布、活动宣传、社群触达与资源对接。",
+    metrics: [
+      { value: "100+", label: "公众号推文" },
+      { value: "50+", label: "校园触点" },
+      { value: "15", label: "协同团队" },
+    ],
+    tags: ["校园增长", "融媒体运营", "活动宣传", "社群触达"],
+    process: ["统筹推文、活动宣传和物料制作", "协同团队搭建校园触点和私域社群", "负责摄影社团运营与校园影像输出"],
+    missing: ["公众号推文/H5截图", "活动海报与现场图", "社群运营数据", "摄影协会活动方案或复盘。"],
   },
 ];
 
@@ -222,8 +318,8 @@ export function App() {
   const railPhotos = useMemo(() => [...orderedPhotos, ...orderedPhotos], [orderedPhotos]);
   const activePhoto = activeIndex === null ? null : orderedPhotos[activeIndex];
   const activePhotoNumber = activeIndex === null ? "" : String(activeIndex + 1).padStart(3, "0");
-  const activeWork = activeWorkIndex === null ? null : workPlaceholders[activeWorkIndex];
-  const previewWork = workPlaceholders[previewWorkIndex];
+  const activeWork = activeWorkIndex === null ? null : workItems[activeWorkIndex];
+  const previewWork = workItems[previewWorkIndex];
 
   useEffect(() => {
     setRevealReady(true);
@@ -691,7 +787,7 @@ export function App() {
 
           <div className="works-layout">
             <div className="works-grid" aria-label="Selected works placeholder grid">
-              {workPlaceholders.map((work, index) => (
+              {workItems.map((work, index) => (
                 <button
                   className={`work-card work-card--${work.area} work-card--${work.tone} edge-glow`}
                   key={work.id}
@@ -705,9 +801,13 @@ export function App() {
                   onPointerLeave={clearEdgeGlow}
                   aria-label={`Open ${work.title} detail placeholder`}
                 >
+                  {work.cover ? (
+                    <img className="work-card__cover" src={work.cover} alt="" aria-hidden="true" />
+                  ) : null}
                   <span className="work-card__index">{work.index}</span>
                   <span className="work-card__ghost" aria-hidden="true" />
                   <span className="work-card__body">
+                    <em>{work.eyebrow}</em>
                     <strong>{work.title}</strong>
                     <small>{work.subtitle}</small>
                   </span>
@@ -726,17 +826,26 @@ export function App() {
                 <span>{previewWork.index}</span>
                 <span />
               </div>
-              <div className="works-modal-preview__media" />
+              <div className="works-modal-preview__media">
+                {previewWork.cover ? (
+                  <img src={previewWork.cover} alt={previewWork.coverAlt ?? ""} />
+                ) : (
+                  <div className="works-modal-preview__metric">
+                    <strong>{previewWork.metrics[0]?.value}</strong>
+                    <span>{previewWork.metrics[0]?.label}</span>
+                  </div>
+                )}
+              </div>
               <div className="works-modal-preview__copy">
-                <span>Preview follows hover</span>
+                <span>{previewWork.eyebrow}</span>
                 <strong>{previewWork.title}</strong>
                 <p>{previewWork.subtitle}</p>
-                <p />
+                <p>{previewWork.summary}</p>
               </div>
               <div className="works-modal-preview__chips">
-                <span>Hover</span>
-                <span>Click</span>
-                <span>Detail</span>
+                {previewWork.tags.slice(0, 3).map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
               </div>
             </aside>
           </div>
@@ -803,22 +912,54 @@ export function App() {
           </button>
           <section className="work-detail__panel">
             <div className="work-detail__visual">
-              <span>{activeWork.index}</span>
+              {activeWork.gallery?.length ? (
+                <div className="work-detail__gallery">
+                  {activeWork.gallery.map((item) => (
+                    <img key={item.src} src={item.src} alt={item.alt} />
+                  ))}
+                </div>
+              ) : activeWork.cover ? (
+                <img className="work-detail__hero-image" src={activeWork.cover} alt={activeWork.coverAlt ?? ""} />
+              ) : (
+                <div className="work-detail__metric-focus">
+                  <span>{activeWork.metrics[0]?.value}</span>
+                  <small>{activeWork.metrics[0]?.label}</small>
+                </div>
+              )}
             </div>
             <div className="work-detail__content">
-              <p>Detail Placeholder</p>
+              <p>{activeWork.eyebrow}</p>
               <h3>{activeWork.title}</h3>
               <small>{activeWork.subtitle}</small>
-              <div className="work-detail__lines" aria-hidden="true">
-                <span />
-                <span />
-                <span />
-                <span />
+              <strong className="work-detail__lead">{activeWork.summary}</strong>
+              <div className="work-detail__metrics" aria-label="Case metrics">
+                {activeWork.metrics.map((metric) => (
+                  <div key={`${metric.value}-${metric.label}`}>
+                    <b>{metric.value}</b>
+                    <span>{metric.label}</span>
+                  </div>
+                ))}
               </div>
-              <div className="work-detail__blocks" aria-hidden="true">
-                <span />
-                <span />
-                <span />
+              <div className="work-detail__section">
+                <span>Process</span>
+                <ul>
+                  {activeWork.process.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="work-detail__tags">
+                {activeWork.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </div>
+              <div className="work-detail__missing">
+                <span>待补充资料</span>
+                <ul>
+                  {activeWork.missing.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
               </div>
             </div>
           </section>
