@@ -184,19 +184,19 @@ const workItems: WorkItem[] = [
     id: "internship",
     index: "04",
     title: "Internship Ops Cases",
-    subtitle: "实习项目沉淀",
+    subtitle: "实习经历",
     area: "lseg",
     tone: "neutral",
-    eyebrow: "Product & Market Support",
+    eyebrow: "Company Ops Evidence",
     summary:
-      "已包含 LSEG 金融市场部与上海欣巴国际市场部两段实习经历，可作为产品资料整理、客户线索、市场资料与 AI 提效能力的运营案例入口。",
+      "两段市场部门实习经历，聚焦客户线索、产品资料、业务报表与宣传物料整理，把真实公司环境中的信息处理、市场支持和跨角色协作转化为运营能力证据。",
     metrics: [
-      { value: "2", label: "实习经历" },
+      { value: "2", label: "市场部实习" },
+      { value: "4", label: "信息资产类型" },
       { value: "AI", label: "资料提效" },
-      { value: "Market", label: "市场支持" },
     ],
-    tags: ["资料沉淀", "客户线索", "产品宣传", "AI 工作流"],
-    process: ["整理金融数据产品场景和客户线索", "参与产品宣传册整改和市场资料归档", "沉淀可复用资料并探索 AI 提效"],
+    tags: ["客户线索", "产品资料", "业务报表", "宣传册整改", "AI 提效"],
+    process: ["接收业务和市场侧需求", "拆解客户、产品和资料信息", "整理成可复用的市场支持资产", "通过 AI 与工具提高资料处理效率"],
     missing: ["可公开的脱敏工作样例", "产品资料整理前后对比", "AI 提效流程截图", "业务报表或宣传册修改记录。"],
   },
   {
@@ -241,6 +241,30 @@ const workItems: WorkItem[] = [
 
 const preferredRailStart = [
   144, 10, 67, 156, 1, 140, 158, 24, 94, 103, 55, 121, 148, 57, 161, 124,
+];
+
+const internshipCompanies = [
+  {
+    code: "LSEG",
+    role: "金融市场部实习生",
+    time: "2025.07 - 2025.09",
+    focus: "金融数据产品场景梳理、客户线索整理、资料沉淀与 AI 提效。",
+    opsValue: "把复杂金融产品与客户信息整理成可复用的市场支持资料。",
+  },
+  {
+    code: "Xinba",
+    role: "上海欣巴国际市场部实习生",
+    time: "2024.08 - 2024.09",
+    focus: "客户沟通跟进、产品宣传册整改、业务报表与市场资料整理。",
+    opsValue: "参与产品卖点表达、市场资料更新和客户侧信息同步。",
+  },
+];
+
+const internshipWorkflow = [
+  { title: "需求接收", detail: "理解市场/业务侧需要解决的问题" },
+  { title: "信息拆解", detail: "把客户、产品、资料拆成可执行任务" },
+  { title: "资料整理", detail: "沉淀线索、报表、宣传册等信息资产" },
+  { title: "协作交付", detail: "对齐反馈并支持后续市场动作" },
 ];
 
 function updateEdgeGlow(event: ReactPointerEvent<HTMLElement>) {
@@ -293,6 +317,129 @@ function shuffleGallery(items: WorkGalleryItem[]) {
   }
 
   return shuffled;
+}
+
+function InternshipCardGraphic() {
+  return (
+    <span className="work-card__ops-map" aria-hidden="true">
+      <span className="work-card__ops-count">
+        <b>2</b>
+        <small>Internships</small>
+      </span>
+      <span className="work-card__ops-company">
+        <b>LSEG</b>
+        <b>Xinba</b>
+      </span>
+    </span>
+  );
+}
+
+function InternshipPreviewGraphic() {
+  return (
+    <div className="internship-preview-graphic" aria-hidden="true">
+      <span>Company</span>
+      <div>
+        <b>2</b>
+        <small>市场部实习</small>
+      </div>
+      <ul>
+        <li>客户线索</li>
+        <li>产品资料</li>
+        <li>业务报表</li>
+        <li>AI 提效</li>
+      </ul>
+    </div>
+  );
+}
+
+function InternshipDetailVisual() {
+  return (
+    <div className="internship-detail-visual" aria-label="Internship operations workflow">
+      <div className="internship-detail-visual__header">
+        <span>Company Internship</span>
+        <strong>Market Support Flow</strong>
+      </div>
+      <div className="internship-detail-visual__nodes">
+        {internshipWorkflow.map((step, index) => (
+          <div key={step.title}>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <b>{step.title}</b>
+          </div>
+        ))}
+      </div>
+      <div className="internship-detail-visual__assets">
+        <span>Lead</span>
+        <span>Material</span>
+        <span>Report</span>
+        <span>AI</span>
+      </div>
+    </div>
+  );
+}
+
+function InternshipDetailContent({ activeWork }: { activeWork: WorkItem }) {
+  return (
+    <>
+      <p>{activeWork.eyebrow}</p>
+      <h3>{activeWork.title}</h3>
+      <small>{activeWork.subtitle}</small>
+      <strong className="work-detail__lead">{activeWork.summary}</strong>
+
+      <div className="internship-proof-strip" aria-label="Internship evidence metrics">
+        {activeWork.metrics.map((metric) => (
+          <div key={`${metric.value}-${metric.label}`}>
+            <b>{metric.value}</b>
+            <span>{metric.label}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="internship-detail-block">
+        <span>Company Internship / 公司实习经验</span>
+        <div className="internship-company-list">
+          {internshipCompanies.map((company) => (
+            <article key={company.code}>
+              <div>
+                <b>{company.code}</b>
+                <time>{company.time}</time>
+              </div>
+              <h4>{company.role}</h4>
+              <p>{company.focus}</p>
+              <strong>{company.opsValue}</strong>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div className="internship-detail-block">
+        <span>Ops Workflow / 运营协作方式</span>
+        <div className="internship-workflow-list">
+          {internshipWorkflow.map((step, index) => (
+            <article key={step.title}>
+              <em>{String(index + 1).padStart(2, "0")}</em>
+              <b>{step.title}</b>
+              <p>{step.detail}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div className="work-detail__tags">
+        {activeWork.tags.map((tag) => (
+          <span key={tag}>{tag}</span>
+        ))}
+      </div>
+
+      <div className="work-detail__missing">
+        <span>待补充资料</span>
+        <ul>
+          {activeWork.missing.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </div>
+    </>
+  );
 }
 
 export function App() {
@@ -365,6 +512,7 @@ export function App() {
   const activeWork = activeWorkIndex === null ? null : workItems[activeWorkIndex];
   const previewWork = workItems[previewWorkIndex];
   const activeWorkGallery = activeWorkGalleryOverride ?? activeWork?.gallery ?? [];
+  const hasOpenOverlay = activeIndex !== null || activeWorkIndex !== null;
 
   useEffect(() => {
     setRevealReady(true);
@@ -399,6 +547,26 @@ export function App() {
 
     return () => scopeObserver.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (!hasOpenOverlay) {
+      return;
+    }
+
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    const previousOverscroll = document.documentElement.style.overscrollBehavior;
+
+    document.documentElement.style.overflow = "hidden";
+    document.documentElement.style.overscrollBehavior = "none";
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      document.documentElement.style.overscrollBehavior = previousOverscroll;
+      document.body.style.overflow = previousBodyOverflow;
+    };
+  }, [hasOpenOverlay]);
 
   useEffect(() => {
     const rail = railRef.current;
@@ -934,16 +1102,17 @@ export function App() {
                   onPointerMove={updateEdgeGlow}
                   onPointerEnter={() => setPreviewWorkIndex(index)}
                   onPointerLeave={clearEdgeGlow}
-                  aria-label={`Open ${work.title} detail placeholder`}
+                  aria-label={`Open ${work.title} detail`}
                 >
                   {work.cover ? (
                     <img className="work-card__cover" src={work.cover} alt="" aria-hidden="true" />
-                  ) : null}
-                  <span className="work-card__index">{work.index}</span>
-                  <span className="work-card__ghost" aria-hidden="true" />
-                  <span className="work-card__body">
-                    <em>{work.eyebrow}</em>
-                    <strong>{work.title}</strong>
+                    ) : null}
+                    <span className="work-card__index">{work.index}</span>
+                    <span className="work-card__ghost" aria-hidden="true" />
+                    {work.id === "internship" ? <InternshipCardGraphic /> : null}
+                    <span className="work-card__body">
+                      <em>{work.eyebrow}</em>
+                      <strong>{work.title}</strong>
                     <small>{work.subtitle}</small>
                   </span>
                   <span className="work-card__corner" aria-hidden="true">↗</span>
@@ -960,12 +1129,14 @@ export function App() {
               <div className="works-modal-preview__bar">
                 <span>{previewWork.index}</span>
                 <span />
-              </div>
-              <div className="works-modal-preview__media">
-                {previewWork.cover ? (
-                  <img src={previewWork.cover} alt={previewWork.coverAlt ?? ""} />
-                ) : (
-                  <div className="works-modal-preview__metric">
+                </div>
+                <div className="works-modal-preview__media">
+                  {previewWork.id === "internship" ? (
+                    <InternshipPreviewGraphic />
+                  ) : previewWork.cover ? (
+                    <img src={previewWork.cover} alt={previewWork.coverAlt ?? ""} />
+                  ) : (
+                    <div className="works-modal-preview__metric">
                     <strong>{previewWork.metrics[0]?.value}</strong>
                     <span>{previewWork.metrics[0]?.label}</span>
                   </div>
@@ -1035,7 +1206,7 @@ export function App() {
       ) : null}
 
       {activeWork && activeWorkIndex !== null ? (
-        <div className="work-detail" role="dialog" aria-modal="true" aria-label="Works detail placeholder">
+        <div className="work-detail" role="dialog" aria-modal="true" aria-label="Works detail">
           <button
             className="work-detail__close"
             type="button"
@@ -1043,13 +1214,15 @@ export function App() {
               setActiveWorkGalleryOverride(null);
               setActiveWorkIndex(null);
             }}
-            aria-label="Close works detail placeholder"
+            aria-label="Close works detail"
           >
             <X size={24} aria-hidden="true" />
           </button>
-          <section className="work-detail__panel">
+          <section className={`work-detail__panel ${activeWork.id === "internship" ? "work-detail__panel--internship" : ""}`}>
             <div className="work-detail__visual">
-              {activeWorkGallery.length ? (
+              {activeWork.id === "internship" ? (
+                <InternshipDetailVisual />
+              ) : activeWorkGallery.length ? (
                 <div className="work-detail__carousel" aria-label={`${activeWork.title} image gallery`}>
                   <div className="work-detail__track" style={{ "--slide": activeWorkSlide } as CSSProperties}>
                     {activeWorkGallery.map((item) => (
@@ -1111,39 +1284,45 @@ export function App() {
               )}
             </div>
             <div className="work-detail__content">
-              <p>{activeWork.eyebrow}</p>
-              <h3>{activeWork.title}</h3>
-              <small>{activeWork.subtitle}</small>
-              <strong className="work-detail__lead">{activeWork.summary}</strong>
-              <div className="work-detail__metrics" aria-label="Case metrics">
-                {activeWork.metrics.map((metric) => (
-                  <div key={`${metric.value}-${metric.label}`}>
-                    <b>{metric.value}</b>
-                    <span>{metric.label}</span>
+              {activeWork.id === "internship" ? (
+                <InternshipDetailContent activeWork={activeWork} />
+              ) : (
+                <>
+                  <p>{activeWork.eyebrow}</p>
+                  <h3>{activeWork.title}</h3>
+                  <small>{activeWork.subtitle}</small>
+                  <strong className="work-detail__lead">{activeWork.summary}</strong>
+                  <div className="work-detail__metrics" aria-label="Case metrics">
+                    {activeWork.metrics.map((metric) => (
+                      <div key={`${metric.value}-${metric.label}`}>
+                        <b>{metric.value}</b>
+                        <span>{metric.label}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-              <div className="work-detail__section">
-                <span>Process</span>
-                <ul>
-                  {activeWork.process.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className="work-detail__tags">
-                {activeWork.tags.map((tag) => (
-                  <span key={tag}>{tag}</span>
-                ))}
-              </div>
-              <div className="work-detail__missing">
-                <span>待补充资料</span>
-                <ul>
-                  {activeWork.missing.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
+                  <div className="work-detail__section">
+                    <span>Process</span>
+                    <ul>
+                      {activeWork.process.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="work-detail__tags">
+                    {activeWork.tags.map((tag) => (
+                      <span key={tag}>{tag}</span>
+                    ))}
+                  </div>
+                  <div className="work-detail__missing">
+                    <span>待补充资料</span>
+                    <ul>
+                      {activeWork.missing.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </>
+              )}
             </div>
           </section>
         </div>

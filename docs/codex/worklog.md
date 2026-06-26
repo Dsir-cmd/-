@@ -1,5 +1,22 @@
 # Codex Worklog
 
+## 2026-06-26 - Internship Ops Case Design
+
+- Goal: redesign Works card 04 as an internship-focused operations case without image-gallery framing, strictly using the two company internship experiences.
+- Change: rewrote the 04 case copy toward company operations evidence, added a compact card-level operations diagram, and replaced the default no-image modal treatment with a dedicated internship detail layout.
+- Detail layout: split the modal into a company internship block for LSEG and Shanghai Xinba, a visible `2 / 4 / AI` evidence strip, and an operations workflow block covering demand intake, information breakdown, material organization, and collaborative delivery.
+- Card refinement: simplified the parent 04 card from a crowded process mini-map into a compact `2 Internships / LSEG / Xinba` evidence badge, changed the Chinese subtitle to `实习经历`, and removed cramped micro-labels from the small-card viewport.
+- Card layout fix: changed the 04 badge into a right-edge glass information column that spans the full card height, separating it from the title text and eliminating the previous cropped/empty top-right composition.
+- Modal interaction fix: locked background page scrolling while either the Works detail modal or photography lightbox is open, preserving the original scroll position after close; revised the lock to avoid fixed-body top jumps so closing a modal no longer visually returns to Hero before settling back on Works.
+- Verification: `pnpm run lint` and `pnpm run build` pass; captured `docs/codex/internship-works-card-check.png` and `docs/codex/internship-modal-check.png` for visual QA.
+
+## 2026-06-26 - Works Preview Panel Stability
+
+- Goal: fix the right-side Works preview panel changing size when hovering cards 02/03.
+- Change: locked the Works parent layout to a shared wall height, gave the right preview card a fixed internal grid, and constrained preview copy with line clamping so longer titles/summaries no longer resize the card.
+- Verification: `pnpm run lint` and `pnpm run build` pass; captured `docs/codex/works-preview-fixed-check.png` for visual QA.
+- Follow-up: regenerated the card-02 red dance cover with a tighter source-image crop, reducing empty black stage above the fabric while keeping the dancer and red cloth intact.
+
 ## 2026-06-26 - Works Parent Card Cover Update
 
 - Goal: replace the parent Works cards 01-03 with stronger source-image covers from the user's material folder rather than clipboard screenshots.
