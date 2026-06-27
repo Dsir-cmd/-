@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1040" viewBox="0 0 1700 1040" role="img" aria-labelledby="title desc">
+  <title id="title">Strengths section layout reference v2</title>
+  <desc id="desc">A quiet card-only Core Strengths section mockup with generous whitespace and no live preview panel.</desc>
+  <defs>
+    <radialGradient id="washBlue" cx="22%" cy="18%" r="52%">
+      <stop offset="0%" stop-color="#8EC5FF" stop-opacity="0.14"/>
+      <stop offset="58%" stop-color="#8EC5FF" stop-opacity="0.035"/>
+      <stop offset="100%" stop-color="#8EC5FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="washOrange" cx="82%" cy="78%" r="42%">
+      <stop offset="0%" stop-color="#F2A65A" stop-opacity="0.11"/>
+      <stop offset="62%" stop-color="#F2A65A" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#F2A65A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="cardBase" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#101923"/>
+      <stop offset="100%" stop-color="#080D13"/>
+    </linearGradient>
+    <linearGradient id="cardBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#132236"/>
+      <stop offset="100%" stop-color="#080D13"/>
+    </linearGradient>
+    <linearGradient id="cardOrange" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#211814"/>
+      <stop offset="100%" stop-color="#080D13"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-18%" y="-18%" width="136%" height="136%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000000" flood-opacity="0.24"/>
+    </filter>
+    <style>
+      .bg { fill: #05070A; }
+      .text { fill: #F3F7FA; font-family: "Segoe UI", "Microsoft YaHei", Arial, sans-serif; }
+      .muted { fill: #9AA7B3; font-family: "Segoe UI", "Microsoft YaHei", Arial, sans-serif; }
+      .blue { fill: #8EC5FF; }
+      .orange { fill: #F2A65A; }
+      .line { stroke: rgba(180, 200, 220, 0.16); stroke-width: 1; }
+      .card { stroke: rgba(180, 200, 220, 0.17); stroke-width: 1.2; filter: url(#cardShadow); }
+      .label { font-size: 14px; font-weight: 760; letter-spacing: 1.2px; text-transform: uppercase; }
+      .h1 { font-size: 82px; font-weight: 860; letter-spacing: 0; }
+      .h2 { font-size: 38px; font-weight: 800; letter-spacing: 0; }
+      .cn { font-size: 21px; font-weight: 620; }
+      .note { font-size: 17px; line-height: 1.6; }
+      .index { font-size: 15px; font-weight: 780; }
+      .watermark { fill: #F3F7FA; opacity: 0.026; font-size: 220px; font-weight: 900; letter-spacing: 0; }
+      .huge { font-size: 160px; font-weight: 900; opacity: 0.12; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1700" height="1040"/>
+  <rect width="1700" height="1040" fill="url(#washBlue)"/>
+  <rect width="1700" height="1040" fill="url(#washOrange)"/>
+  <text class="watermark" x="698" y="992">CAPABILITY</text>
+
+  <g transform="translate(78 82)">
+    <text class="blue label" x="0" y="0">Strengths / 个人优势</text>
+    <text class="text h1" x="0" y="92">CORE STRENGTHS</text>
+    <text class="muted" x="0" y="138" font-family="Segoe UI, Microsoft YaHei, Arial, sans-serif" font-size="27">让招聘方先看到能力结构，再进入弹窗查看证据</text>
+    <text class="muted label" x="1220" y="72">Tap card / Open proof</text>
+  </g>
+
+  <g transform="translate(78 248)">
+    <rect class="card" x="0" y="0" width="548" height="402" rx="18" fill="url(#cardBlue)"/>
+    <text class="blue index" x="34" y="48">01</text>
+    <text class="text h2" x="34" y="332">Content Planning</text>
+    <text class="muted cn" x="34" y="368">内容策划与传播</text>
+    <path d="M346 86 C418 70 484 112 486 178 C488 254 414 286 344 248 C278 212 276 112 346 86Z" fill="rgba(142,197,255,0.08)" stroke="rgba(142,197,255,0.18)"/>
+    <path d="M382 126 L438 178 L382 230" fill="none" stroke="#8EC5FF" stroke-opacity="0.42" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <rect class="card" x="588" y="0" width="384" height="402" rx="18" fill="url(#cardBase)"/>
+    <text class="blue index" x="622" y="48">02</text>
+    <text class="text h2" x="622" y="310">Photography</text>
+    <text class="muted cn" x="622" y="346">摄影视觉表达</text>
+    <circle cx="788" cy="152" r="82" fill="rgba(142,197,255,0.07)" stroke="rgba(142,197,255,0.16)"/>
+    <circle cx="788" cy="152" r="35" fill="none" stroke="#8EC5FF" stroke-opacity="0.32" stroke-width="10"/>
+
+    <rect class="card" x="1012" y="0" width="422" height="402" rx="18" fill="url(#cardOrange)"/>
+    <text class="orange index" x="1046" y="48">03</text>
+    <text class="text h2" x="1046" y="310">Brand Presentation</text>
+    <text class="muted cn" x="1046" y="346">设计物料与品牌呈现</text>
+    <g opacity="0.92">
+      <rect x="1150" y="92" width="128" height="166" rx="10" fill="rgba(242,166,90,0.08)" stroke="rgba(242,166,90,0.22)"/>
+      <line x1="1174" y1="132" x2="1254" y2="132" stroke="#F2A65A" stroke-opacity="0.38" stroke-width="8" stroke-linecap="round"/>
+      <line x1="1174" y1="172" x2="1236" y2="172" stroke="#F2A65A" stroke-opacity="0.26" stroke-width="8" stroke-linecap="round"/>
+      <line x1="1174" y1="212" x2="1250" y2="212" stroke="#F2A65A" stroke-opacity="0.26" stroke-width="8" stroke-linecap="round"/>
+    </g>
+
+    <rect class="card" x="0" y="446" width="698" height="302" rx="18" fill="url(#cardOrange)"/>
+    <text class="orange index" x="34" y="494">04</text>
+    <text class="text h2" x="34" y="640">Market Operations</text>
+    <text class="muted cn" x="34" y="676">市场运营与社群触达</text>
+    <path d="M462 526 H590 M526 462 V590" stroke="#F2A65A" stroke-opacity="0.22" stroke-width="20" stroke-linecap="round"/>
+    <circle cx="462" cy="526" r="23" fill="rgba(242,166,90,0.18)"/>
+    <circle cx="590" cy="526" r="23" fill="rgba(242,166,90,0.18)"/>
+    <circle cx="526" cy="462" r="23" fill="rgba(242,166,90,0.18)"/>
+    <circle cx="526" cy="590" r="23" fill="rgba(242,166,90,0.18)"/>
+
+    <rect class="card" x="738" y="446" width="696" height="302" rx="18" fill="url(#cardBlue)"/>
+    <text class="blue index" x="772" y="494">05</text>
+    <text class="text h2" x="772" y="640">AI &amp; Data Productivity</text>
+    <text class="muted cn" x="772" y="676">AI 与数据提效</text>
+    <text class="blue huge" x="1192" y="594" font-family="Segoe UI, Arial, sans-serif">AI</text>
+  </g>
+
+  <g transform="translate(78 946)">
+    <line class="line" x1="0" y1="0" x2="1544" y2="0"/>
+    <text class="muted note" x="0" y="42">Homepage only shows spacious capability entry cards. Evidence, metrics, related Works, and detailed proof move into the modal.</text>
+  </g>
+</svg>

@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1040" viewBox="0 0 1700 1040" role="img" aria-labelledby="title desc">
+  <title id="title">Strengths section layout reference</title>
+  <desc id="desc">A dark portfolio section mockup for Core Strengths, showing a left proof panel and five capability cards.</desc>
+  <defs>
+    <radialGradient id="blueGlow" cx="17%" cy="18%" r="54%">
+      <stop offset="0%" stop-color="#8EC5FF" stop-opacity="0.18"/>
+      <stop offset="54%" stop-color="#8EC5FF" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#8EC5FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orangeGlow" cx="86%" cy="74%" r="46%">
+      <stop offset="0%" stop-color="#F2A65A" stop-opacity="0.14"/>
+      <stop offset="62%" stop-color="#F2A65A" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#F2A65A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="surface" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#111821"/>
+      <stop offset="100%" stop-color="#090E14"/>
+    </linearGradient>
+    <linearGradient id="cardBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#142235"/>
+      <stop offset="100%" stop-color="#0A1017"/>
+    </linearGradient>
+    <linearGradient id="cardOrange" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#201913"/>
+      <stop offset="100%" stop-color="#0A1017"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+    <style>
+      .bg { fill: #05070A; }
+      .text { fill: #F3F7FA; font-family: "Segoe UI", "Microsoft YaHei", Arial, sans-serif; }
+      .muted { fill: #9AA7B3; font-family: "Segoe UI", "Microsoft YaHei", Arial, sans-serif; }
+      .blue { fill: #8EC5FF; }
+      .orange { fill: #F2A65A; }
+      .line { stroke: rgba(180, 200, 220, 0.18); }
+      .panel { fill: url(#surface); stroke: rgba(180, 200, 220, 0.18); stroke-width: 1.2; }
+      .card { stroke: rgba(180, 200, 220, 0.18); stroke-width: 1.2; filter: url(#softShadow); }
+      .label { font-size: 15px; font-weight: 760; letter-spacing: 1.2px; text-transform: uppercase; }
+      .h1 { font-size: 78px; font-weight: 860; letter-spacing: 0; }
+      .h2 { font-size: 34px; font-weight: 760; }
+      .body { font-size: 19px; line-height: 1.58; }
+      .small { font-size: 15px; }
+      .tiny { font-size: 13px; font-weight: 680; }
+      .metric { font-size: 44px; font-weight: 840; }
+      .ghost { fill: #F3F7FA; opacity: 0.025; font-size: 210px; font-weight: 900; letter-spacing: 0; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1700" height="1040"/>
+  <rect width="1700" height="1040" fill="url(#blueGlow)"/>
+  <rect width="1700" height="1040" fill="url(#orangeGlow)"/>
+
+  <text class="ghost" x="905" y="995">STRENGTHS</text>
+
+  <g transform="translate(78 78)">
+    <text class="blue label" x="0" y="0">Strengths / 个人优势</text>
+    <g transform="translate(0 34)">
+      <text class="text h1" x="0" y="62">CORE</text>
+      <text class="text h1" x="214" y="62">STRENGTHS</text>
+      <text class="blue" x="670" y="56" font-family="Segoe UI, Arial, sans-serif" font-size="44" font-weight="700">↘</text>
+      <text class="muted" x="0" y="108" font-family="Segoe UI, Microsoft YaHei, Arial, sans-serif" font-size="27">把内容、视觉与运营落到可验证结果</text>
+    </g>
+    <text class="muted label" x="1212" y="96">Capability / Proof / Transfer</text>
+  </g>
+
+  <g transform="translate(78 240)">
+    <rect class="panel" x="0" y="0" width="495" height="690" rx="18"/>
+    <line class="line" x1="32" y1="128" x2="463" y2="128"/>
+    <line class="line" x1="32" y1="454" x2="463" y2="454"/>
+
+    <text class="blue label" x="32" y="48">Selected Capability</text>
+    <text class="text" x="32" y="96" font-family="Segoe UI, Microsoft YaHei, Arial, sans-serif" font-size="46" font-weight="830">01</text>
+    <text class="text h2" x="104" y="88">内容策划与传播</text>
+    <text class="muted body" x="32" y="168">用选题、视觉表达、发布节奏和数据复盘，</text>
+    <text class="muted body" x="32" y="202">把内容从“作品”推进到“可传播结果”。</text>
+
+    <g transform="translate(32 254)">
+      <text class="blue metric" x="0" y="0">121w</text>
+      <text class="muted small" x="0" y="30">抖音单条最高播放</text>
+      <text class="orange metric" x="172" y="0">8.1w</text>
+      <text class="muted small" x="172" y="30">单条最高获赞</text>
+      <text class="blue metric" x="334" y="0">100+</text>
+      <text class="muted small" x="334" y="30">公众号推文</text>
+    </g>
+
+    <g transform="translate(32 502)">
+      <text class="orange label" x="0" y="0">Modal Content</text>
+      <text class="text small" x="0" y="42">能力定义</text>
+      <text class="muted small" x="132" y="42">解决什么问题</text>
+      <text class="text small" x="0" y="84">证据数据</text>
+      <text class="muted small" x="132" y="84">数字与经历支撑</text>
+      <text class="text small" x="0" y="126">代表案例</text>
+      <text class="muted small" x="132" y="126">关联 Works 项目</text>
+    </g>
+  </g>
+
+  <g transform="translate(620 240)">
+    <rect class="card" x="0" y="0" width="452" height="324" rx="18" fill="url(#cardBlue)"/>
+    <text class="blue tiny" x="30" y="44">01 / CONTENT</text>
+    <text class="text h2" x="30" y="94">Content Planning</text>
+    <text class="text h2" x="30" y="134">&amp; Distribution</text>
+    <text class="muted small" x="30" y="176">内容策划与传播</text>
+    <text class="muted small" x="30" y="220">选题、拍摄、剪辑、发布、复盘的完整链路。</text>
+    <rect x="30" y="262" width="82" height="32" rx="16" fill="rgba(142,197,255,0.10)" stroke="rgba(142,197,255,0.22)"/>
+    <text class="blue tiny" x="52" y="283">121w</text>
+    <rect x="122" y="262" width="74" height="32" rx="16" fill="rgba(142,197,255,0.10)" stroke="rgba(142,197,255,0.22)"/>
+    <text class="blue tiny" x="145" y="283">8.1w</text>
+    <rect x="206" y="262" width="106" height="32" rx="16" fill="rgba(142,197,255,0.10)" stroke="rgba(142,197,255,0.22)"/>
+    <text class="blue tiny" x="229" y="283">Douyin</text>
+
+    <rect class="card" x="484" y="0" width="452" height="324" rx="18" fill="url(#cardBlue)"/>
+    <text class="blue tiny" x="514" y="44">02 / VISUAL</text>
+    <text class="text h2" x="514" y="94">Photography</text>
+    <text class="text h2" x="514" y="134">&amp; Storytelling</text>
+    <text class="muted small" x="514" y="176">摄影视觉表达</text>
+    <text class="muted small" x="514" y="220">从构图、场景到交付，形成稳定视觉产出。</text>
+    <circle cx="848" cy="78" r="52" fill="rgba(142,197,255,0.10)" stroke="rgba(142,197,255,0.24)"/>
+    <text class="blue" x="819" y="88" font-family="Segoe UI, Arial, sans-serif" font-size="31" font-weight="820">10+</text>
+
+    <rect class="card" x="0" y="356" width="298" height="282" rx="18" fill="#0B1118"/>
+    <text class="orange tiny" x="28" y="44">03 / BRAND</text>
+    <text class="text" x="28" y="92" font-family="Segoe UI, Microsoft YaHei, Arial, sans-serif" font-size="30" font-weight="780">Design Materials</text>
+    <text class="muted small" x="28" y="134">设计物料与品牌呈现</text>
+    <text class="muted small" x="28" y="184">宣传册、展位、产品展示</text>
+    <text class="muted small" x="28" y="214">统一信息层级与视觉表达。</text>
+
+    <rect class="card" x="330" y="356" width="298" height="282" rx="18" fill="url(#cardOrange)"/>
+    <text class="orange tiny" x="358" y="44">04 / MARKET OPS</text>
+    <text class="text" x="358" y="92" font-family="Segoe UI, Microsoft YaHei, Arial, sans-serif" font-size="30" font-weight="780">Market Ops</text>
+    <text class="muted small" x="358" y="134">市场运营与社群触达</text>
+    <text class="muted small" x="358" y="184">实习线索、活动触点、</text>
+    <text class="muted small" x="358" y="214">团队协同与私域沉淀。</text>
+
+    <rect class="card" x="660" y="356" width="276" height="282" rx="18" fill="#0B1118"/>
+    <text class="blue tiny" x="688" y="44">05 / AI DATA</text>
+    <text class="text" x="688" y="92" font-family="Segoe UI, Microsoft YaHei, Arial, sans-serif" font-size="30" font-weight="780">AI &amp; Data</text>
+    <text class="muted small" x="688" y="134">AI 与数据提效</text>
+    <text class="muted small" x="688" y="184">资料分类、字段归纳、</text>
+    <text class="muted small" x="688" y="214">把信息变成可复用资产。</text>
+  </g>
+
+  <g transform="translate(1228 606)">
+    <line class="line" x1="0" y1="0" x2="372" y2="0"/>
+    <text class="muted label" x="0" y="42">Interaction Note</text>
+    <text class="muted small" x="0" y="84">Hover card: left proof panel switches content.</text>
+    <text class="muted small" x="0" y="116">Click card: open Strength detail modal.</text>
+    <text class="muted small" x="0" y="148">Each modal links back to related Works.</text>
+  </g>
+</svg>

@@ -1,5 +1,64 @@
 # Codex Worklog
 
+## 2026-06-27 - Top Navigation Centering
+
+- Goal: respond to browser feedback that the three center navigation links should be centered relative to the full navigation bar.
+- Change: changed the fixed nav shell from a three-column grid to a space-between flex shell, then absolutely centered `.nav-links` at the shell's 50% point so the left brand mark and right contact button no longer offset the center group.
+- Navigation compression: removed the Chinese sublabels from the three center nav links and reduced the nav shell, brand capsule, center link, and contact button heights/font sizes so the fixed header feels flatter.
+- 16:9 viewport pass: added a 1200px desktop canvas floor for narrow windows, enabling horizontal scrolling below that width instead of crushing the portfolio grid; added short-height rules for Hero, Works, and Strengths so 1366x768 screens avoid navigation overlap and keep the key card layouts visible.
+- Hero/Profile scroll snap: refined the wheel snap behavior into a two-step return. Upward scrolling from inside the Profile intro now first snaps to the Profile top, then a later upward input returns to Hero; a 420ms lockout filters wheel/touchpad inertia so one large input does not immediately jump past the Profile title.
+- Scroll snap stability: prevented native wheel scrolling while the Hero/Profile snap animation is already running inside the snap zone, so large first wheel inputs cannot leave the page stuck between the two sections.
+- Scope rollback: briefly explored applying the same section-boundary snap pattern to all main sections, then reverted it after deciding that lower sections should use normal browser scrolling; the retained snap behavior is only between Hero and Profile.
+- Verification: `pnpm run lint` and `pnpm run build` pass; refreshed `docs/codex/strengths-section-check.png` for visual QA.
+
+## 2026-06-27 - Contact Footer Compression
+
+- Goal: shorten the Contact end-cap so the footer feels attached to the bottom of the final viewport instead of becoming a tall separate block.
+- Change: converted the Contact section to a vertical flex layout, aligned the footer to the bottom, reduced the `CONTACT` watermark to the same sizing rule as the Strengths watermark, and layered the footer text over the lower half of the watermark.
+- Capture workflow: added optional width/height arguments to `docs/codex/capture-section.cjs` and captured `docs/codex/contact-section-check-1328x911.png` to match the in-app browser's approximate viewport.
+- QR polish: rebuilt the Douyin QR asset on top of a complete blue/white circular base and inset the original code slightly, so the displayed QR reads as a full circle instead of appearing clipped at the bottom edge.
+- Hero CTA fix: changed the Hero `Contact / 联系我` button from a direct `mailto:` link to `#contact`, keeping email actions inside the Contact section.
+- Contact copy: changed the secondary Contact action label from `打开抖音` to `抖音主页`.
+- Email copy interaction: changed the primary Contact action into a clipboard-copy button that copies `zj2020dq@163.com` and shows a centered `邮箱已复制` toast with a short fade-in/fade-out animation.
+- Verification: `pnpm run lint` and `pnpm run build` pass.
+
+## 2026-06-27 - Contact Section Planning
+
+- Goal: plan the final Contact section before implementation.
+- Direction: use a sparse full-viewport close with a large left headline and compact right contact panel, following the supplied reference's composition while preserving the current portfolio's dark blue visual system.
+- Content: exclude phone number; include email and the supplied Douyin link `https://v.douyin.com/kUAKI4nSODo/`.
+- Design artifact: added `docs/codex/contact-layout-reference.svg` as the initial vector layout reference.
+- Preview fix: escaped the SVG ampersand entity and exported `docs/codex/contact-layout-reference.png` so the Contact reference can be viewed reliably in the app.
+- QR refinement: processed the supplied Douyin circular QR into `docs/codex/douyin-qr-blue-solid.png`, cropping out the poster background and recoloring the purple code marks to a scan-safe portfolio blue. Updated the Contact reference so email and WeChat stay as rows, while the circular QR becomes the card's visual center.
+- Implementation: copied the processed QR to `public/portfolio/contact/douyin-qr-blue-solid.png`, implemented the final `Contact / 联系我` section with email, WeChat `Dsir2024`, Douyin QR, mail/Douyin actions, a back-to-start button, and a production-style footer close.
+- Verification: `pnpm run lint` and `pnpm run build` pass; captured `docs/codex/contact-section-check.png` for visual QA.
+- Navigation refinement: removed the duplicate center `Contact / 联系我` nav item and changed the right-side `联系我` capsule to jump to `#contact`; email actions remain inside the Contact section.
+- Contact polish: regenerated the Douyin QR crop with more transparent padding so the circular code is no longer clipped, removed the small caption under the QR, and reduced the contact card's forced height and vertical spacing so it balances better with the left headline.
+
+## 2026-06-27 - Strengths Section Implementation
+
+- Goal: implement the Strengths section using the approved v3 direction.
+- Change: added a real `Strengths / 个人优势` page section after Works with five spacious card-only capability entries, avoiding the Works live-preview interaction pattern.
+- Interaction: added a dedicated Strengths detail modal so the landing cards stay low-density while metrics, evidence, and related Works move into the popup.
+- Visual direction: used dark professional cards, one restrained light-blue highlight card, and abstract glass/geometry marks inspired by the supplied reference without copying its neon-green palette.
+- Modal visual alignment: adjusted the fifth Strengths detail modal's `flow` visual to use bottom-based positioning inside the enlarged modal art area, matching the lower placement used by the other Strengths modal visuals.
+- Layout refinement: rebalanced the Strengths page density so all five cards fit in the first viewport while the section still reads as a full page; added the blue `Strengths / 个人优势` kicker above the heading to match Profile and Works.
+- Verification: `pnpm run lint` and `pnpm run build` pass; captured `docs/codex/strengths-section-check.png` and `docs/codex/strengths-modal-check.png` for visual QA.
+
+## 2026-06-27 - Strengths Section Planning
+
+- Goal: plan the Strengths section before implementation.
+- Direction: treat Strengths as a capability evidence system rather than a generic skills list, with five clickable strengths tied to metrics, experiences, and related Works.
+- Design artifact: added `docs/codex/strengths-layout-reference.svg` as a vector layout reference with a left proof panel, five capability cards, and modal interaction notes.
+- Revision: added `docs/codex/strengths-layout-reference-v2.svg` after feedback to avoid repeating the Works live-preview interaction. The v2 direction uses spacious card-only entries on the page and moves evidence, metrics, and related Works into the modal.
+- Visual reference revision: added `docs/codex/strengths-layout-reference-v3.svg`, responding to the supplied reference screenshot by reducing page density, removing explanatory card copy from the landing view, using quieter abstract glass/geometry marks, and changing the heading subtitle to `个人优势`.
+
+## 2026-06-27 - Works Card Browser Feedback
+
+- Goal: respond to the browser comment on Works card 04.
+- Change: updated the card 04 Chinese subtitle from `实习经历` to `市场运营经历`, affecting the card, preview panel, and detail modal because they share the same `workItems` data source.
+- Verification: `pnpm run build` and `pnpm run lint` pass.
+
 ## 2026-06-26 - Internship Ops Case Design
 
 - Goal: redesign Works card 04 as an internship-focused operations case without image-gallery framing, strictly using the two company internship experiences.

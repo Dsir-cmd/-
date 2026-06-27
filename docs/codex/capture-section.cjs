@@ -7,6 +7,8 @@ const path = require("path");
 const section = process.argv[2] || "profile";
 const output =
   process.argv[3] || path.resolve("docs", "codex", `${section}-screenshot.png`);
+const viewportWidth = Number.parseInt(process.argv[4] || "1600", 10);
+const viewportHeight = Number.parseInt(process.argv[5] || "1200", 10);
 const port = 9400 + Math.floor(Math.random() * 1000);
 const userData = path.join(os.tmpdir(), `codex-capture-${Date.now()}-${port}`);
 const chromePath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
@@ -90,7 +92,7 @@ async function main() {
   await send("Runtime.enable", {}, sessionId);
   await send(
     "Emulation.setDeviceMetricsOverride",
-    { width: 1600, height: 1200, deviceScaleFactor: 1, mobile: false },
+    { width: viewportWidth, height: viewportHeight, deviceScaleFactor: 1, mobile: false },
     sessionId,
   );
 

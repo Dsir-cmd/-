@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { ArrowDown, ChevronLeft, ChevronRight, Mail, X } from "lucide-react";
+import { ArrowDown, ArrowUp, ChevronLeft, ChevronRight, ExternalLink, Mail, X } from "lucide-react";
 
 type PhotoItem = {
   id: string;
@@ -43,18 +43,33 @@ type WorkItem = {
   gallery?: Array<{ src: string; alt: string; displayMode?: "contain-blur" | "cover" }>;
 };
 
+type StrengthItem = {
+  id: string;
+  index: string;
+  title: string;
+  english: string;
+  category: "core" | "system";
+  tone: "dark" | "blue" | "light";
+  visual: "spark" | "lens" | "orbit" | "stack" | "flow";
+  summary: string;
+  metrics: Array<{ value: string; label: string }>;
+  evidence: string[];
+  relatedWorks: string[];
+};
+
 type WorkGalleryItem = NonNullable<WorkItem["gallery"]>[number];
 
 type WorkGalleryManifest = Record<"01" | "02" | "03", WorkGalleryItem[]>;
 
 const fallbackHero = "/portfolio/photography/hero/city-night.jpg";
 const email = "zj2020dq@163.com";
+const wechat = "Dsir2024";
+const douyinUrl = "https://v.douyin.com/kUAKI4nSODo/";
 
 const navItems = [
   { label: "Profile", subLabel: "关于我", href: "#profile" },
   { label: "Works", subLabel: "精选项目", href: "#works" },
   { label: "Strengths", subLabel: "个人优势", href: "#strengths" },
-  { label: "Contact", subLabel: "联系我", href: "#contact" },
 ];
 
 const profileStats = [
@@ -100,6 +115,94 @@ const profileTimeline = [
 ];
 
 const profileTags = ["内容策划", "摄影视觉", "新媒体运营", "设计物料", "AI 工作流"];
+
+const strengthItems: StrengthItem[] = [
+  {
+    id: "content-strategy",
+    index: "01",
+    title: "内容策略主导力",
+    english: "Content Strategy",
+    category: "core",
+    tone: "dark",
+    visual: "spark",
+    summary: "能从选题、表达、发布节奏和数据反馈出发，把内容从单次创作推进为可复用的传播方法。",
+    metrics: [
+      { value: "121w", label: "抖音单条最高播放" },
+      { value: "8.1w", label: "单条最高获赞" },
+      { value: "100+", label: "公众号推文" },
+    ],
+    evidence: ["个人抖音内容账号", "学生会融媒体中心内容统筹", "活动宣传与图文排版"],
+    relatedWorks: ["Douyin Content Case", "Campus Operations"],
+  },
+  {
+    id: "visual-storytelling",
+    index: "02",
+    title: "摄影视觉表达",
+    english: "Visual Storytelling",
+    category: "core",
+    tone: "dark",
+    visual: "lens",
+    summary: "能用构图、光影、现场观察和后期审美建立内容质感，并把视觉产出转化为作品或客户交付。",
+    metrics: [
+      { value: "173", label: "已接入摄影作品" },
+      { value: "10+", label: "商业拍摄交付" },
+      { value: "3", label: "商业拍摄场景" },
+    ],
+    evidence: ["个人摄影作品库", "商业拍摄交付", "摄影协会社长经历"],
+    relatedWorks: ["Photography Archive", "Commercial Shooting"],
+  },
+  {
+    id: "ai-data",
+    index: "03",
+    title: "AI 与数据提效",
+    english: "AI & Data",
+    category: "system",
+    tone: "dark",
+    visual: "orbit",
+    summary: "能把分散资料、字段、客户线索和业务信息拆解归类，再用 AI 与工具提升沉淀效率。",
+    metrics: [
+      { value: "AI", label: "资料处理提效" },
+      { value: "4", label: "信息资产类型" },
+      { value: "30+", label: "金融指标字段" },
+    ],
+    evidence: ["LSEG 产品资料整理", "客户线索与字段说明归纳", "运营资料结构化沉淀"],
+    relatedWorks: ["Internship Ops Cases"],
+  },
+  {
+    id: "market-ops",
+    index: "04",
+    title: "市场运营统筹",
+    english: "Market Operations",
+    category: "system",
+    tone: "dark",
+    visual: "stack",
+    summary: "能接住真实市场部门和校园场景里的需求，把资料、物料、线索和协作流程整理成可执行动作。",
+    metrics: [
+      { value: "2", label: "市场部门实习" },
+      { value: "50+", label: "校园触点" },
+      { value: "15", label: "协同团队" },
+    ],
+    evidence: ["LSEG 金融市场部实习", "上海欣巴国际市场部实习", "美团校园大使触点运营"],
+    relatedWorks: ["Internship Ops Cases", "Campus Operations"],
+  },
+  {
+    id: "cross-functional",
+    index: "05",
+    title: "跨角色协同",
+    english: "Cross-functional Delivery",
+    category: "system",
+    tone: "light",
+    visual: "flow",
+    summary: "能在内容、视觉、市场和社群之间切换语言，把想法翻译成团队可执行、可复盘的交付。",
+    metrics: [
+      { value: "5", label: "能力模块连接" },
+      { value: "6", label: "经历与作品入口" },
+      { value: "End", label: "从创意到落地" },
+    ],
+    evidence: ["内容生产与活动宣传协同", "设计物料与运营目标对齐", "跨团队执行和反馈整理"],
+    relatedWorks: ["Design Materials", "Campus Operations", "Internship Ops Cases"],
+  },
+];
 
 const workItems: WorkItem[] = [
   {
@@ -184,7 +287,7 @@ const workItems: WorkItem[] = [
     id: "internship",
     index: "04",
     title: "Internship Ops Cases",
-    subtitle: "实习经历",
+    subtitle: "市场运营经历",
     area: "lseg",
     tone: "neutral",
     eyebrow: "Company Ops Evidence",
@@ -442,6 +545,16 @@ function InternshipDetailContent({ activeWork }: { activeWork: WorkItem }) {
   );
 }
 
+function StrengthVisual({ type }: { type: StrengthItem["visual"] }) {
+  return (
+    <span className={`strength-card__visual strength-card__visual--${type}`} aria-hidden="true">
+      <span />
+      <span />
+      <span />
+    </span>
+  );
+}
+
 export function App() {
   const [manifest, setManifest] = useState<PhotoManifest | null>(null);
   const [workGalleryManifest, setWorkGalleryManifest] = useState<WorkGalleryManifest | null>(null);
@@ -449,12 +562,15 @@ export function App() {
   const [activeWorkIndex, setActiveWorkIndex] = useState<number | null>(null);
   const [activeWorkSlide, setActiveWorkSlide] = useState(0);
   const [activeWorkGalleryOverride, setActiveWorkGalleryOverride] = useState<WorkGalleryItem[] | null>(null);
+  const [activeStrengthIndex, setActiveStrengthIndex] = useState<number | null>(null);
   const [previewWorkIndex, setPreviewWorkIndex] = useState(0);
   const [revealReady, setRevealReady] = useState(false);
+  const [emailToastKey, setEmailToastKey] = useState(0);
   const railRef = useRef<HTMLDivElement | null>(null);
   const workGalleryManifestRef = useRef<WorkGalleryManifest | null>(null);
   const workGalleryManifestRequestRef = useRef<Promise<WorkGalleryManifest | null> | null>(null);
   const workCarouselPauseUntilRef = useRef(0);
+  const emailToastTimeoutRef = useRef<number | null>(null);
   const isProfileCapture =
     typeof window !== "undefined" &&
     new URLSearchParams(window.location.search).get("capture") === "profile";
@@ -510,9 +626,10 @@ export function App() {
   const activePhoto = activeIndex === null ? null : orderedPhotos[activeIndex];
   const activePhotoNumber = activeIndex === null ? "" : String(activeIndex + 1).padStart(3, "0");
   const activeWork = activeWorkIndex === null ? null : workItems[activeWorkIndex];
+  const activeStrength = activeStrengthIndex === null ? null : strengthItems[activeStrengthIndex];
   const previewWork = workItems[previewWorkIndex];
   const activeWorkGallery = activeWorkGalleryOverride ?? activeWork?.gallery ?? [];
-  const hasOpenOverlay = activeIndex !== null || activeWorkIndex !== null;
+  const hasOpenOverlay = activeIndex !== null || activeWorkIndex !== null || activeStrengthIndex !== null;
 
   useEffect(() => {
     setRevealReady(true);
@@ -547,6 +664,15 @@ export function App() {
 
     return () => scopeObserver.disconnect();
   }, []);
+
+  useEffect(
+    () => () => {
+      if (emailToastTimeoutRef.current !== null) {
+        window.clearTimeout(emailToastTimeoutRef.current);
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     if (!hasOpenOverlay) {
@@ -673,6 +799,21 @@ export function App() {
   }, [activeWorkGallery.length, activeWorkIndex]);
 
   useEffect(() => {
+    if (activeStrengthIndex === null) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setActiveStrengthIndex(null);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [activeStrengthIndex]);
+
+  useEffect(() => {
     setActiveWorkSlide(0);
     workCarouselPauseUntilRef.current = 0;
   }, [activeWorkIndex]);
@@ -694,21 +835,27 @@ export function App() {
   }, [activeWorkGallery.length, activeWorkIndex]);
 
   useEffect(() => {
-    if (isProfileCapture || activeIndex !== null) {
+    if (isProfileCapture || hasOpenOverlay) {
       return;
     }
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let animationFrame = 0;
     let isTransitioning = false;
+    let heroReturnLockedUntil = 0;
 
     const easeOutQuint = (progress: number) => 1 - (1 - progress) ** 5;
 
-    const animateTo = (targetY: number) => {
+    const lockHeroReturnBriefly = () => {
+      heroReturnLockedUntil = performance.now() + 420;
+    };
+
+    const animateTo = (targetY: number, onComplete?: () => void) => {
       window.cancelAnimationFrame(animationFrame);
 
       if (reduceMotion.matches) {
         window.scrollTo(0, targetY);
+        onComplete?.();
         return;
       }
 
@@ -728,13 +875,14 @@ export function App() {
         }
 
         isTransitioning = false;
+        onComplete?.();
       };
 
       animationFrame = window.requestAnimationFrame(tick);
     };
 
     const handleHeroWheel = (event: WheelEvent) => {
-      if (isTransitioning || Math.abs(event.deltaY) < 6) {
+      if (Math.abs(event.deltaY) < 6) {
         return;
       }
 
@@ -746,18 +894,41 @@ export function App() {
       const profileTop = profileSection.getBoundingClientRect().top + window.scrollY;
       const currentY = window.scrollY;
       const viewportHeight = window.innerHeight;
-      const isBeforeProfile = currentY < profileTop - 12;
-      const isNearProfileTop =
-        currentY >= profileTop - 12 && currentY <= profileTop + viewportHeight * 0.46;
+      const snapZoneEnd = profileTop + viewportHeight * 0.46;
 
-      if (event.deltaY > 0 && isBeforeProfile) {
-        event.preventDefault();
-        animateTo(profileTop);
+      if (isTransitioning) {
+        if (currentY <= snapZoneEnd) {
+          event.preventDefault();
+        }
         return;
       }
 
-      if (event.deltaY < 0 && isNearProfileTop) {
+      const isBeforeProfile = currentY < profileTop - 12;
+      const profileTopTolerance = 14;
+      const isAtProfileTop =
+        currentY >= profileTop - 12 && currentY <= profileTop + profileTopTolerance;
+      const isWithinProfileIntro =
+        currentY > profileTop + profileTopTolerance &&
+        currentY <= snapZoneEnd;
+      const willOvershootProfileTop = currentY + event.deltaY <= profileTop + profileTopTolerance;
+
+      if (event.deltaY > 0 && isBeforeProfile) {
         event.preventDefault();
+        animateTo(profileTop, lockHeroReturnBriefly);
+        return;
+      }
+
+      if (event.deltaY < 0 && isWithinProfileIntro && willOvershootProfileTop) {
+        event.preventDefault();
+        animateTo(profileTop, lockHeroReturnBriefly);
+        return;
+      }
+
+      if (event.deltaY < 0 && isAtProfileTop) {
+        event.preventDefault();
+        if (performance.now() < heroReturnLockedUntil) {
+          return;
+        }
         animateTo(0);
       }
     };
@@ -768,7 +939,7 @@ export function App() {
       window.cancelAnimationFrame(animationFrame);
       window.removeEventListener("wheel", handleHeroWheel);
     };
-  }, [activeIndex, isProfileCapture]);
+  }, [hasOpenOverlay, isProfileCapture]);
 
   const showPreviousPhoto = () => {
     setActiveIndex((current) =>
@@ -844,6 +1015,42 @@ export function App() {
     setActiveWorkIndex(index);
   };
 
+  const showEmailCopiedToast = () => {
+    setEmailToastKey((current) => current + 1);
+
+    if (emailToastTimeoutRef.current !== null) {
+      window.clearTimeout(emailToastTimeoutRef.current);
+    }
+
+    emailToastTimeoutRef.current = window.setTimeout(() => {
+      setEmailToastKey(0);
+      emailToastTimeoutRef.current = null;
+    }, 2600);
+  };
+
+  const copyEmailToClipboard = async () => {
+    try {
+      if (!navigator.clipboard?.writeText) {
+        throw new Error("Clipboard API unavailable.");
+      }
+
+      await navigator.clipboard.writeText(email);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = email;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      textarea.style.pointerEvents = "none";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+
+    showEmailCopiedToast();
+  };
+
   return (
     <main
       className={`${isProfileCapture ? "capture-profile" : ""} ${
@@ -864,21 +1071,20 @@ export function App() {
         </a>
         <nav className="nav-links">
           {navItems.map((item) => (
-              <a
-                className="edge-glow"
-                key={item.href}
-                href={item.href}
-                onPointerMove={updateEdgeGlow}
-                onPointerLeave={clearEdgeGlow}
-              >
+            <a
+              className="edge-glow"
+              key={item.href}
+              href={item.href}
+              onPointerMove={updateEdgeGlow}
+              onPointerLeave={clearEdgeGlow}
+            >
               <span>{item.label}</span>
-              <small>{item.subLabel}</small>
             </a>
           ))}
         </nav>
         <a
           className="nav-contact edge-glow"
-          href={`mailto:${email}`}
+          href="#contact"
           onPointerMove={updateEdgeGlow}
           onPointerLeave={clearEdgeGlow}
         >
@@ -917,7 +1123,7 @@ export function App() {
             </a>
             <a
               className="secondary-action edge-glow"
-              href={`mailto:${email}`}
+              href="#contact"
               onPointerMove={updateEdgeGlow}
               onPointerLeave={clearEdgeGlow}
             >
@@ -1158,10 +1364,146 @@ export function App() {
         </div>
       </section>
 
-      <div className="section-anchors" aria-label="Future section anchors">
-        <span id="strengths">Strengths</span>
-        <span id="contact">Contact</span>
-      </div>
+      <section
+        className="strengths-section"
+        id="strengths"
+        data-reveal-scope
+        aria-label="Strengths / 个人优势"
+      >
+        <div className="strengths-section__inner">
+          <div className="strengths-masthead" data-reveal>
+            <div>
+              <p className="section-kicker">Strengths / 个人优势</p>
+              <h2>
+                <span>CORE STRENGTHS</span>
+                <i aria-hidden="true">↘</i>
+              </h2>
+              <small>个人优势</small>
+            </div>
+          </div>
+
+          <div className="strengths-grid" aria-label="Core strengths">
+            {strengthItems.map((strength, index) => (
+              <button
+                className={`strength-card strength-card--${strength.id} strength-card--${strength.tone} edge-glow`}
+                key={strength.id}
+                type="button"
+                data-reveal
+                style={revealDelay(index + 1)}
+                onClick={() => setActiveStrengthIndex(index)}
+                onPointerMove={updateEdgeGlow}
+                onPointerLeave={clearEdgeGlow}
+                aria-label={`Open ${strength.title} detail`}
+              >
+                <span className="strength-card__topline">
+                  <b>{strength.index}</b>
+                  <em>{strength.category}</em>
+                </span>
+                <span className="strength-card__title">
+                  {strength.title}
+                  <i aria-hidden="true">·</i>
+                </span>
+                <StrengthVisual type={strength.visual} />
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="contact-section"
+        id="contact"
+        data-reveal-scope
+        aria-label="Contact / 联系我"
+      >
+        <div className="contact-section__inner">
+          <div className="contact-hero" data-reveal>
+            <p>联系方式</p>
+            <h2>
+              <span>LET'S BUILD</span>
+              <span>CONTENT</span>
+              <span>
+                THAT TRAVELS
+                <i aria-hidden="true">↘</i>
+              </span>
+            </h2>
+            <a
+              className="contact-back edge-glow"
+              href="#top"
+              onPointerMove={updateEdgeGlow}
+              onPointerLeave={clearEdgeGlow}
+            >
+              <span>Back to Start</span>
+              <ArrowUp size={17} aria-hidden="true" />
+            </a>
+          </div>
+
+          <aside
+            className="contact-card"
+            data-reveal
+            style={revealDelay(1)}
+            aria-label="Contact information"
+          >
+            <p>Contact</p>
+            <dl className="contact-lines">
+              <div>
+                <dt>邮箱</dt>
+                <dd>
+                  <a href={`mailto:${email}`}>{email}</a>
+                </dd>
+              </div>
+              <div>
+                <dt>微信</dt>
+                <dd>{wechat}</dd>
+              </div>
+            </dl>
+
+            <div className="contact-qr">
+              <span>Douyin QR</span>
+              <img
+                src="/portfolio/contact/douyin-qr-blue-solid.png"
+                alt="抖音账号二维码"
+              />
+            </div>
+
+            <div className="contact-actions">
+              <button
+                className="contact-action contact-action--primary edge-glow"
+                type="button"
+                onClick={copyEmailToClipboard}
+                onPointerMove={updateEdgeGlow}
+                onPointerLeave={clearEdgeGlow}
+              >
+                <Mail size={16} aria-hidden="true" />
+                <span>发邮件</span>
+              </button>
+              <a
+                className="contact-action contact-action--secondary edge-glow"
+                href={douyinUrl}
+                target="_blank"
+                rel="noreferrer"
+                onPointerMove={updateEdgeGlow}
+                onPointerLeave={clearEdgeGlow}
+              >
+                <span>抖音主页</span>
+                <ExternalLink size={15} aria-hidden="true" />
+              </a>
+            </div>
+          </aside>
+        </div>
+
+        <footer className="site-footer" data-reveal style={revealDelay(2)}>
+          <span>Wang Kejie Portfolio</span>
+          <span>Content / Visual / Operations</span>
+          <a href={`mailto:${email}`}>{email}</a>
+        </footer>
+      </section>
+
+      {emailToastKey > 0 ? (
+        <div className="copy-toast" key={emailToastKey} role="status" aria-live="polite">
+          邮箱已复制
+        </div>
+      ) : null}
 
       {activePhoto && activeIndex !== null ? (
         <div className="lightbox" role="dialog" aria-modal="true" aria-label="Photography viewer">
@@ -1323,6 +1665,59 @@ export function App() {
                   </div>
                 </>
               )}
+            </div>
+          </section>
+        </div>
+      ) : null}
+
+      {activeStrength && activeStrengthIndex !== null ? (
+        <div className="strength-detail" role="dialog" aria-modal="true" aria-label="Strength detail">
+          <button
+            className="strength-detail__close"
+            type="button"
+            onClick={() => setActiveStrengthIndex(null)}
+            aria-label="Close strength detail"
+          >
+            <X size={24} aria-hidden="true" />
+          </button>
+          <section className={`strength-detail__panel strength-detail__panel--${activeStrength.tone}`}>
+            <div className="strength-detail__visual">
+              <span>{activeStrength.index}</span>
+              <h3>{activeStrength.title}</h3>
+              <small>{activeStrength.english}</small>
+              <StrengthVisual type={activeStrength.visual} />
+            </div>
+            <div className="strength-detail__content">
+              <p>{activeStrength.category} capability</p>
+              <h4>{activeStrength.title}</h4>
+              <strong>{activeStrength.summary}</strong>
+
+              <div className="strength-detail__metrics" aria-label="Strength evidence metrics">
+                {activeStrength.metrics.map((metric) => (
+                  <div key={`${metric.value}-${metric.label}`}>
+                    <b>{metric.value}</b>
+                    <span>{metric.label}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="strength-detail__block">
+                <span>Evidence</span>
+                <ul>
+                  {activeStrength.evidence.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="strength-detail__block">
+                <span>Related Works</span>
+                <div className="strength-detail__chips">
+                  {activeStrength.relatedWorks.map((work) => (
+                    <b key={work}>{work}</b>
+                  ))}
+                </div>
+              </div>
             </div>
           </section>
         </div>
