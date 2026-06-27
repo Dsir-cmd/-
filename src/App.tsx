@@ -311,15 +311,15 @@ const workItems: WorkItem[] = [
     tone: "blue",
     eyebrow: "Personal Content Account",
     summary:
-      "个人抖音内容账号是目前最明确的新媒体运营证据，可展示从选题、拍摄、剪辑、发布到数据复盘的完整链路。",
+      "选择非大众熟知的古建筑，以航拍构图和高强度后期拉开“现场与成片”的反差，再用后台数据与评论反馈验证内容传播效果。",
     metrics: [
-      { value: "121w", label: "单条最高播放" },
-      { value: "8.1w", label: "单条最高获赞" },
-      { value: "5000+", label: "内容收藏" },
+      { value: "121w", label: "播放量" },
+      { value: "8.14w", label: "点赞量" },
+      { value: "5050", label: "分享量" },
     ],
-    tags: ["内容选题", "短视频剪辑", "数据复盘", "个人账号"],
-    process: ["确定选题与内容表达角度", "完成拍摄剪辑和发布", "通过播放、点赞、收藏数据复盘内容表现"],
-    missing: ["抖音主页链接", "爆款视频截图", "后台数据截图", "选题/脚本/复盘文档。"],
+    tags: ["小众选题", "后期反差", "图文内容", "数据复盘", "评论洞察"],
+    process: ["选择非大众熟知的古建筑题材", "用航拍构图和后期强化虚实反差", "通过后台数据与评论反馈复盘传播点"],
+    missing: [],
   },
   {
     id: "campus",
@@ -542,6 +542,189 @@ function InternshipDetailContent({ activeWork }: { activeWork: WorkItem }) {
         </ul>
       </div>
     </>
+  );
+}
+
+const douyinStrategySteps = [
+  {
+    label: "小众题材",
+    title: "避开大众景点",
+    detail: "选择非大众熟知的古建筑，让内容先具备陌生感和可讨论性。",
+  },
+  {
+    label: "后期反差",
+    title: "制造非现实质感",
+    detail: "通过航拍构图、色彩和后期处理，把真实建筑转译成近似游戏建模的视觉记忆点。",
+  },
+  {
+    label: "评论传播",
+    title: "让差异成为话题",
+    detail: "评论区围绕“现场与成片差异”展开讨论，反向证明反差策略抓住了注意力。",
+  },
+];
+
+const douyinEngagementMetrics = [
+  { label: "点赞量", value: "8.14万", rate: "6.73%", bar: 100 },
+  { label: "收藏量", value: "5312", rate: "0.44%", bar: 18 },
+  { label: "分享量", value: "5050", rate: "0.42%", bar: 17 },
+  { label: "评论量", value: "446", rate: "0.04%", bar: 10 },
+];
+
+const douyinCommentGroups = [
+  {
+    title: "现场反差反馈",
+    note: "用户把成片效果与现实现场进行对比，反差本身成为讨论点。",
+    comments: [
+      {
+        text: "你一p我一p，到了现场全懵逼",
+        meta: "1年前 · 广东",
+        action: "56 赞",
+      },
+      {
+        text: "p成海中建筑了",
+        meta: "1年前 · 福建",
+        action: "0 赞",
+      },
+    ],
+  },
+  {
+    title: "后期质感反馈",
+    note: "用户把后期风格联想到游戏建模，说明视觉处理形成了可识别记忆点。",
+    comments: [
+      {
+        text: "后期又不老实了 😁",
+        meta: "1年前 · 湖北",
+        action: "3 赞",
+      },
+      {
+        text: "不开玩笑像游戏里的建模 🌚",
+        meta: "1年前 · 安徽",
+        action: "6 赞",
+      },
+    ],
+  },
+];
+
+function DouyinDetailContent({ activeWork }: { activeWork: WorkItem }) {
+  return (
+    <div className="douyin-case">
+      <div className="douyin-case__hero">
+        <div>
+          <p className="douyin-case__eyebrow">{activeWork.eyebrow}</p>
+          <h3>
+            <span>用后期反差放大</span>
+            <span>小众建筑的传播记忆点</span>
+          </h3>
+          <strong>{activeWork.summary}</strong>
+          <div className="douyin-case__tags">
+            {activeWork.tags.map((tag) => (
+              <span key={tag}>{tag}</span>
+            ))}
+          </div>
+        </div>
+        <aside className="douyin-case__hero-metric" aria-label="爆款作品核心数据">
+          <span>Top Post</span>
+          <b>121w</b>
+          <small>播放量 / 天镜阁图文内容</small>
+          <time>2025.06.21</time>
+        </aside>
+      </div>
+
+      <section className="douyin-case__pinned" aria-label="抖音主页置顶作品截图">
+        <div>
+          <span>Homepage Evidence</span>
+          <h4>置顶内容建立账号第一眼认知</h4>
+        </div>
+        <figure>
+          <img
+            src="/portfolio/works/content/douyin-pinned-works.png"
+            alt="抖音主页置顶作品截图，展示三条置顶内容的播放数据"
+          />
+        </figure>
+      </section>
+
+      <section className="douyin-case__strategy" aria-label="爆款内容逻辑">
+        {douyinStrategySteps.map((step, index) => (
+          <article key={step.label}>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <small>{step.label}</small>
+            <h4>{step.title}</h4>
+            <p>{step.detail}</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="douyin-case__data" aria-label="后台数据可视化">
+        <div className="douyin-case__data-main">
+          <span>Performance</span>
+          <b>121万</b>
+          <small>播放量</small>
+          <p>小众古建筑题材通过强后期风格完成破圈传播，单条图文内容进入百万级曝光。</p>
+        </div>
+        <div className="douyin-case__bars">
+          <div className="douyin-case__section-label">
+            <span>Engagement Breakdown</span>
+            <small>占播放量比例</small>
+          </div>
+          {douyinEngagementMetrics.map((metric) => (
+            <div className="douyin-case__bar" key={metric.label}>
+              <div>
+                <b>{metric.label}</b>
+                <span>{metric.value}</span>
+              </div>
+              <i style={{ "--bar": `${metric.bar}%` } as CSSProperties} />
+              <small>{metric.rate}</small>
+            </div>
+          ))}
+        </div>
+        <div className="douyin-case__retention">
+          <span>Swipe Away</span>
+          <div className="douyin-case__gauge" style={{ "--loss": "41.44%" } as CSSProperties}>
+            <b>41.44%</b>
+          </div>
+          <p>划走率低于一半，说明封面与题材反差能有效留住第一眼注意力。</p>
+        </div>
+      </section>
+
+      <section className="douyin-case__comments" aria-label="评论反馈截图">
+        <div className="douyin-case__section-label">
+          <span>Comment Proof</span>
+          <small>评论区验证“反差感”成为传播点</small>
+        </div>
+        <div className="douyin-case__comment-grid">
+          {douyinCommentGroups.map((group) => (
+            <article className="douyin-case__comment-group" key={group.title}>
+              <div>
+                <h4>{group.title}</h4>
+                <p>{group.note}</p>
+              </div>
+              <div className="douyin-case__comment-list">
+                {group.comments.map((comment) => (
+                  <blockquote className="douyin-comment-card" key={comment.text}>
+                    <div className="douyin-comment-card__identity" aria-label="用户头像和昵称已打码">
+                      <span aria-hidden="true" />
+                      <i aria-hidden="true" />
+                    </div>
+                    <p>{comment.text}</p>
+                    <small>{comment.meta}</small>
+                    <div>
+                      <span>回复</span>
+                      <span>分享</span>
+                      <span>{comment.action}</span>
+                    </div>
+                  </blockquote>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <footer className="douyin-case__conclusion">
+        <span>Conclusion</span>
+        <p>用摄影资产建立内容辨识度，再用数据和评论反馈验证选题、后期风格与传播效果之间的关系。</p>
+      </footer>
+    </div>
   );
 }
 
@@ -1560,112 +1743,124 @@ export function App() {
           >
             <X size={24} aria-hidden="true" />
           </button>
-          <section className={`work-detail__panel ${activeWork.id === "internship" ? "work-detail__panel--internship" : ""}`}>
-            <div className="work-detail__visual">
-              {activeWork.id === "internship" ? (
-                <InternshipDetailVisual />
-              ) : activeWorkGallery.length ? (
-                <div className="work-detail__carousel" aria-label={`${activeWork.title} image gallery`}>
-                  <div className="work-detail__track" style={{ "--slide": activeWorkSlide } as CSSProperties}>
-                    {activeWorkGallery.map((item) => (
-                      <figure
-                        className={`work-detail__slide work-detail__slide--${item.displayMode ?? "cover"}`}
-                        key={item.src}
-                      >
-                        {(item.displayMode ?? "cover") === "contain-blur" ? (
-                          <img className="work-detail__slide-backdrop" src={item.src} alt="" aria-hidden="true" />
-                        ) : null}
-                        <img className="work-detail__slide-image" src={item.src} alt={item.alt} />
-                      </figure>
-                    ))}
-                  </div>
-                  {activeWorkGallery.length > 1 ? (
-                    <div className="work-detail__carousel-controls">
-                      <button
-                        className="work-detail__carousel-button edge-glow"
-                        type="button"
-                        onClick={showPreviousWorkSlide}
-                        onPointerMove={updateEdgeGlow}
-                        onPointerLeave={clearEdgeGlow}
-                        aria-label="Previous work image"
-                      >
-                        <ChevronLeft size={20} aria-hidden="true" />
-                      </button>
-                      <div className="work-detail__carousel-dots" aria-label="Select work image">
-                        {activeWorkGallery.map((item, index) => (
-                          <button
-                            className={index === activeWorkSlide ? "is-active" : ""}
-                            type="button"
+          <section
+            className={`work-detail__panel ${activeWork.id === "internship" ? "work-detail__panel--internship" : ""} ${
+              activeWork.id === "douyin" ? "work-detail__panel--douyin" : ""
+            }`}
+          >
+            {activeWork.id === "douyin" ? (
+              <DouyinDetailContent activeWork={activeWork} />
+            ) : (
+              <>
+                <div className="work-detail__visual">
+                  {activeWork.id === "internship" ? (
+                    <InternshipDetailVisual />
+                  ) : activeWorkGallery.length ? (
+                    <div className="work-detail__carousel" aria-label={`${activeWork.title} image gallery`}>
+                      <div className="work-detail__track" style={{ "--slide": activeWorkSlide } as CSSProperties}>
+                        {activeWorkGallery.map((item) => (
+                          <figure
+                            className={`work-detail__slide work-detail__slide--${item.displayMode ?? "cover"}`}
                             key={item.src}
-                            onClick={() => selectWorkSlide(index)}
-                            aria-label={`Show image ${index + 1}`}
-                            aria-pressed={index === activeWorkSlide}
-                          />
+                          >
+                            {(item.displayMode ?? "cover") === "contain-blur" ? (
+                              <img className="work-detail__slide-backdrop" src={item.src} alt="" aria-hidden="true" />
+                            ) : null}
+                            <img className="work-detail__slide-image" src={item.src} alt={item.alt} />
+                          </figure>
                         ))}
                       </div>
-                      <button
-                        className="work-detail__carousel-button edge-glow"
-                        type="button"
-                        onClick={showNextWorkSlide}
-                        onPointerMove={updateEdgeGlow}
-                        onPointerLeave={clearEdgeGlow}
-                        aria-label="Next work image"
-                      >
-                        <ChevronRight size={20} aria-hidden="true" />
-                      </button>
+                      {activeWorkGallery.length > 1 ? (
+                        <div className="work-detail__carousel-controls">
+                          <button
+                            className="work-detail__carousel-button edge-glow"
+                            type="button"
+                            onClick={showPreviousWorkSlide}
+                            onPointerMove={updateEdgeGlow}
+                            onPointerLeave={clearEdgeGlow}
+                            aria-label="Previous work image"
+                          >
+                            <ChevronLeft size={20} aria-hidden="true" />
+                          </button>
+                          <div className="work-detail__carousel-dots" aria-label="Select work image">
+                            {activeWorkGallery.map((item, index) => (
+                              <button
+                                className={index === activeWorkSlide ? "is-active" : ""}
+                                type="button"
+                                key={item.src}
+                                onClick={() => selectWorkSlide(index)}
+                                aria-label={`Show image ${index + 1}`}
+                                aria-pressed={index === activeWorkSlide}
+                              />
+                            ))}
+                          </div>
+                          <button
+                            className="work-detail__carousel-button edge-glow"
+                            type="button"
+                            onClick={showNextWorkSlide}
+                            onPointerMove={updateEdgeGlow}
+                            onPointerLeave={clearEdgeGlow}
+                            aria-label="Next work image"
+                          >
+                            <ChevronRight size={20} aria-hidden="true" />
+                          </button>
+                        </div>
+                      ) : null}
                     </div>
-                  ) : null}
+                  ) : activeWork.cover ? (
+                    <img className="work-detail__hero-image" src={activeWork.cover} alt={activeWork.coverAlt ?? ""} />
+                  ) : (
+                    <div className="work-detail__metric-focus">
+                      <span>{activeWork.metrics[0]?.value}</span>
+                      <small>{activeWork.metrics[0]?.label}</small>
+                    </div>
+                  )}
                 </div>
-              ) : activeWork.cover ? (
-                <img className="work-detail__hero-image" src={activeWork.cover} alt={activeWork.coverAlt ?? ""} />
-              ) : (
-                <div className="work-detail__metric-focus">
-                  <span>{activeWork.metrics[0]?.value}</span>
-                  <small>{activeWork.metrics[0]?.label}</small>
-                </div>
-              )}
-            </div>
-            <div className="work-detail__content">
-              {activeWork.id === "internship" ? (
-                <InternshipDetailContent activeWork={activeWork} />
-              ) : (
-                <>
-                  <p>{activeWork.eyebrow}</p>
-                  <h3>{activeWork.title}</h3>
-                  <small>{activeWork.subtitle}</small>
-                  <strong className="work-detail__lead">{activeWork.summary}</strong>
-                  <div className="work-detail__metrics" aria-label="Case metrics">
-                    {activeWork.metrics.map((metric) => (
-                      <div key={`${metric.value}-${metric.label}`}>
-                        <b>{metric.value}</b>
-                        <span>{metric.label}</span>
+                <div className="work-detail__content">
+                  {activeWork.id === "internship" ? (
+                    <InternshipDetailContent activeWork={activeWork} />
+                  ) : (
+                    <>
+                      <p>{activeWork.eyebrow}</p>
+                      <h3>{activeWork.title}</h3>
+                      <small>{activeWork.subtitle}</small>
+                      <strong className="work-detail__lead">{activeWork.summary}</strong>
+                      <div className="work-detail__metrics" aria-label="Case metrics">
+                        {activeWork.metrics.map((metric) => (
+                          <div key={`${metric.value}-${metric.label}`}>
+                            <b>{metric.value}</b>
+                            <span>{metric.label}</span>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                  <div className="work-detail__section">
-                    <span>Process</span>
-                    <ul>
-                      {activeWork.process.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="work-detail__tags">
-                    {activeWork.tags.map((tag) => (
-                      <span key={tag}>{tag}</span>
-                    ))}
-                  </div>
-                  <div className="work-detail__missing">
-                    <span>待补充资料</span>
-                    <ul>
-                      {activeWork.missing.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </>
-              )}
-            </div>
+                      <div className="work-detail__section">
+                        <span>Process</span>
+                        <ul>
+                          {activeWork.process.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="work-detail__tags">
+                        {activeWork.tags.map((tag) => (
+                          <span key={tag}>{tag}</span>
+                        ))}
+                      </div>
+                      {activeWork.missing.length ? (
+                        <div className="work-detail__missing">
+                          <span>待补充资料</span>
+                          <ul>
+                            {activeWork.missing.map((item) => (
+                              <li key={item}>{item}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : null}
+                    </>
+                  )}
+                </div>
+              </>
+            )}
           </section>
         </div>
       ) : null}

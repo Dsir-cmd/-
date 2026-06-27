@@ -90,6 +90,29 @@
 - Verification: `pnpm run lint` and `pnpm run build` pass; CSS class usage comparison reports no obvious unused class selectors.
 - Note: QA screenshots and asset-preparation scripts under `docs/codex` are intentionally retained as project records and reproducible helper files, not runtime code.
 
+## 2026-06-27 - Douyin Works Case Modal
+
+- Goal: build the Works page `Douyin Content Case` detail modal from the newly provided content-operations materials.
+- Materials: added the Douyin pinned-works screenshot and user comment evidence images under `public/portfolio/works/content`; retained the backend analytics screenshot only as a source record under `docs/codex/douyin-viral-backend-source.png`.
+- Content: rewrote the Douyin work item around a niche ancient-architecture topic, high-contrast post-production strategy, and comment/data proof of the resulting attention.
+- Modal design: created a dedicated full-report modal for the Douyin case instead of the generic left/right Works detail layout, with a hero statement, pinned-work evidence, three-step content logic, backend metrics redrawn as data visualization, comment proof, and a conclusion.
+- Verification: `pnpm run build` and `pnpm run lint` pass after adding the bundled Node runtime to PATH for the command; captured `docs/codex/douyin-case-modal-check.png` and `docs/codex/douyin-case-modal-data-check.png` for visual QA.
+- Next: review the Douyin modal in the live browser and tune copy/spacing if the user wants a stronger or shorter presentation.
+
+## 2026-06-27 - Douyin Comment Proof Privacy Pass
+
+- Goal: incorporate the newly provided Douyin comment screenshot while keeping the comment proof section visually consistent and anonymized.
+- Materials: moved the raw comment screenshots into `docs/codex/douyin-comment-source-01.png`, `docs/codex/douyin-comment-source-02.png`, and `docs/codex/douyin-comment-source-03.png` as source records; removed unmasked comment screenshots from `public/portfolio/works/content`.
+- Change: replaced screenshot-based comment proof with two matched groups, each containing two anonymous comment cards with masked avatar/name treatment and preserved comment meaning, location age, and like signal.
+- Verification: `pnpm run build` and `pnpm run lint` pass; captured `docs/codex/douyin-case-comment-groups-check.png` and confirmed the modal renders two groups, four cards, and zero raw comment images in the comment grid.
+
+## 2026-06-27 - Douyin Modal Hero Alignment
+
+- Goal: respond to browser feedback that the Douyin modal hero should align the left text block and right metric card on the same horizontal start line.
+- Change: top-aligned the Douyin hero grid, centered the metric content inside its card, and rewrote the headline into two fixed semantic lines: `用后期反差放大 / 小众建筑的传播记忆点`.
+- Verification: `pnpm run build` and `pnpm run lint` pass; captured `docs/codex/douyin-case-hero-alignment-check.png` and confirmed the left label and right metric card share the same top coordinate.
+- Follow-up: shortened the pinned-works evidence heading to `置顶内容建立账号第一眼认知` and kept it on one line by removing the narrow text constraint.
+
 ## 2026-06-26 - Works Modal Gallery Checkpoint
 
 - Goal: save the current Works modal gallery refinement as the daily Git checkpoint.
