@@ -65,7 +65,7 @@ Needed later:
 Current status: resume-based copy exists, visual proof missing.
 
 Needed later:
-- Desensitized work samples from LSEG or Shanghai Xinba if allowed.
+- Desensitized work samples from LSEG or Shanghai Simba if allowed.
 - Product data / product brochure / market material before-after examples.
 - Redacted customer lead整理 sample.
 - AI workflow screenshot or process diagram.

@@ -161,7 +161,7 @@ const strengthItems: StrengthItem[] = [
     visual: "orbit",
     summary: "能把分散资料、字段、客户线索和业务信息拆解归类，再用 AI 与工具提升沉淀效率。",
     metrics: [
-      { value: "AI", label: "资料处理提效" },
+      { value: "1", label: "AI 提效流程" },
       { value: "4", label: "信息资产类型" },
       { value: "30+", label: "金融指标字段" },
     ],
@@ -197,7 +197,7 @@ const strengthItems: StrengthItem[] = [
     metrics: [
       { value: "5", label: "能力模块连接" },
       { value: "6", label: "经历与作品入口" },
-      { value: "End", label: "从创意到落地" },
+      { value: "1", label: "完整交付闭环" },
     ],
     evidence: ["内容生产与活动宣传协同", "设计物料与运营目标对齐", "跨团队执行和反馈整理"],
     relatedWorks: ["Design Materials", "Campus Operations", "Internship Ops Cases"],
@@ -214,16 +214,16 @@ const workItems: WorkItem[] = [
     tone: "blue",
     eyebrow: "Personal Visual System",
     summary:
-      "以城市建筑、航拍、舞台与自然光影为主的个人摄影作品。当前已接入网页图库，可从 Hero 滚动图进入大图浏览。",
+      "以城市建筑、航拍、舞台与自然光影为主的个人摄影作品。集中展示取景判断、构图审美与后期风格控制，已接入首页滚动视觉入口。",
     cover: "/portfolio/works/covers/01-yangshan-port.jpg",
     coverAlt: "上海城市夜景摄影作品",
     metrics: [
       { value: "173", label: "已接入网页图" },
-      { value: "4", label: "主要视觉题材" },
-      { value: "Lightbox", label: "大图查看" },
+      { value: "4", label: "题材覆盖类型" },
+      { value: "100%", label: "独立拍摄后期" },
     ],
     tags: ["摄影视觉", "城市建筑", "航拍", "后期审美"],
-    process: ["筛选个人摄影作品", "压缩生成网页图与缩略图", "建立滚动预览与大图查看逻辑"],
+    process: ["筛选个人摄影作品", "控制构图、光线与拍摄时机", "通过后期调色统一视觉风格"],
     missing: ["后续可补充每组摄影作品的主题分组与拍摄说明。"],
     gallery: [
       { src: "/portfolio/photography/large/p144.jpg", alt: "摄影作品精选一", displayMode: "contain-blur" },
@@ -240,15 +240,15 @@ const workItems: WorkItem[] = [
     tone: "orange",
     eyebrow: "Client Delivery",
     summary:
-      "已整理慕风戏剧定妆照、舞团表演现场、鱼缸造景实拍三类商业/委托拍摄素材，体现从人物、现场到空间细节的拍摄交付能力。",
+      "已完成商业拍摄案例 10 余项，累计收入超万元；覆盖人物产品特写、舞台活动、静态景观等场景，体现从人物、现场到空间细节的拍摄交付能力。",
     cover: "/portfolio/works/covers/02-red-dance.jpg",
     coverAlt: "舞团表演现场商业拍摄作品",
     metrics: [
-      { value: "3", label: "拍摄场景" },
-      { value: "98", label: "原始素材已整理" },
+      { value: "6", label: "拍摄场景覆盖" },
       { value: "10+", label: "商业拍摄交付" },
+      { value: "100%", label: "结单率" },
     ],
-    tags: ["客户交付", "舞台现场", "定妆照", "空间造景"],
+    tags: ["客户交付", "舞台现场", "人物特写", "空间造景"],
     process: ["沟通拍摄需求与场景", "现场拍摄与构图捕捉", "筛选、调色并交付客户可用素材"],
     missing: ["可补充客户需求 brief、最终交付数量、客户使用场景或授权说明。"],
     gallery: [
@@ -271,8 +271,8 @@ const workItems: WorkItem[] = [
     coverAlt: "Anker 展会展位视觉设计图",
     metrics: [
       { value: "15", label: "设计素材" },
-      { value: "Booth", label: "展位视觉" },
-      { value: "Print", label: "宣传物料" },
+      { value: "5", label: "物料类型覆盖" },
+      { value: "1", label: "展位视觉系统" },
     ],
     tags: ["品牌一致性", "展会物料", "版式设计", "产品展示"],
     process: ["梳理品牌与产品信息", "制作展位视觉和宣传物料", "统一颜色、字体和信息层级"],
@@ -330,15 +330,15 @@ const workItems: WorkItem[] = [
     tone: "orange",
     eyebrow: "Media / Growth / Community",
     summary:
-      "校园经历可合并展示美团校园大使、爱恩学生会融媒体中心部长、摄影协会社长三条线，体现内容发布、活动宣传、社群触达与资源对接。",
+      "围绕校园内容、社群触达、品牌活动与结案复盘，完成从活动策划、H5/推文内容制作、私域社群执行到线下活动反馈的数据化运营闭环。",
     metrics: [
       { value: "100+", label: "公众号推文" },
-      { value: "50+", label: "校园触点" },
-      { value: "15", label: "协同团队" },
+      { value: "150+", label: "社群沉淀" },
+      { value: "3000+", label: "活动触达" },
     ],
-    tags: ["校园增长", "融媒体运营", "活动宣传", "社群触达"],
-    process: ["统筹推文、活动宣传和物料制作", "协同团队搭建校园触点和私域社群", "负责摄影社团运营与校园影像输出"],
-    missing: ["公众号推文/H5截图", "活动海报与现场图", "社群运营数据", "摄影协会活动方案或复盘。"],
+    tags: ["内容制作", "社群触达", "线下活动", "品牌合作", "结案复盘"],
+    process: ["拆解校园活动目标与用户触点", "制作 H5 长图、推文与活动宣传素材", "联动社群、KOC 与现场执行完成活动反馈"],
+    missing: [],
   },
 ];
 
@@ -349,19 +349,41 @@ const preferredRailStart = [
 const internshipCompanies = [
   {
     code: "LSEG",
-    role: "金融市场部实习生",
+    role: "路孚特上海金融市场部实习生",
     time: "2025.07 - 2025.09",
     focus: "金融数据产品场景梳理、客户线索整理、资料沉淀与 AI 提效。",
     opsValue: "把复杂金融产品与客户信息整理成可复用的市场支持资料。",
   },
   {
-    code: "Xinba",
+    code: "Simba",
     role: "上海欣巴国际市场部实习生",
     time: "2024.08 - 2024.09",
     focus: "客户沟通跟进、产品宣传册整改、业务报表与市场资料整理。",
     opsValue: "参与产品卖点表达、市场资料更新和客户侧信息同步。",
   },
 ];
+
+const internshipPreviewCompanies = [
+  {
+    code: "LSEG",
+    role: "金融市场运营",
+    scope: "客户线索 / 数据产品资料",
+  },
+  {
+    code: "Simba",
+    role: "国际市场运营",
+    scope: "宣传册整改 / 业务报表",
+  },
+];
+
+const internshipPreviewAssets = [
+  { value: "Lead", label: "客户线索" },
+  { value: "Material", label: "产品资料" },
+  { value: "Report", label: "业务报表" },
+  { value: "AI", label: "资料提效" },
+];
+
+const internshipPreviewFlow = ["需求接收", "信息整理", "协作交付"];
 
 const internshipWorkflow = [
   { title: "需求接收", detail: "理解市场/业务侧需要解决的问题" },
@@ -431,26 +453,298 @@ function InternshipCardGraphic() {
       </span>
       <span className="work-card__ops-company">
         <b>LSEG</b>
-        <b>Xinba</b>
+        <b>Simba</b>
       </span>
     </span>
   );
 }
 
-function InternshipPreviewGraphic() {
+function DouyinCardGraphic() {
   return (
-    <div className="internship-preview-graphic" aria-hidden="true">
-      <span>Company</span>
-      <div>
-        <b>2</b>
-        <small>市场部实习</small>
+    <span className="work-card__douyin-graphic" aria-hidden="true">
+      <img src="/portfolio/works/content/douyin-top-post-card.png" alt="" />
+      <span className="work-card__douyin-signal">
+        <span className="work-card__douyin-metric">
+          <b>121w</b>
+          <small>Top post</small>
+        </span>
+        <span className="work-card__douyin-bars">
+          <i />
+          <i />
+          <i />
+        </span>
+        <span className="work-card__douyin-proof">
+          <b>8.14w</b>
+          <b>5050</b>
+        </span>
+      </span>
+    </span>
+  );
+}
+
+function CampusCardGraphic() {
+  return (
+    <span className="work-card__campus-graphic" aria-hidden="true">
+      <span className="work-card__campus-signal">
+        <b>100+</b>
+        <small>Posts</small>
+      </span>
+      <span className="work-card__campus-flow">
+        <i />
+        <i />
+        <i />
+      </span>
+    </span>
+  );
+}
+
+const previewMetricLabels: Partial<Record<WorkItem["id"], string[]>> = {
+  photography: ["网页图", "题材覆盖", "独立后期"],
+  commercial: ["场景覆盖", "交付案例", "结单率"],
+  design: ["素材", "类型", "系统"],
+};
+
+const previewSummaryOverrides: Partial<Record<WorkItem["id"], string>> = {
+  commercial: "已完成商业拍摄案例10余项，累计收入超万元，体现从人物，现场到空间细节的拍摄交付能力。",
+};
+
+function getPreviewMetrics(work: WorkItem) {
+  const labels = previewMetricLabels[work.id];
+
+  return work.metrics.map((metric, index) => ({
+    ...metric,
+    label: labels?.[index] ?? metric.label,
+  }));
+}
+
+function WorksPreviewVisual({ work }: { work: WorkItem }) {
+  if (work.id === "photography") {
+    return (
+      <div className="works-preview works-preview--photography">
+        <figure className="works-preview__image">
+          <img src={work.cover ?? ""} alt={work.coverAlt ?? ""} />
+        </figure>
+        <div className="works-preview__metric-row">
+          {getPreviewMetrics(work).map((metric) => (
+            <span key={`${metric.value}-${metric.label}`}>
+              <b>{metric.value}</b>
+              <small>{metric.label}</small>
+            </span>
+          ))}
+        </div>
+        <div className="works-preview__copy">
+          <span>{work.eyebrow}</span>
+          <strong>{work.title}</strong>
+          <p>{work.subtitle}</p>
+        </div>
       </div>
-      <ul>
-        <li>客户线索</li>
-        <li>产品资料</li>
-        <li>业务报表</li>
-        <li>AI 提效</li>
-      </ul>
+    );
+  }
+
+  if (work.id === "commercial") {
+    return (
+      <div className="works-preview works-preview--commercial">
+        <figure className="works-preview__image">
+          <img src="/portfolio/works/commercial/stage-solo-preview.jpg" alt={work.coverAlt ?? ""} />
+        </figure>
+        <div className="works-preview__metric-stack">
+          {getPreviewMetrics(work).map((metric) => (
+            <span key={`${metric.value}-${metric.label}`}>
+              <b>{metric.value}</b>
+              <small>{metric.label}</small>
+            </span>
+          ))}
+        </div>
+        <div className="works-preview__copy">
+          <span>{work.eyebrow}</span>
+          <strong>{work.title}</strong>
+          <p>{previewSummaryOverrides[work.id] ?? work.summary}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (work.id === "design") {
+    return (
+      <div className="works-preview works-preview--design">
+        <div className="works-preview__design-board" aria-hidden="true">
+          <figure className="works-preview__design-hero">
+            <img src="/portfolio/works/design/preview-booth-center.jpg" alt="" />
+          </figure>
+          <div className="works-preview__design-metrics">
+            {getPreviewMetrics(work).map((metric) => (
+              <span key={`${metric.value}-${metric.label}`}>
+                <b>{metric.value}</b>
+                <small>{metric.label}</small>
+              </span>
+            ))}
+          </div>
+          <div className="works-preview__design-system">
+            <span>Visual Identity</span>
+            <i />
+            <span>Exhibition Material</span>
+          </div>
+        </div>
+        <div className="works-preview__copy">
+          <span>{work.eyebrow}</span>
+          <strong>{work.title}</strong>
+          <p>{work.summary}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (work.id === "internship") {
+    return (
+      <div className="works-preview works-preview--internship">
+        <div className="works-preview__internship-companies">
+          {internshipPreviewCompanies.map((company) => (
+            <article key={company.code}>
+              <b>{company.code}</b>
+              <strong>{company.role}</strong>
+              <small>{company.scope}</small>
+            </article>
+          ))}
+        </div>
+        <div className="works-preview__internship-assets" aria-label="Internship information assets">
+          {internshipPreviewAssets.map((asset) => (
+            <span key={asset.value}>
+              <b>{asset.value}</b>
+              <small>{asset.label}</small>
+            </span>
+          ))}
+        </div>
+        <div className="works-preview__internship-flow">
+          {internshipPreviewFlow.map((step, index) => (
+            <span key={step}>
+              <i>{String(index + 1).padStart(2, "0")}</i>
+              {step}
+            </span>
+          ))}
+        </div>
+        <div className="works-preview__metric-row">
+          {work.metrics.map((metric) => (
+            <span key={`${metric.value}-${metric.label}`}>
+              <b>{metric.value}</b>
+              <small>{metric.label}</small>
+            </span>
+          ))}
+        </div>
+        <div className="works-preview__copy">
+          <span>{work.eyebrow}</span>
+          <strong>{work.title}</strong>
+          <p>{work.summary}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (work.id === "douyin") {
+    return (
+      <div className="works-preview works-preview--douyin">
+        <div className="works-preview__douyin-hero">
+          <figure>
+            <img src="/portfolio/works/content/douyin-top-post-card.png" alt="" />
+          </figure>
+          <div>
+            <span>Top Post</span>
+            <b>121w</b>
+            <small>天镜阁图文播放</small>
+          </div>
+        </div>
+        <div className="works-preview__douyin-data">
+          <span>
+            <b>8.14w</b>
+            <small>点赞量</small>
+          </span>
+          <span>
+            <b>5050</b>
+            <small>分享量</small>
+          </span>
+          <span>
+            <b>446</b>
+            <small>评论量</small>
+          </span>
+        </div>
+        <div className="works-preview__douyin-proof">
+          <span>Comment Proof</span>
+          <p>评论区围绕“现场与成片反差”展开讨论，证明视觉处理本身成为传播点。</p>
+          <div>
+            <small>现场反差</small>
+            <small>后期质感</small>
+          </div>
+        </div>
+        <div className="works-preview__copy">
+          <span>{work.eyebrow}</span>
+          <strong>{work.title}</strong>
+          <p>{work.summary}</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="works-preview works-preview--campus">
+      <div className="works-preview__metric-row">
+        {work.metrics.map((metric) => (
+          <span key={`${metric.value}-${metric.label}`}>
+            <b>{metric.value}</b>
+            <small>{metric.label}</small>
+          </span>
+        ))}
+      </div>
+      <div className="works-preview__campus-board">
+        <div className="works-preview__campus-flow">
+          <span>
+            <i>01</i>
+            <b>内容制作</b>
+            <small>推文 / H5 / 海报</small>
+          </span>
+          <span>
+            <i>02</i>
+            <b>社群触达</b>
+            <small>私域群 / KOC</small>
+          </span>
+          <span>
+            <i>03</i>
+            <b>线下执行</b>
+            <small>签到 / 体验 / 记录</small>
+          </span>
+          <span>
+            <i>04</i>
+            <b>结案复盘</b>
+            <small>数据 / 反馈 / 报告</small>
+          </span>
+        </div>
+        <div className="works-preview__campus-bars" aria-label="校园运营执行数据">
+          <span>
+            <b>活动群起量</b>
+            <i style={{ "--bar": "64%" } as CSSProperties} />
+            <small>50-100</small>
+          </span>
+          <span>
+            <b>社群增长</b>
+            <i style={{ "--bar": "78%" } as CSSProperties} />
+            <small>83-150</small>
+          </span>
+          <span>
+            <b>KOC 覆盖</b>
+            <i style={{ "--bar": "100%" } as CSSProperties} />
+            <small>3000+</small>
+          </span>
+        </div>
+        <div className="works-preview__campus-output">
+          <span>推文</span>
+          <span>社群</span>
+          <span>现场</span>
+          <span>复盘</span>
+        </div>
+      </div>
+      <div className="works-preview__copy">
+        <span>{work.eyebrow}</span>
+        <strong>{work.title}</strong>
+        <p>{work.summary}</p>
+      </div>
     </div>
   );
 }
@@ -532,15 +826,6 @@ function InternshipDetailContent({ activeWork }: { activeWork: WorkItem }) {
           <span key={tag}>{tag}</span>
         ))}
       </div>
-
-      <div className="work-detail__missing">
-        <span>待补充资料</span>
-        <ul>
-          {activeWork.missing.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </div>
     </>
   );
 }
@@ -603,6 +888,52 @@ const douyinCommentGroups = [
       },
     ],
   },
+];
+
+const campusH5Screens = [
+  { src: "/portfolio/works/campus/h5-01.jpg", label: "传统文化主题" },
+  { src: "/portfolio/works/campus/h5-02.jpg", label: "活动总结长图" },
+  { src: "/portfolio/works/campus/h5-03.jpg", label: "节日主题推文" },
+  { src: "/portfolio/works/campus/h5-04.jpg", label: "海纳新声活动" },
+  { src: "/portfolio/works/campus/h5-05.jpg", label: "赛事报名页面" },
+  { src: "/portfolio/works/campus/h5-06.jpg", label: "返乡金秋活动" },
+];
+
+const campusFlowSteps = [
+  { step: "01", title: "活动策划", detail: "把品牌目标拆成校园用户能参与的活动主题、预算、物料和执行节奏。" },
+  { step: "02", title: "内容生产", detail: "输出 H5 长图、推文、海报、社群话术与活动说明，统一传播入口。" },
+  { step: "03", title: "社群触达", detail: "联动 KOC、校园墙、朋友圈和私域群，制造第一轮报名和讨论。" },
+  { step: "04", title: "现场执行", detail: "完成签到、产品体验、拍摄记录、互动引导和现场素材回收。" },
+  { step: "05", title: "复盘沉淀", detail: "整理参与人数、发布数据、社群增长和反馈材料，形成结案报告。" },
+];
+
+const campusMeituanProofs = [
+  "/portfolio/works/campus/meituan-01.jpg",
+  "/portfolio/works/campus/meituan-02.jpg",
+  "/portfolio/works/campus/meituan-03.jpg",
+  "/portfolio/works/campus/meituan-04.jpg",
+  "/portfolio/works/campus/meituan-05.jpg",
+];
+
+const campusMeituanBars = [
+  { label: "活动群起量", value: "50→100", bar: 62 },
+  { label: "权益中心", value: "83→150", bar: 88 },
+  { label: "好友沉淀", value: "40→52", bar: 46 },
+  { label: "KOC 覆盖", value: "3000+", bar: 100 },
+];
+
+const campusFujiPhotos = [
+  "/portfolio/works/campus/fuji-04.jpg",
+  "/portfolio/works/campus/fuji-02.jpg",
+  "/portfolio/works/campus/fuji-03.jpg",
+];
+
+const campusFujiBars = [
+  { label: "F******e", value: "214", bar: 100 },
+  { label: "G******R", value: "198", bar: 92 },
+  { label: "6******7", value: "103", bar: 48 },
+  { label: "闭******羊", value: "93", bar: 43 },
+  { label: "是******a", value: "80", bar: 37 },
 ];
 
 function DouyinDetailContent({ activeWork }: { activeWork: WorkItem }) {
@@ -720,9 +1051,163 @@ function DouyinDetailContent({ activeWork }: { activeWork: WorkItem }) {
         </div>
       </section>
 
-      <footer className="douyin-case__conclusion">
-        <span>Conclusion</span>
-        <p>用摄影资产建立内容辨识度，再用数据和评论反馈验证选题、后期风格与传播效果之间的关系。</p>
+      <footer className="douyin-case__bottom-tags" aria-label="抖音内容案例能力标签">
+        <span>小众选题</span>
+        <span>后期反差</span>
+        <span>图文内容</span>
+        <span>数据复盘</span>
+        <span>评论洞察</span>
+      </footer>
+    </div>
+  );
+}
+
+function CampusDetailContent({ activeWork }: { activeWork: WorkItem }) {
+  return (
+    <div className="campus-case">
+      <header className="campus-case__hero">
+        <div className="campus-case__intro">
+          <p className="campus-case__eyebrow">{activeWork.eyebrow}</p>
+          <h3>
+            <span>把校园活动</span>
+            <span>跑成可复盘的运营闭环</span>
+          </h3>
+          <strong>{activeWork.summary}</strong>
+          <div className="campus-case__tags">
+            {activeWork.tags.map((tag) => (
+              <span key={tag}>{tag}</span>
+            ))}
+          </div>
+        </div>
+        <aside className="campus-case__metric-stack" aria-label="校园运营核心数据">
+          {activeWork.metrics.map((metric) => (
+            <div key={`${metric.value}-${metric.label}`}>
+              <b>{metric.value}</b>
+              <span>{metric.label}</span>
+            </div>
+          ))}
+        </aside>
+      </header>
+
+      <section className="campus-case__flow" aria-label="校园运营流程">
+        {campusFlowSteps.map((item) => (
+          <article key={item.step}>
+            <span>{item.step}</span>
+            <h4>{item.title}</h4>
+            <p>{item.detail}</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="campus-case__h5" aria-label="公众号 H5 长图内容">
+        <div className="campus-case__section-head">
+          <span>Content Matrix</span>
+          <div>
+            <h4>公众号内容与活动信息组织</h4>
+            <p>围绕节日、赛事、晚会和返乡活动，把主题包装、信息层级、报名入口与视觉节奏组织成可传播的长图内容。</p>
+          </div>
+        </div>
+        <div className="campus-case__h5-strip">
+          {campusH5Screens.map((item, index) => (
+            <figure key={item.src}>
+              <img src={item.src} alt={item.label} />
+              <figcaption>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <small>{item.label}</small>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section className="campus-case__split" aria-label="美团校园运营和富士活动复盘">
+        <article className="campus-case__meituan">
+          <div className="campus-case__section-head">
+            <span>Community Growth</span>
+            <div>
+              <h4>美团校园俱乐部：社群与活动执行</h4>
+              <p>从活动计划、KOC 宣发、朋友圈触达到私域社群反馈，形成可追踪的校园增长动作。</p>
+            </div>
+          </div>
+          <div className="campus-case__mini-metrics">
+            <div>
+              <b>3</b>
+              <span>部门协同</span>
+            </div>
+            <div>
+              <b>15</b>
+              <span>KOC 宣发</span>
+            </div>
+            <div>
+              <b>3000+</b>
+              <span>预估触达</span>
+            </div>
+          </div>
+          <div className="campus-case__proof-wall">
+            {campusMeituanProofs.map((src, index) => (
+              <img src={src} alt={`美团校园运营执行截图 ${index + 1}`} key={src} />
+            ))}
+          </div>
+          <div className="campus-case__community-window">
+            <span>Execution Window</span>
+            <small>从活动群、权益中心、好友沉淀到 KOC 覆盖，呈现社群增长链路。</small>
+            <div className="campus-case__bar-list" aria-label="美团校园运营增长数据">
+              {campusMeituanBars.map((bar) => (
+                <div className="campus-case__bar" key={bar.label}>
+                  <span>{bar.label}</span>
+                  <i style={{ "--bar": `${bar.bar}%` } as CSSProperties} />
+                  <b>{bar.value}</b>
+                </div>
+              ))}
+            </div>
+          </div>
+        </article>
+
+        <article className="campus-case__fuji">
+          <div className="campus-case__section-head">
+            <span>Brand Event</span>
+            <div>
+              <h4>富士 instax：线下体验与内容发酵</h4>
+              <p>把产品体验嵌入摄影社团活动，现场体验、照片记录、小红书发布和结案数据形成完整闭环。</p>
+            </div>
+          </div>
+          <div className="campus-case__fuji-grid">
+            {campusFujiPhotos.map((src, index) => (
+              <img src={src} alt={`富士 instax 校园活动素材 ${index + 1}`} key={src} />
+            ))}
+          </div>
+          <div className="campus-case__fuji-data">
+            <div>
+              <b>77</b>
+              <span>现场参与</span>
+            </div>
+            <div>
+              <b>10</b>
+              <span>小红书笔记</span>
+            </div>
+            <div>
+              <b>981</b>
+              <span>阅读总量</span>
+            </div>
+          </div>
+          <div className="campus-case__bar-list" aria-label="富士活动小红书阅读数据">
+            {campusFujiBars.map((bar) => (
+              <div className="campus-case__bar" key={bar.label}>
+                <span>{bar.label}</span>
+                <i style={{ "--bar": `${bar.bar}%` } as CSSProperties} />
+                <b>{bar.value}</b>
+              </div>
+            ))}
+          </div>
+        </article>
+      </section>
+
+      <footer className="campus-case__bottom-tags" aria-label="校园运营案例能力标签">
+        <span>内容制作</span>
+        <span>社群触达</span>
+        <span>线下执行</span>
+        <span>品牌合作</span>
+        <span>结案复盘</span>
       </footer>
     </div>
   );
@@ -1481,7 +1966,7 @@ export function App() {
             <div className="works-grid" aria-label="Selected works placeholder grid">
               {workItems.map((work, index) => (
                 <button
-                  className={`work-card work-card--${work.area} work-card--${work.tone} edge-glow`}
+                  className={`work-card work-card--${work.area} work-card--${work.tone} work-card--case-${work.id} edge-glow`}
                   key={work.id}
                   type="button"
                   data-reveal
@@ -1499,6 +1984,8 @@ export function App() {
                     <span className="work-card__index">{work.index}</span>
                     <span className="work-card__ghost" aria-hidden="true" />
                     {work.id === "internship" ? <InternshipCardGraphic /> : null}
+                    {work.id === "douyin" ? <DouyinCardGraphic /> : null}
+                    {work.id === "campus" ? <CampusCardGraphic /> : null}
                     <span className="work-card__body">
                       <em>{work.eyebrow}</em>
                       <strong>{work.title}</strong>
@@ -1510,33 +1997,12 @@ export function App() {
             </div>
 
             <aside
-              className="works-modal-preview"
+              className={`works-modal-preview works-modal-preview--${previewWork.id} is-visible`}
               data-reveal
               style={revealDelay(7)}
               aria-label="Works detail modal wireframe preview"
             >
-              <div className="works-modal-preview__bar">
-                <span>{previewWork.index}</span>
-                <span />
-                </div>
-                <div className="works-modal-preview__media">
-                  {previewWork.id === "internship" ? (
-                    <InternshipPreviewGraphic />
-                  ) : previewWork.cover ? (
-                    <img src={previewWork.cover} alt={previewWork.coverAlt ?? ""} />
-                  ) : (
-                    <div className="works-modal-preview__metric">
-                    <strong>{previewWork.metrics[0]?.value}</strong>
-                    <span>{previewWork.metrics[0]?.label}</span>
-                  </div>
-                )}
-              </div>
-              <div className="works-modal-preview__copy">
-                <span>{previewWork.eyebrow}</span>
-                <strong>{previewWork.title}</strong>
-                <p>{previewWork.subtitle}</p>
-                <p>{previewWork.summary}</p>
-              </div>
+              <WorksPreviewVisual work={previewWork} />
               <div className="works-modal-preview__chips">
                 {previewWork.tags.slice(0, 3).map((tag) => (
                   <span key={tag}>{tag}</span>
@@ -1746,10 +2212,14 @@ export function App() {
           <section
             className={`work-detail__panel ${activeWork.id === "internship" ? "work-detail__panel--internship" : ""} ${
               activeWork.id === "douyin" ? "work-detail__panel--douyin" : ""
+            } ${
+              activeWork.id === "campus" ? "work-detail__panel--campus" : ""
             }`}
           >
             {activeWork.id === "douyin" ? (
               <DouyinDetailContent activeWork={activeWork} />
+            ) : activeWork.id === "campus" ? (
+              <CampusDetailContent activeWork={activeWork} />
             ) : (
               <>
                 <div className="work-detail__visual">
@@ -1846,16 +2316,6 @@ export function App() {
                           <span key={tag}>{tag}</span>
                         ))}
                       </div>
-                      {activeWork.missing.length ? (
-                        <div className="work-detail__missing">
-                          <span>待补充资料</span>
-                          <ul>
-                            {activeWork.missing.map((item) => (
-                              <li key={item}>{item}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      ) : null}
                     </>
                   )}
                 </div>

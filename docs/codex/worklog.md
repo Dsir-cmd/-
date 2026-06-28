@@ -1,5 +1,30 @@
 # Codex Worklog
 
+## 2026-06-28 - Campus Operations Case
+
+- Goal: implement Works card 06 as a campus operations case using materials from `F:\作品材料\校园公众号`.
+- Asset processing: exported standardized web assets to `public/portfolio/works/campus`, including six uniformly cropped H5 long screenshots, five Meituan community/KOC execution screenshots, and Fuji instax event photos/post screenshots extracted from the supplied PPT files.
+- Change: replaced the generic Works detail modal for card 06 with a dedicated `CampusDetailContent` layout covering core metrics, an operations workflow, H5 content matrix, Meituan community growth evidence, Fuji brand event recap, and a conclusion focused on closed-loop campus operations ability.
+- Follow-up: refined the 06 modal after browser review by removing `H5` from the first screenshot label without deleting the screenshot, updating top metrics to `100+ / 150+ / 1000+`, using only the user's Fuji report PPT for Fuji assets, replacing the Fuji left hero image with the selected outdoor activity frame, adding a Meituan execution data window, and revising the conclusion copy to foreground operations ability.
+- Follow-up: aligned the Meituan and Fuji lower panels by standardizing their top header height, label wrapping, title line height, and internal spacing so the two activity blocks read as one system.
+- Follow-up: increased the Meituan panel's internal vertical spacing slightly so its bottom edge visually aligns with the Fuji panel.
+- Follow-up: removed the Meituan `83→150` top metric box so the panel keeps three primary metrics, then switched the two lower panels to stretch to equal height while preserving aligned content starts.
+- Follow-up: replaced the 05/06 custom modal `Conclusion` footers with Works-style pill tags, and masked Fuji leaderboard usernames by preserving first/last characters with six middle asterisks.
+- Follow-up: designed the Works 06 parent card as a compact campus operations dashboard with a `100+` content signal and flow-line motif, keeping it visually distinct from the 05 Douyin metric card while avoiding crowding in the narrow card.
+- Follow-up: adjusted the Works 05 card layer stack so the `05` index stays above the faded pinned-post image instead of inheriting the image fade.
+- Follow-up: rebuilt the Works right-side hover preview as a case-specific evidence card, removing the top index bar and using distinct layouts for photography, commercial shooting, design materials, internship operations, Douyin content, and campus operations while keeping three bottom tags.
+- Follow-up: refined the 04 internship preview by standardizing the second company label as `Simba`, changing the company roles to `金融市场运营` and `国际市场运营`, converting the middle information-asset strip into a 2x2 grid, and updating the LSEG detail title to `路孚特上海金融市场部实习生`.
+- Follow-up: densified the Works 06 right-side preview by turning the sparse flow list into numbered operation nodes, adding three execution data bars, and expanding the output pills so the preview reads as a compact operations dashboard rather than an empty panel.
+- Follow-up: synchronized the 06 activity reach metric to `3000+` and reduced the preview metric typography so the longer value fits cleanly in the right-side card.
+- Follow-up: replaced the Works 02 right-side preview image with a cropped solo stage performance asset from `_DSC2076.jpg`, preserving the performer while removing excess top darkness for a stronger preview composition.
+- Verification: `pnpm run build` and `pnpm run lint` pass; captured `docs/codex/campus-modal-check.png` and `docs/codex/campus-modal-lower-check.png` for visual QA.
+
+## 2026-06-28 - Works Douyin Card Polish
+
+- Goal: respond to browser feedback on the Works 05 Douyin card preview composition.
+- Change: moved the cropped pinned-post image upward so it can sit behind the card index while keeping standard left spacing, restored the right metric panel to its previous vertical position, and removed the remaining dark shadow/overlay layers behind the graphic.
+- Verification: `pnpm run build` and `pnpm run lint` pass.
+
 ## 2026-06-27 - Top Navigation Centering
 
 - Goal: respond to browser feedback that the three center navigation links should be centered relative to the full navigation bar.
@@ -63,8 +88,8 @@
 
 - Goal: redesign Works card 04 as an internship-focused operations case without image-gallery framing, strictly using the two company internship experiences.
 - Change: rewrote the 04 case copy toward company operations evidence, added a compact card-level operations diagram, and replaced the default no-image modal treatment with a dedicated internship detail layout.
-- Detail layout: split the modal into a company internship block for LSEG and Shanghai Xinba, a visible `2 / 4 / AI` evidence strip, and an operations workflow block covering demand intake, information breakdown, material organization, and collaborative delivery.
-- Card refinement: simplified the parent 04 card from a crowded process mini-map into a compact `2 Internships / LSEG / Xinba` evidence badge, changed the Chinese subtitle to `实习经历`, and removed cramped micro-labels from the small-card viewport.
+- Detail layout: split the modal into a company internship block for LSEG and Shanghai Simba, a visible `2 / 4 / AI` evidence strip, and an operations workflow block covering demand intake, information breakdown, material organization, and collaborative delivery.
+- Card refinement: simplified the parent 04 card from a crowded process mini-map into a compact `2 Internships / LSEG / Simba` evidence badge, changed the Chinese subtitle to `实习经历`, and removed cramped micro-labels from the small-card viewport.
 - Card layout fix: changed the 04 badge into a right-edge glass information column that spans the full card height, separating it from the title text and eliminating the previous cropped/empty top-right composition.
 - Modal interaction fix: locked background page scrolling while either the Works detail modal or photography lightbox is open, preserving the original scroll position after close; revised the lock to avoid fixed-body top jumps so closing a modal no longer visually returns to Hero before settling back on Works.
 - Verification: `pnpm run lint` and `pnpm run build` pass; captured `docs/codex/internship-works-card-check.png` and `docs/codex/internship-modal-check.png` for visual QA.
@@ -113,6 +138,16 @@
 - Verification: `pnpm run build` and `pnpm run lint` pass; captured `docs/codex/douyin-case-hero-alignment-check.png` and confirmed the left label and right metric card share the same top coordinate.
 - Follow-up: shortened the pinned-works evidence heading to `置顶内容建立账号第一眼认知` and kept it on one line by removing the narrow text constraint.
 
+## 2026-06-28 - Works Modal Missing-Materials Removal
+
+- Goal: remove the yellow `待补充资料` block from all Works detail modals after browser feedback.
+- Change: deleted the missing-materials rendering from both the generic Works modal content and the Internship modal content, then removed the now-unused `.work-detail__missing` CSS.
+- Verification: `pnpm run build` and `pnpm run lint` pass; source search confirms `work-detail__missing` and `待补充资料` no longer appear in `src/App.tsx` or `src/styles.css`.
+- Follow-up: revised the Photography Archive modal copy so metrics and process describe personal creative capability rather than webpage mechanics; removed the extra `我的` wording from the summary.
+- Follow-up: revised the Commercial Shooting modal summary and metrics to foreground 10+ commercial cases, 1w+ cumulative income, and scene coverage across people/product details, stage activity, and static landscapes.
+- Follow-up: standardized Works metric boxes so blue metric values are numeric or quantified, while labels carry the descriptive text; kept the Internship card's `AI` metric as an intentional exception per user feedback. Updated Commercial Shooting metrics to `6 / 10+ / 100%` and changed the `定妆照` tag to `人物特写`.
+- Follow-up: designed the Works 05 Douyin card with a cropped Tianjingge pinned-post visual, a 121w performance signal panel, and softened overlap between the image and data card so the entry reads as a real content case instead of an empty placeholder.
+
 ## 2026-06-26 - Works Modal Gallery Checkpoint
 
 - Goal: save the current Works modal gallery refinement as the daily Git checkpoint.
@@ -130,6 +165,15 @@
 - Motion safety: preserved reduced-motion behavior and kept hover transforms on Works cards compatible with the reveal transform.
 - Capture workflow: extended the section capture wait after scroll so screenshots are taken after the reveal motion settles instead of mid-animation.
 - Verification: `pnpm run lint` and `pnpm run build` both pass; refreshed `docs/codex/works-reveal-screenshot.png` for visual QA.
+
+## 2026-06-28 - Works Preview Refinement
+
+- Goal: fix the Works right-side synchronized preview disappearing after hovering/selecting cards and tighten the preview typography for narrow panels.
+- Change: kept the dynamic Works preview panel visibly mounted by preserving the `is-visible` class when the selected work changes.
+- Change: added preview-specific short metric labels for Photography Archive and Commercial Shooting so the narrow right panel uses compact data summaries instead of long modal labels.
+- Change: refined the Commercial Shooting preview copy, spacing, and title line-height so the title descender is not clipped in the right-side preview panel.
+- Change: redesigned the Design Materials right-side preview with a single square Anker booth visual, compact numeric metrics, a small visual-system info strip, and safer title line-height.
+- Verification: `pnpm run build` and `pnpm run lint` both pass; captured `docs/codex/works-preview-hover-commercial-check.png` and `docs/codex/works-preview-photography-check.png`.
 
 ## 2026-06-25 - Works Content Pass
 
