@@ -17,6 +17,9 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Codex work records
+docs/codex/
+
 # Editor and OS files
 .DS_Store
 Thumbs.db
