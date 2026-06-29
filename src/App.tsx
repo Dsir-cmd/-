@@ -73,9 +73,9 @@ const navItems = [
 ];
 
 const profileStats = [
-  { value: "121w", label: "抖音单条最高播放" },
-  { value: "8.1w", label: "单条最高获赞" },
-  { value: "5000+", label: "内容收藏" },
+  { value: "Observe", label: "从真实场景里找内容入口" },
+  { value: "Shape", label: "把信息整理成清晰表达" },
+  { value: "Deliver", label: "让作品可以被使用和复盘" },
   { value: "100+", label: "公众号推文" },
   { value: "10+", label: "商业拍摄交付" },
   { value: "50+", label: "校园触点网络" },
@@ -545,7 +545,7 @@ function WorksPreviewVisual({ work }: { work: WorkItem }) {
     return (
       <div className="works-preview works-preview--commercial">
         <figure className="works-preview__image">
-          <img src="/portfolio/works/commercial/stage-solo-preview.jpg" alt={work.coverAlt ?? ""} />
+          <img src="/portfolio/works/commercial/stage-solo-preview-cropped.jpg" alt={work.coverAlt ?? ""} />
         </figure>
         <div className="works-preview__metric-stack">
           {getPreviewMetrics(work).map((metric) => (
@@ -1859,28 +1859,28 @@ export function App() {
             </figure>
 
             <div className="profile-panel" data-reveal style={revealDelay(2)}>
-              <p className="profile-content__role">Content & New Media Operations Intern</p>
+              <p className="profile-content__role">Content, Product & New Media Operations</p>
               <h3>
                 Hi, I am Wang Kejie.
                 <span>王柯杰 / Jack Wang</span>
               </h3>
               <p className="profile-content__intro">
-                上海海洋大学市场营销本科在读，目标方向为内容运营、新媒体运营与产品/市场运营。
-                我更擅长把内容策划、摄影视觉、设计物料和 AI 工作流串成可落地的运营表达。
+                把内容当作一次完整的体验设计：从选题、画面、节奏到数据反馈，
+                都需要被组织成能被理解、被传播、被复用的表达。
               </p>
 
               <div className="profile-lines" aria-label="Profile information">
                 <p>
-                  <span>当前身份</span>
-                  <strong>上海海洋大学 · 市场营销 · 2027届</strong>
+                  <span>观察切面</span>
+                  <strong>内容 × 产品 × 视觉</strong>
                 </p>
                 <p>
-                  <span>求职方向</span>
-                  <strong>内容运营 / 新媒体运营 / 产品市场运营</strong>
+                  <span>创作闭环</span>
+                  <strong>策划 / 拍摄 / 设计 / 复盘</strong>
                 </p>
                 <p>
-                  <span>实习时间</span>
-                  <strong>2026年6月起 · 每周5天 · 6个月及以上</strong>
+                  <span>实践场景</span>
+                  <strong>新媒体内容、产品表达、商务场景</strong>
                 </p>
                 <p>
                   <span>邮箱</span>
