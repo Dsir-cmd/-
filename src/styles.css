@@ -18,6 +18,148 @@
   --orange: #f2a65a;
   --site-min: 1200px;
   --max: 1700px;
+  --ease-surface: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-entrance: cubic-bezier(0, 0, 0.3, 1);
+  --motion-backdrop: 220ms;
+  --motion-surface: 420ms;
+  --motion-exit: 240ms;
+  --motion-preview: 280ms;
+}
+
+@keyframes overlay-fade-in {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes surface-lift-in {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translate3d(0, 24px, 0) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes overlay-fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+}
+
+@keyframes surface-lift-out {
+  from {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translate3d(0, 18px, 0) scale(0.985);
+  }
+}
+
+@keyframes surface-content-out {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+}
+
+@keyframes modal-control-out {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, -6px, 0) scale(0.97);
+  }
+}
+
+@keyframes carousel-control-out {
+  from {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(-50%, 10px, 0) scale(0.97);
+  }
+}
+
+@keyframes surface-content-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes modal-control-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -8px, 0) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes carousel-control-in {
+  from {
+    opacity: 0;
+    transform: translate3d(-50%, 12px, 0) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0) scale(1);
+  }
+}
+
+@keyframes preview-lift-in {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translate3d(0, 16px, 0);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 * {
@@ -1709,6 +1851,8 @@ button {
   background:
     linear-gradient(180deg, rgba(243, 247, 250, 0.055), rgba(243, 247, 250, 0.018)),
     rgba(11, 17, 24, 0.58);
+  animation: preview-lift-in var(--motion-preview) var(--ease-entrance) both;
+  will-change: opacity, transform, filter;
 }
 
 .works-modal-preview__chips {
@@ -2839,6 +2983,7 @@ button {
   padding: clamp(24px, 4vh, 48px);
   background: rgba(5, 7, 10, 0.84);
   backdrop-filter: blur(24px);
+  animation: overlay-fade-in var(--motion-backdrop) var(--ease-entrance) both;
 }
 
 .strength-detail__close {
@@ -2854,6 +2999,7 @@ button {
   color: var(--text);
   background: rgba(17, 24, 33, 0.88);
   cursor: pointer;
+  animation: modal-control-in 300ms var(--ease-surface) 120ms both;
 }
 
 .strength-detail__close:hover,
@@ -2875,6 +3021,8 @@ button {
   background:
     linear-gradient(135deg, rgba(243, 247, 250, 0.07), rgba(243, 247, 250, 0.02)),
     rgba(11, 17, 24, 0.94);
+  animation: surface-lift-in var(--motion-surface) var(--ease-surface) both;
+  will-change: opacity, transform, filter;
 }
 
 .strength-detail__panel--light {
@@ -2893,6 +3041,7 @@ button {
     radial-gradient(circle at 22% 20%, rgba(142, 197, 255, 0.18), transparent 34%),
     radial-gradient(circle at 84% 82%, rgba(59, 20, 52, 0.22), transparent 38%),
     rgba(243, 247, 250, 0.03);
+  animation: surface-content-in 360ms var(--ease-surface) 60ms both;
 }
 
 .strength-detail__visual > span {
@@ -2956,6 +3105,7 @@ button {
   padding: clamp(34px, 4vw, 54px);
   scrollbar-width: thin;
   scrollbar-color: rgba(142, 197, 255, 0.42) transparent;
+  animation: surface-content-in 380ms var(--ease-surface) 90ms both;
 }
 
 .strength-detail__content::-webkit-scrollbar {
@@ -2965,6 +3115,38 @@ button {
 .strength-detail__content::-webkit-scrollbar-thumb {
   border-radius: 999px;
   background: rgba(142, 197, 255, 0.35);
+}
+
+.lightbox.is-closing,
+.work-detail.is-closing,
+.strength-detail.is-closing {
+  pointer-events: none;
+  animation: overlay-fade-out var(--motion-exit) var(--ease-surface) both;
+}
+
+.lightbox.is-closing .lightbox__figure,
+.work-detail.is-closing .work-detail__panel,
+.strength-detail.is-closing .strength-detail__panel {
+  animation: surface-lift-out var(--motion-exit) var(--ease-surface) both;
+}
+
+.lightbox.is-closing .lightbox__close,
+.lightbox.is-closing .lightbox__nav,
+.work-detail.is-closing .work-detail__close,
+.strength-detail.is-closing .strength-detail__close {
+  animation: modal-control-out 180ms var(--ease-surface) both;
+}
+
+.lightbox.is-closing .lightbox__figure figcaption,
+.work-detail.is-closing .work-detail__visual,
+.work-detail.is-closing .work-detail__content,
+.strength-detail.is-closing .strength-detail__visual,
+.strength-detail.is-closing .strength-detail__content {
+  animation: surface-content-out 180ms var(--ease-surface) both;
+}
+
+.work-detail.is-closing .work-detail__carousel-controls {
+  animation: carousel-control-out 180ms var(--ease-surface) both;
 }
 
 .strength-detail__content p {
@@ -3372,6 +3554,7 @@ button {
   padding: 34px;
   background: rgba(5, 7, 10, 0.92);
   backdrop-filter: blur(20px);
+  animation: overlay-fade-in var(--motion-backdrop) var(--ease-entrance) both;
 }
 
 .lightbox__close,
@@ -3391,6 +3574,7 @@ button {
   width: 52px;
   height: 52px;
   border-radius: 50%;
+  animation: modal-control-in 300ms var(--ease-surface) 110ms both;
 }
 
 .lightbox__nav {
@@ -3398,6 +3582,7 @@ button {
   height: 96px;
   border-radius: 999px;
   justify-self: center;
+  animation: surface-content-in 340ms var(--ease-surface) 130ms both;
 }
 
 .lightbox__close:hover,
@@ -3418,6 +3603,8 @@ button {
   justify-items: center;
   gap: 18px;
   margin: 0;
+  animation: surface-lift-in var(--motion-surface) var(--ease-surface) both;
+  will-change: opacity, transform, filter;
 }
 
 .lightbox__figure img {
@@ -3438,6 +3625,7 @@ button {
   color: var(--muted);
   background: rgba(11, 17, 24, 0.82);
   font-size: 13px;
+  animation: surface-content-in 360ms var(--ease-surface) 90ms both;
 }
 
 .lightbox__figure strong {
@@ -3457,6 +3645,7 @@ button {
   padding: clamp(24px, 4vh, 48px);
   background: rgba(5, 7, 10, 0.82);
   backdrop-filter: blur(24px);
+  animation: overlay-fade-in var(--motion-backdrop) var(--ease-entrance) both;
 }
 
 .work-detail__close {
@@ -3472,6 +3661,7 @@ button {
   color: var(--text);
   background: rgba(17, 24, 33, 0.88);
   cursor: pointer;
+  animation: modal-control-in 300ms var(--ease-surface) 120ms both;
 }
 
 .work-detail__close:hover,
@@ -3493,6 +3683,8 @@ button {
   background:
     linear-gradient(135deg, rgba(243, 247, 250, 0.07), rgba(243, 247, 250, 0.02)),
     rgba(11, 17, 24, 0.92);
+  animation: surface-lift-in var(--motion-surface) var(--ease-surface) both;
+  will-change: opacity, transform, filter;
 }
 
 .work-detail__panel--douyin {
@@ -4527,6 +4719,7 @@ button {
     radial-gradient(circle at 24% 24%, rgba(142, 197, 255, 0.16), transparent 34%),
     radial-gradient(circle at 80% 76%, rgba(242, 166, 90, 0.1), transparent 30%),
     rgba(243, 247, 250, 0.035);
+  animation: surface-content-in 360ms var(--ease-surface) 60ms both;
 }
 
 .work-detail__carousel {
@@ -4645,6 +4838,7 @@ button {
   background: rgba(11, 17, 24, 0.72);
   backdrop-filter: blur(18px);
   transform: translateX(-50%);
+  animation: carousel-control-in 320ms var(--ease-surface) 120ms both;
 }
 
 .work-detail__carousel-button {
@@ -4823,6 +5017,7 @@ button {
   padding: clamp(30px, 4vw, 48px);
   scrollbar-width: thin;
   scrollbar-color: rgba(142, 197, 255, 0.42) transparent;
+  animation: surface-content-in 380ms var(--ease-surface) 90ms both;
 }
 
 .work-detail__content::-webkit-scrollbar {
@@ -5431,5 +5626,25 @@ button {
     filter: none !important;
     transform: none !important;
     transition: none !important;
+  }
+
+  .lightbox,
+  .work-detail,
+  .strength-detail,
+  .lightbox__figure,
+  .lightbox__figure figcaption,
+  .lightbox__close,
+  .lightbox__nav,
+  .work-detail__close,
+  .work-detail__panel,
+  .work-detail__visual,
+  .work-detail__content,
+  .strength-detail__close,
+  .strength-detail__panel,
+  .strength-detail__visual,
+  .strength-detail__content,
+  .works-modal-preview {
+    animation: none !important;
+    filter: none !important;
   }
 }

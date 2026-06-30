@@ -1,6 +1,7 @@
 import {
   type CSSProperties,
   type PointerEvent as ReactPointerEvent,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -64,6 +65,8 @@ type WorkGalleryManifest = Record<"01" | "02" | "03", WorkGalleryItem[]>;
 const fallbackHero = "/portfolio/photography/hero/city-night.jpg";
 const email = "zj2020dq@163.com";
 const wechat = "Dsir2024";
+type OverlayKind = "photo" | "work" | "strength";
+const overlayExitDurationMs = 240;
 const douyinUrl = "https://v.douyin.com/kUAKI4nSODo/";
 
 const navItems = [
@@ -1231,6 +1234,7 @@ export function App() {
   const [activeWorkSlide, setActiveWorkSlide] = useState(0);
   const [activeWorkGalleryOverride, setActiveWorkGalleryOverride] = useState<WorkGalleryItem[] | null>(null);
   const [activeStrengthIndex, setActiveStrengthIndex] = useState<number | null>(null);
+  const [closingOverlay, setClosingOverlay] = useState<OverlayKind | null>(null);
   const [previewWorkIndex, setPreviewWorkIndex] = useState(0);
   const [revealReady, setRevealReady] = useState(false);
   const [emailToastKey, setEmailToastKey] = useState(0);
@@ -1239,9 +1243,57 @@ export function App() {
   const workGalleryManifestRequestRef = useRef<Promise<WorkGalleryManifest | null> | null>(null);
   const workCarouselPauseUntilRef = useRef(0);
   const emailToastTimeoutRef = useRef<number | null>(null);
+  const overlayCloseTimeoutRef = useRef<number | null>(null);
   const isProfileCapture =
     typeof window !== "undefined" &&
     new URLSearchParams(window.location.search).get("capture") === "profile";
+
+  const cancelOverlayClose = useCallback(() => {
+    if (overlayCloseTimeoutRef.current !== null) {
+      window.clearTimeout(overlayCloseTimeoutRef.current);
+      overlayCloseTimeoutRef.current = null;
+    }
+
+    setClosingOverlay(null);
+  }, []);
+
+  const requestCloseOverlay = useCallback(
+    (kind: OverlayKind) => {
+      if (closingOverlay !== null) {
+        return;
+      }
+
+      cancelOverlayClose();
+      setClosingOverlay(kind);
+      const shouldReduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      overlayCloseTimeoutRef.current = window.setTimeout(() => {
+        if (kind === "photo") {
+          setActiveIndex(null);
+        }
+
+        if (kind === "work") {
+          setActiveWorkGalleryOverride(null);
+          setActiveWorkIndex(null);
+        }
+
+        if (kind === "strength") {
+          setActiveStrengthIndex(null);
+        }
+
+        setClosingOverlay(null);
+        overlayCloseTimeoutRef.current = null;
+      }, shouldReduceMotion ? 0 : overlayExitDurationMs);
+    },
+    [cancelOverlayClose, closingOverlay],
+  );
+
+  useEffect(() => {
+    return () => {
+      if (overlayCloseTimeoutRef.current !== null) {
+        window.clearTimeout(overlayCloseTimeoutRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -1416,7 +1468,12 @@ export function App() {
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setActiveIndex(null);
+        requestCloseOverlay("photo");
+        return;
+      }
+
+      if (closingOverlay === "photo") {
+        return;
       }
 
       if (event.key === "ArrowRight") {
@@ -1438,7 +1495,7 @@ export function App() {
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [activeIndex, orderedPhotos.length]);
+  }, [activeIndex, closingOverlay, orderedPhotos.length, requestCloseOverlay]);
 
   useEffect(() => {
     if (activeWorkIndex === null) {
@@ -1447,8 +1504,12 @@ export function App() {
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setActiveWorkGalleryOverride(null);
-        setActiveWorkIndex(null);
+        requestCloseOverlay("work");
+        return;
+      }
+
+      if (closingOverlay === "work") {
+        return;
       }
 
       if (event.key === "ArrowRight" && activeWorkGallery.length > 1) {
@@ -1464,7 +1525,7 @@ export function App() {
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [activeWorkGallery.length, activeWorkIndex]);
+  }, [activeWorkGallery.length, activeWorkIndex, closingOverlay, requestCloseOverlay]);
 
   useEffect(() => {
     if (activeStrengthIndex === null) {
@@ -1473,13 +1534,13 @@ export function App() {
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setActiveStrengthIndex(null);
+        requestCloseOverlay("strength");
       }
     };
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [activeStrengthIndex]);
+  }, [activeStrengthIndex, requestCloseOverlay]);
 
   useEffect(() => {
     setActiveWorkSlide(0);
@@ -1675,6 +1736,7 @@ export function App() {
   };
 
   const openWorkDetail = async (index: number) => {
+    cancelOverlayClose();
     const work = workItems[index];
     const manifest = workGalleryManifest ?? (await loadWorkGalleryManifest());
     const gallery = manifest?.[work.index as "01" | "02" | "03"] ?? work.gallery ?? [];
@@ -1811,7 +1873,10 @@ export function App() {
                   className="photo-card edge-glow"
                   key={`${photo.id}-${index}`}
                   type="button"
-                  onClick={() => setActiveIndex(realIndex)}
+                  onClick={() => {
+                    cancelOverlayClose();
+                    setActiveIndex(realIndex);
+                  }}
                   onPointerMove={updateEdgeGlow}
                   onPointerLeave={clearEdgeGlow}
                   aria-label={`Open photography work ${realIndex + 1}`}
@@ -2039,7 +2104,10 @@ export function App() {
                 type="button"
                 data-reveal
                 style={revealDelay(index + 1)}
-                onClick={() => setActiveStrengthIndex(index)}
+                onClick={() => {
+                  cancelOverlayClose();
+                  setActiveStrengthIndex(index);
+                }}
                 onPointerMove={updateEdgeGlow}
                 onPointerLeave={clearEdgeGlow}
                 aria-label={`Open ${strength.title} detail`}
@@ -2155,11 +2223,16 @@ export function App() {
       ) : null}
 
       {activePhoto && activeIndex !== null ? (
-        <div className="lightbox" role="dialog" aria-modal="true" aria-label="Photography viewer">
+        <div
+          className={`lightbox${closingOverlay === "photo" ? " is-closing" : ""}`}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Photography viewer"
+        >
           <button
             className="lightbox__close"
             type="button"
-            onClick={() => setActiveIndex(null)}
+            onClick={() => requestCloseOverlay("photo")}
             aria-label="Close image viewer"
           >
             <X size={24} aria-hidden="true" />
@@ -2197,14 +2270,16 @@ export function App() {
       ) : null}
 
       {activeWork && activeWorkIndex !== null ? (
-        <div className="work-detail" role="dialog" aria-modal="true" aria-label="Works detail">
+        <div
+          className={`work-detail${closingOverlay === "work" ? " is-closing" : ""}`}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Works detail"
+        >
           <button
             className="work-detail__close"
             type="button"
-            onClick={() => {
-              setActiveWorkGalleryOverride(null);
-              setActiveWorkIndex(null);
-            }}
+            onClick={() => requestCloseOverlay("work")}
             aria-label="Close works detail"
           >
             <X size={24} aria-hidden="true" />
@@ -2326,11 +2401,16 @@ export function App() {
       ) : null}
 
       {activeStrength && activeStrengthIndex !== null ? (
-        <div className="strength-detail" role="dialog" aria-modal="true" aria-label="Strength detail">
+        <div
+          className={`strength-detail${closingOverlay === "strength" ? " is-closing" : ""}`}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Strength detail"
+        >
           <button
             className="strength-detail__close"
             type="button"
-            onClick={() => setActiveStrengthIndex(null)}
+            onClick={() => requestCloseOverlay("strength")}
             aria-label="Close strength detail"
           >
             <X size={24} aria-hidden="true" />

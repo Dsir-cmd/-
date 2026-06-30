@@ -1,5 +1,13 @@
 # Codex Worklog
 
+## 2026-06-30 - Overlay Surface Lift Motion
+
+- Goal: soften the abrupt modal entrance across the homepage photography viewer, Works detail dialogs, Strength detail dialogs, and the Works side preview.
+- Change: added shared motion tokens and CSS keyframes for backdrop fade, surface lift, content rise, modal controls, preview lift, and matching close transitions.
+- Implementation: added a short `closingOverlay` React state so close buttons and Escape trigger an exit animation before the overlay is unmounted.
+- Accessibility: kept `prefers-reduced-motion` support by disabling the added motion and removing the close delay for users who request reduced motion.
+- Verification: `pnpm run lint` and `pnpm run build` both pass; captured `docs/codex/motion-lightbox-check.png`, `docs/codex/motion-work-detail-check.png`, `docs/codex/motion-strength-detail-check.png`, `docs/codex/motion-lightbox-closing-check.png`, `docs/codex/motion-work-closing-check.png`, and `docs/codex/motion-strength-closing-check.png` for visual QA.
+
 ## 2026-06-29 - Profile Content Rewrite
 
 - Goal: adjust the Profile content so it reads like a personal site rather than a resume while preserving the existing layout.
